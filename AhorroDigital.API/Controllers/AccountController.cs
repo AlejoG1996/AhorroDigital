@@ -2,6 +2,7 @@
 using AhorroDigital.API.Helpers;
 using AhorroDigital.API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,10 @@ namespace AhorroDigital.API.Controllers
 
         }
 
-       
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.documentTypes.ToListAsync());
+        }
 
         public IActionResult Login()
         {

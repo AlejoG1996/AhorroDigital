@@ -3,37 +3,42 @@
 @{
     ViewData["Title"] = "Create";
 }
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/css/formularios.css" />
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
-<link rel="stylesheet" href="~/css/DocumentTypeStyle.css" />
-
-
-
 <br />
+<br />
+<h1 class="mt-4">Nuevo</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Tipo De Documento</li>
+</ol>
 
-<div class="content_form">
-    <div class="row">
-        <hr />
-        <div class="col-md-12">
-            <form asp-action="Create">
-                <h4>Nuevo Tipo de Documento</h4>
+<div class="row">
+    <hr />
+    <br />
+    <br />
+    <div class="col-sm-8 ">
+        <div class="">
 
-                <div asp-validation-summary="ModelOnly" class="text-danger errorinicio"></div>
+            <form asp-action="Create" class="">
 
+                <div asp-validation-summary="ModelOnly" class="text-danger errorinicio" id="txter"></div>
 
 
                 <div class="form-group2">
                     <div class="form-group">
-                        <input asp-for="Description" class="form-control" placeholder=" Tipo de Documento" />
-
+                        <label asp-for="Description" class="control-label"></label>
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Description" class="" id="txtdesc" />
                     </div>
                     <div>
                         <span asp-validation-for="Description" class="text-danger"></span>
-
-
                     </div>
 
                 </div>
-
+                <br />
+                <br />
                 <div class="form-group">
 
                     <button type="submit" value="" class="btn btn-success"><span>Guardar</span><span><i class="fas fa-download"></i></span> </button>
@@ -41,10 +46,12 @@
 
                 </div>
             </form>
+
+
         </div>
+
     </div>
 </div>
-
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

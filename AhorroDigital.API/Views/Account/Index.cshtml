@@ -1,0 +1,354 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>AHORRO DIGITAL</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="/images/ahorrar-dinero.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="~/css/styles.css" rel="stylesheet" />
+</head>
+<body id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="#page-top"><img class="logo-ini" src="/images/navbar-logo.png" alt="..." /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars ms-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="#services">Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#team">Equipo</a></li>
+                    <li class="nav-item login-in"><a class="nav-link" asp-controller="Account" asp-action="Login" target="_blank">Ingresar</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Masthead-->
+    <header class="masthead">
+        <div class="container">
+            <div class="masthead-subheading">Bienvenido a Ahorro Digital!</div>
+            <div class="masthead-heading text-uppercase">Ahorrar no es solo guardar, sino saber gastar.</div>
+            <a class="btn btn-primary btn-xl text-uppercase" href="#services">Más Información.</a>
+        </div>
+    </header>
+    <!-- Services-->
+    <section class="page-section" id="services">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Servicios</h2>
+                <h3 class="section-subheading text-muted text-muted_pr">Haciendo parte de Ahorro digital contaras con:</h3>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa-solid fa-sack-dollar fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="my-3">Ahorros</h4>
+                    <p class="text-muted">
+                        En Ahorro Digital entendemos la gran importancia de contar con diferentes alternativas de ahorro es por esta razón que contamos con dos líneas diferentes de ahorros, y como asociado nuestro puedes tener un ahorro en cada una de nuestras líneas.
+                    </p>
+                    <p><a href="#portfolioModal1" data-bs-toggle="modal" id="more-info">Obtener más información...</a></p>
+
+
+                </div>
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa-solid fa-money-bill-transfer fa-stack-1x fa-inverse"></i>
+
+                    </span>
+                    <h4 class="my-3">Retiros</h4>
+                    <p class="text-muted">
+                        Contamos con dos tipos de retiros cada uno de ellos cuenta con condiciones o especificaciones diferentes a cumplir en cada una de las líneas de ahorro que disponemos a nuestros asociados, y a los cuales podrás acceder fácilmente sin muchos tramites.
+                    </p>
+                    <p><a href="#portfolioModal2" data-bs-toggle="modal" id="more-info">Obtener más información...</a></p>
+                </div>
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa-solid fa-hand-holding-dollar fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="my-3">Prestamos</h4>
+                    <p class="text-muted">
+                        En Ahorro Digital sabemos que en cualquier momento puedes necesitar dinero extra es por eso que como asociado puedes acceder fácilmente y sin muchos tramites a cualquiera de nuestros prestamos de hasta el doble de lo que tengas ahorrado.
+                    </p>
+                    <p><a href="#portfolioModal3" data-bs-toggle="modal" id="more-info">Obtener más información...</a></p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Team-->
+    <section class="page-section bg-light" id="team">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">UN EQUIPO INCREÍBLE </h2>
+                <h3 class="section-subheading text-muted text-muted_pr">Nuestro increíble quipo esta conformado por:</h3>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="team-member">
+                        <img class="mx-auto rounded-circle" src="~/images/dg.jpg" alt="imagen_diego_galeano" />
+                        <h4>Alejandro Galeano</h4>
+                        <p class="text-muted text-muted_pr">Desarrollador</p>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Twitter Profile"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="team-member">
+                        <img class="mx-auto rounded-circle" src="~/images/ec.jpeg" alt="imagen_Edwin_correa" />
+                        <h4>Edwin Correa</h4>
+                        <p class="text-muted  text-muted_pr">Administrador Financiero</p>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Twitter Profile"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="team-member">
+                        <img class="mx-auto rounded-circle" src="~/images/bc.jpg" alt="imagen_beatriz_coreea" />
+                        <h4>Beatriz Correa</h4>
+                        <p class="text-muted text-muted_pr">Administradora</p>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker Twitter Profile"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer-->
+    <footer class="footer py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-4 text-lg-start cop">Copyright &copy; AG DESIGN</div>
+                <div class="col-lg-4 my-3 my-lg-0">
+                    <a class="btn btn-dark btn-social mx-2 btnr" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <a class="link-dark text-decoration-none me-3 " href="#!">Política  de privacidad</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Portfolio Modals-->
+    <!-- Portfolio item 1 modal popup-->
+    <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="close-modal" data-bs-dismiss="modal"><img src="~/images/close-icon.svg" alt="Close modal" /></div>
+                <div class="container contenedor_info">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 ">
+                            <div class="modal-body">
+                                <img class="img-fluid d-block mx-auto img_modal" src="~/images/ahorro.png" alt="imagen_ahorro" />
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="modal-body">
+                                <!-- Project details-->
+                                <h2 class="text-uppercase">AHORROS</h2>
+                                <p class="item-intro text-muted text-muted_pr">Contamos con dos diferentes líneas de ahorro:</p>
+
+                                <p>
+                                    Ahorro Permanente: es un ahorro a 12 meses donde podrás definir un valor mensual a ahorrar desde los $20.000 pesos,
+                                    el asociado podrá realizar cuantos aportes desee en el mes, pero estos aportes deberán ser iguales o superiores al valor definido
+                                    en el momento de la inscripción del ahorro. El valor ahorrado y las ganancias (intereses generados) podrán ser retirados
+                                    únicamente pasado el plazo de los 12 meses.
+                                    <br />
+                                    Ahorro Voluntario: este ahorro no cuenta con un valor mínimo a ahorrar por lo cual el asociado podrá realizar cuantos
+                                    abonos desee en un mes sin importar el valor del abono, adicional esta línea de ahorro no cuenta con un plazo por lo
+                                    tanto el asociado podrá retirar el saldo ahorrado y las ganancias (intereses generados) en cualquier momento.
+                                </p>
+
+                                <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                    <i class="fas fa-xmark me-1"></i>
+                                    Cerrar.
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Portfolio item 2 modal popup-->
+    <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="close-modal" data-bs-dismiss="modal"><img src="~/images/close-icon.svg" alt="Close modal" /></div>
+                <div class="container contenedor_info">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 ">
+                            <div class="modal-body">
+                                <img class="img-fluid d-block mx-auto img_modal" src="~/images/retiros.png" alt="imagen_retiros" />
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="modal-body">
+                                <!-- Project details-->
+                                <h2 class="text-uppercase">RETIROS</h2>
+                                <p class="item-intro text-muted text-muted_pr">Contamos con dos diferentes tipos de retiros:</p>
+
+                                <p>
+                                    Retiro Total: Este tipo de retiro se puede realizar en la fecha que el asociado desee siempre y cuando sea en la línea de
+                                    ahorro voluntario. Para la línea de ahorro permanente el retiro total se podrá realizar únicamente pasado el plazo de los
+                                    12 meses.
+                                    <br />
+                                    Retiro Parcial: Este tipo de retiro aplicara exclusivamente para la línea de ahorro voluntario de tal forma que el asociado
+                                    podrá realizar retiros por un valor inferior a lo ahorrado, el asociado puede hacer en cualquier fecha cuantos retiros
+                                    parciales desee desde que cuente con los fondos suficientes.
+                                    <br />
+                                    Es importante tener en cuenta que para realizar cualquier retiro el asociado no puede tener prestamos pendientes.
+                                </p>
+
+                                <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                    <i class="fas fa-xmark me-1"></i>
+                                    Cerrar.
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Portfolio item 3 modal popup-->
+    <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="close-modal" data-bs-dismiss="modal"><img src="~/images/close-icon.svg" alt="Close modal" /></div>
+                <div class="container contenedor_info">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 ">
+                            <div class="modal-body">
+                                <img class="img-fluid d-block mx-auto img_modal" src="~/images/prestamo.png" alt="imagen_prestamo" />
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="modal-body">
+                                <!-- Project details-->
+                                <h2 class="text-uppercase">PRESTAMOS</h2>
+                                <p class="item-intro text-muted text-muted_pr">Contamos con dos diferentes tipos de prestamos:</p>
+
+                                <p>
+                                    Libre Inversión:  Este tipo de préstamo se realiza a un plazo de hasta 6 meses con un interés mensual del 4% y un
+                                    interés de mora del 6%. El asociado podrá realizar pagos por el valor superior a la cuota fija mensual y de igual forma
+                                    en cualquier momento podrá realizar el pago total.
+                                    <br />
+                                    Credi Weekend: este tipo de préstamo se realiza con un plan de pago a un solo mes dividiéndolo en dos cuotas
+                                    quincenales, cuenta con un interés del 2.5% y interés de mora del 3.5%.
+                                    <br />
+                                    Es importante tener en cuenta que solo se prestara el doble de lo que el asociado tenga ahorrado y que los prestamos
+                                    deben estar totalmente cancelados para realizar el retiro de los ahorros.
+                                </p>
+
+                                <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                    <i class="fas fa-xmark me-1"></i>
+                                    Cerrar.
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Portfolio item 4 modal popup-->
+    @*<div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog2">
+            <div class="modal-content">
+                <div class="close-modal" data-bs-dismiss="modal"><img src="~/images/close-icon.svg" alt="Close modal" /></div>
+                <div class="container contenedor_info">
+                    <div class="row justify-content-center">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <form method="post">
+                                    <div asp-validation-summary="ModelOnly"></div>
+
+                                    <div class="form-group">
+                                        <label asp-for="Username"></label>
+                                        <input asp-for="Username" class="form-control" />
+                                        <span asp-validation-for="Username" class="text-warning"></span>
+                                    </div>
+                                    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+
+                                    <div class="form-group">
+                                        <label asp-for="Password"></label>
+                                        <input asp-for="Password" type="password" class="form-control" />
+                                        <span asp-validation-for="Password" class="text-warning"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input asp-for="RememberMe" type="checkbox" class="form-check-input" />
+                                            <label asp-for="RememberMe" class="form-check-label"></label>
+                                        </div>
+                                        <span asp-validation-for="RememberMe" class="text-warning"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="submit" value="Iniciar Sesión" class="btn btn-primary" />
+                                        <a asp-action="Register" class="btn btn-secondary">Registrar Nuevo Usuario</a>
+                                        <hr />
+                                        <a asp-action="RecoverPassword" class="btn btn-link">¿Olvidaste tu contraseña?</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>*@
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="~/js/scripts_2.js"></script>
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <!-- * *                               SB Forms JS                               * *-->
+    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
+
+
+</body>
+</html>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

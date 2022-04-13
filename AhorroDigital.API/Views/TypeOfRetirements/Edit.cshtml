@@ -4,15 +4,24 @@
     ViewData["Title"] = "Edit";
 }
 
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/css/formularios.css" />
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
-
 <br />
+<br />
+<h1 class="mt-4">Editar</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Tipo De Retiro</li>
+</ol>
 
-<div class="content_form">
-    <div class="row">
-        <div class="col-md-12">
+<div class="row">
+    <hr />
+    <br />
+    <br />
+    <div class="col-sm-8 ">
+        <div class="">
+
             <form asp-action="Edit">
-                <h4>Editar Tipo de Retiro</h4>
                 <div asp-validation-summary="ModelOnly" class="text-danger errorinicio"></div>
                 <input type="hidden" asp-for="Id" />
 
@@ -24,7 +33,7 @@
 
 
 
-                        <input asp-for="Description" class="form-control" />
+                        <input asp-for="Description" class="" id="txtdesc" />
 
                     </div>
                     <div>
@@ -34,14 +43,18 @@
                     </div>
 
                 </div>
-
+                <br />
+                <br />
                 <div class="form-group">
                     <button type="submit" value="" class="btn btn-success"><span>Guardar</span><span><i class="fas fa-download"></i></span> </button>
                     <a asp-action="Index" class="btn btn-secondary"><span>Regresar</span><span><i class="fas fa-undo"></i></span></a>
 
                 </div>
             </form>
+
+
         </div>
+
     </div>
 </div>
 @section Scripts {
