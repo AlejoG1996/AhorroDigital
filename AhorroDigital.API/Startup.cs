@@ -21,7 +21,7 @@ namespace AhorroDigital.API
             {
                 x.UseMySQL(Configuration.GetConnectionString("DefaultConnection"));
             });
-
+            services.AddTransient<SeedDb>();
             services.AddFlashes().AddMvcCore();
             services.AddFlashMessage();
            // services.AddRazorPages().AddRazorRuntimeCompilation();

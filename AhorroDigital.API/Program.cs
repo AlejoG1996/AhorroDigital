@@ -1,4 +1,6 @@
 using AhorroDigital.API;
+using AhorroDigital.API.Data;
+using Microsoft.AspNetCore;
 
 namespace AhorroDigital.API
 {
@@ -6,16 +8,24 @@ namespace AhorroDigital.API
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            IWebHost host = CreateWebHostBuilder(args).Build();
+            RunSeeding(host);
+            host.Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+        private static void RunSeeding(IWebHost host)
+        {
+            IServiceScopeFactory scopeFactory = host.Services.GetService<IServiceScopeFactory>();
+            using (IServiceScope scope = scopeFactory.CreateScope())
+            {
+                SeedDb seeder = scope.ServiceProvider.GetService<SeedDb>();
+                seeder.SeedAsync().Wait();
+            }
+        }
 
-      
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+            return WebHost.CreateDefaultBuilder(args).UseStartup<Startup>();
+        }
     }
 }
