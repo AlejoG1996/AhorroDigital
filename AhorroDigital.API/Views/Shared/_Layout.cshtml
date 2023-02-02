@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Natillera.Api</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/EstilosMenu.css" />
+    <link rel="stylesheet" href="~/lib/jqueryui/jquery-ui.min.css" />
+    <link rel="stylesheet" href="https://kit.fontawesome.com/f9b2f7ab54.css" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Itim&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body id="body-pd">
+
+    <header class="header shadow-sm" id="header" >
+        <div class="header_toggle"> <i class='fa-solid fa-bars-staggered' id="header-toggle"></i> </div>
+        <div class="header_img"> <img src="https://i.imgur.com/hczKIze.jpg" alt=""> </div>
+    </header>
+    <div class="l-navbar" id="nav-bar">
+        <nav class="nav">
+            <div>
+                <a href="#" class="nav_logo" >
+                    <div class="header_img"> <img src="~/images/logonatillera.png" alt="" > </div>
+                    <span class="nav_logo-name">Natillera.com</span>
+                </a>
+                <div class="nav_list" >
+                    <a id="home" class="nav_link active" asp-area="" asp-controller="Home" asp-action="Index">
+                        <i class='fa-solid fa-house nav_icon' data-aos="fade-up" data-aos-duration="1000"></i>
+                        <span class="nav_name">Inicio</span>
+                    </a>
+                    <a id="tc" class="nav_link" asp-area="" asp-controller="AccountTypes" asp-action="Index">
+                        <i class="fa-solid fa-money-check-dollar nav_icon" data-aos="fade-up" data-aos-duration="1000"></i>
+
+                        <span class="nav_name">Tipos Cuentas B.</span>
+                    </a>
+                    <a id="td" class="nav_link" asp-area="" asp-controller="DocumentTypes" asp-action="Index">
+                        <i class='fa-solid fa-address-card nav_icon' data-aos="fade-up" data-aos-duration="1000"></i>
+                        <span class="nav_name">Tipos Documentos</span>
+                    </a>
+
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class=" container  ">
+        <main role="main" class="pb-3">
+
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="bg-light text-center text-white">
+        <!-- Grid container -->
+        <div class="containe__button-footer">
+            <!-- Section: Social media -->
+            <section class="mb-4">
+                <!-- Facebook -->
+                <a class="btn  btn-floating m-1"
+                   href="#!"
+                   role="button">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+
+                <!-- Twitter -->
+                <a class="btn  btn-floating m-1"
+                   href="#!"
+                   role="button">
+                    <i class="fab fa-twitter"></i>
+                </a>
+
+                <!-- Google -->
+                <a class="btn  btn-floating m-1"
+                   href="#!"
+                   role="button">
+                    <i class="fab fa-google"></i>
+                </a>
+
+                <!-- Instagram -->
+                <a class="btn  btn-floating m-1"
+                   href="#!"
+                   role="button">
+                    <i class="fab fa-instagram"></i>
+                </a>
+
+                <!-- Linkedin -->
+                <a class="btn  btn-floating m-1"
+                   href="#!"
+                   role="button">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <!-- Github -->
+                <a class="btn  btn-floating m-1"
+                   href="#!"
+                   role="button">
+                    <i class="fab fa-github"></i>
+                </a>
+            </section>
+            <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+        <!-- Copyright -->
+        <div class="  containe__button-privacy">
+            © 2020 Copyright:
+            <a class="" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/Menu.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/f9b2f7ab54.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
