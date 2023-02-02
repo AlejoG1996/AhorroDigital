@@ -36,6 +36,25 @@ namespace AhorroDigital.API.Migrations
 
                     b.ToTable("AccountTypes");
                 });
+
+            modelBuilder.Entity("AhorroDigital.API.Data.Entities.DocumentType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("DocumentTypes");
+                });
 #pragma warning restore 612, 618
         }
     }
