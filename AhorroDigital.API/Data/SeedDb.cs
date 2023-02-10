@@ -21,8 +21,12 @@ namespace AhorroDigital.API.Data
             await _context.Database.EnsureCreatedAsync();
             await CheckAccountTypesAsync();
             await CheckDocumentTypesAsync();
+            await CheckSavingTypesAsync();
+            await CheckLoanTypesAsync();
             await CheckRolesAsycn();
-            await CheckUserAsync("1010", "Alejo", "Galeano", "luis@yopmail.com", "311 322 4620", "Calle Luna Calle Sol","0000000", "Bancolombia", UserType.Admin);
+            await CheckUserAsync("1010", "Alejo", "Galeano", "alejo@yopmail.com", "311 322 4620", "Calle Luna Calle Sol","0000000", "Bancolombia", UserType.Admin);
+            await CheckUserAsync("1011", "Diego", "Galeano", "diego@yopmail.com", "311 322 4620", "Calle Luna Calle Sol", "111111111", "Bancolombia", UserType.User);
+
         }
 
         private async Task CheckUserAsync(string document, string firstName, string lastName, string email, string phoneNumber,
@@ -45,7 +49,8 @@ namespace AhorroDigital.API.Data
                     UserName = email,
                     AccountNumber=accountnumber,
                     Bank = bank,
-                    UserType = userType
+                    UserType = userType,
+                    ImageFullPath= "http://localhost:5047/images/users/noimages.png"
                 };
 
                 await _userHelper.AddUserAsync(user, "123456");
@@ -59,6 +64,26 @@ namespace AhorroDigital.API.Data
         {
             await _userHelper.CheckRoleAsync(UserType.Admin.ToString());
             await _userHelper.CheckRoleAsync(UserType.User.ToString());
+        }
+
+        private async Task CheckLoanTypesAsync()
+        {
+            if (!_context.LoanTypes.Any())
+            {
+                _context.LoanTypes.Add(new LoanType { Name = "Préstamo A1" });
+                _context.LoanTypes.Add(new LoanType { Name = "Préstamo A2" });
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        private async Task CheckSavingTypesAsync()
+        {
+            if (!_context.SavingTypes.Any())
+            {
+                _context.SavingTypes.Add(new SavingType { Name = "Ahorro programado" });
+                _context.SavingTypes.Add(new SavingType { Name = "Ahorro digital" });
+                await _context.SaveChangesAsync();
+            }
         }
 
         private async Task CheckAccountTypesAsync()

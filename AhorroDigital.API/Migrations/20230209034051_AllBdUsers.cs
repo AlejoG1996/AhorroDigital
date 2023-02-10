@@ -7,11 +7,28 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace AhorroDigital.API.Migrations
 {
     /// <inheritdoc />
-    public partial class AddTableUser : Migration
+    public partial class AllBdUsers : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterDatabase()
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "AccountTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AccountTypes", x => x.Id);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -24,6 +41,70 @@ namespace AhorroDigital.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "DocumentTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DocumentTypes", x => x.Id);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "LoanTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LoanTypes", x => x.Id);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "SavingTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SavingTypes", x => x.Id);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "AspNetRoleClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    RoleId = table.Column<string>(type: "varchar(255)", nullable: false),
+                    ClaimType = table.Column<string>(type: "longtext", nullable: true),
+                    ClaimValue = table.Column<string>(type: "longtext", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -41,7 +122,7 @@ namespace AhorroDigital.API.Migrations
                     AccountTypeId = table.Column<int>(type: "int", nullable: false),
                     AccountNumber = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false),
                     Bank = table.Column<string>(type: "varchar(40)", maxLength: 40, nullable: false),
-                    ImageId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    ImageFullPath = table.Column<string>(type: "longtext", nullable: true),
                     UserType = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
@@ -71,28 +152,6 @@ namespace AhorroDigital.API.Migrations
                         name: "FK_AspNetUsers_DocumentTypes_DocumentTypeId",
                         column: x => x.DocumentTypeId,
                         principalTable: "DocumentTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "AspNetRoleClaims",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    RoleId = table.Column<string>(type: "varchar(255)", nullable: false),
-                    ClaimType = table.Column<string>(type: "longtext", nullable: true),
-                    ClaimValue = table.Column<string>(type: "longtext", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -187,6 +246,67 @@ namespace AhorroDigital.API.Migrations
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "Savings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    SavingTypeId = table.Column<int>(type: "int", nullable: false),
+                    DateIni = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    MinValue = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "varchar(255)", nullable: false),
+                    Marks = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Savings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Savings_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Savings_SavingTypes_SavingTypeId",
+                        column: x => x.SavingTypeId,
+                        principalTable: "SavingTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Contributes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    SavingId = table.Column<int>(type: "int", nullable: false),
+                    Marks = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
+                    MarksAdmin = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
+                    Value = table.Column<int>(type: "int", nullable: false),
+                    ValueAvail = table.Column<int>(type: "int", nullable: false),
+                    ImageId = table.Column<Guid>(type: "char(36)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contributes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Contributes_Savings_SavingId",
+                        column: x => x.SavingId,
+                        principalTable: "Savings",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AccountTypes_Name",
+                table: "AccountTypes",
+                column: "Name",
+                unique: true);
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -233,6 +353,39 @@ namespace AhorroDigital.API.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Contributes_SavingId",
+                table: "Contributes",
+                column: "SavingId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DocumentTypes_Name",
+                table: "DocumentTypes",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LoanTypes_Name",
+                table: "LoanTypes",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Savings_SavingTypeId",
+                table: "Savings",
+                column: "SavingTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Savings_UserId",
+                table: "Savings",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SavingTypes_Name",
+                table: "SavingTypes",
+                column: "Name",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -254,10 +407,28 @@ namespace AhorroDigital.API.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Contributes");
+
+            migrationBuilder.DropTable(
+                name: "LoanTypes");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Savings");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "SavingTypes");
+
+            migrationBuilder.DropTable(
+                name: "AccountTypes");
+
+            migrationBuilder.DropTable(
+                name: "DocumentTypes");
         }
     }
 }

@@ -14,12 +14,23 @@ namespace AhorroDigital.API.Data
 
         public DbSet<AccountType> AccountTypes { get; set; }
         public DbSet<DocumentType> DocumentTypes { get; set; }
+
+        public DbSet<SavingType> SavingTypes { get; set; }
+          public DbSet<LoanType> LoanTypes { get; set; }
+
+        public DbSet<Saving> Savings { get; set; }
+        public DbSet<Contribute> Contributes { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<AccountType>().HasIndex(x => x.Name).IsUnique();
             modelBuilder.Entity<DocumentType>().HasIndex(x => x.Name).IsUnique();
+            modelBuilder.Entity<SavingType>().HasIndex(x => x.Name).IsUnique();
+            modelBuilder.Entity<LoanType>().HasIndex(x => x.Name).IsUnique();
+            modelBuilder.Entity<User>().HasIndex("Email", "Document").IsUnique();
 
         }
 

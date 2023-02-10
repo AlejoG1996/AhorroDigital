@@ -2,10 +2,17 @@ using AhorroDigital.API;
 using AhorroDigital.API.Data;
 using Microsoft.AspNetCore;
 
+
+
 namespace AhorroDigital.API
 {
+  
     public class Program
     {
+
+       
+
+      
         public static void Main(string[] args)
         {
             IWebHost host = CreateWebHostBuilder(args).Build();
@@ -22,7 +29,7 @@ namespace AhorroDigital.API
                 seeder.SeedAsync().Wait();
             }
         }
-
+        
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
             return WebHost.CreateDefaultBuilder(args).UseStartup<Startup>();

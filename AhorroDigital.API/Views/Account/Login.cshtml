@@ -1,0 +1,83 @@
+﻿@model AhorroDigital.API.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/css/EstilosLogin.css" />
+<link rel="stylesheet" href="~/css/normalize.css" />
+<link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://kit.fontawesome.com/f9b2f7ab54.js" crossorigin="anonymous"></script>
+
+
+<body id="bd">
+    <div class="container" data-aos="fade-right"
+         data-aos-duration="2000">
+        <div class="design">
+            <div class="design_logo">
+                <img src="~/images/logonatillera.png" class="logo" />
+                <h1>Hola, Bienvenido!</h1>
+                <h6>A tu portal transaccional</h6>
+            </div>
+        </div>
+        <div class="login">
+            <form method="post">
+                <h3 class="title">Inicio de Sessión</h3>
+                <div class="div__flash">
+                    <flash dismissable="true" />
+                </div>
+                <div class="text-input">
+                    <i class="fa-solid fa-at"></i>
+                    <input asp-for="Username" type="text" placeholder="Email">
+                    
+                </div>
+                <span asp-validation-for="Username" class="text-warningbs"></span>
+                <div class="text-input">
+                    <i class="fa-solid fa-lock"></i>
+                    <input asp-for="Password" type="password" placeholder="Contraseña">
+                   
+                </div>
+                <span asp-validation-for="Password" class="text-warningbs"></span>
+                <div class="div_chk">
+                    <div class="">
+                        <input asp-for="RememberMe" type="checkbox" class="form-check-input" />
+                        <label asp-for="RememberMe" class="form-check-label"></label>
+                    </div>
+                    <span asp-validation-for="RememberMe" class="text-warningbs"></span>
+                </div>
+                <button class="login-btn">Iniciar Sesión</button>
+                <a href="#" class="forgot">olvidaste tu contraseña?</a>
+                
+            </form>
+            <div class="create">
+                <a href="#">Crear Nueva Cuenta <i class="fa-solid fa-arrow-right-long"></i></a>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jasny/jasny-bootstrap.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+<script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+<script src="~/lib/font-awesome/js/all.min.js"></script>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+
+</script>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/js/Login.js"></script>
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+	
+}

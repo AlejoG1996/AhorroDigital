@@ -2,13 +2,23 @@
 using AhorroDigital.API.Data.Entities;
 using AhorroDigital.API.Helpers;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Vereyon.Web;
+
+
+
 
 namespace AhorroDigital.API
 {
+
+  
     public class Startup
     {
+
+       
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -23,7 +33,7 @@ namespace AhorroDigital.API
 
             services.AddIdentity<User, IdentityRole>(x =>
             {
-                x.SignIn.RequireConfirmedEmail = true;
+                x.SignIn.RequireConfirmedEmail = false;
                 x.User.RequireUniqueEmail = true;
                 x.Password.RequireDigit = false;
                 x.Password.RequiredUniqueChars = 0;
@@ -34,16 +44,22 @@ namespace AhorroDigital.API
 
             })
                .AddEntityFrameworkStores<DataContext>();
+
+
+
             services.AddDbContext<DataContext>(x =>
             {
                 x.UseMySQL(Configuration.GetConnectionString("DefaultConnection"));
             });
             services.AddTransient<SeedDb>();
             services.AddScoped<IUserHelper,UserHelper>();
-            services.AddFlashes().AddMvcCore();
-            services.AddFlashMessage();
-           // services.AddRazorPages().AddRazorRuntimeCompilation();
+            services.AddScoped<ICombosHelper, CombosHelper>();
+            services.AddScoped<IConverterHelper, ConverterHelper>();
 
+            services.AddFlashMessage();
+
+
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,7 +86,7 @@ namespace AhorroDigital.API
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=IndexHome}/{id?}");
             });
         }
     }

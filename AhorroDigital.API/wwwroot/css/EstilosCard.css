@@ -75,11 +75,10 @@ i {
     height: 100% !important;
 }
 
-
-
-
+.container__buttons > p > span{
+    margin-right:7px !important;
+}
 /*footer*/
-
 containe__button-footer {
     padding-bottom: 5px !important;
     margin-top: 10px !important;

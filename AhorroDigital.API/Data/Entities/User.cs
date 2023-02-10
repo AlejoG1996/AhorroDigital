@@ -1,7 +1,9 @@
 ﻿using AhorroDigital.Common.Enums;
 using Microsoft.AspNetCore.Identity;
+using MySql.Data.MySqlClient;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 
 namespace AhorroDigital.API.Data.Entities
 {
@@ -52,13 +54,15 @@ namespace AhorroDigital.API.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string Bank { get; set; }
 
-        [Display(Name = "Foto")]
-        public Guid ImageId { get; set; }
+       
+
+       
+
+      
 
         [Display(Name = "Foto")]
-        public string ImageFullPath => ImageId == Guid.Empty
-            ? $"http://localhost:65014/images/noimages.png"
-            : $"http://localhost:65014/images/{ImageId}";
+        public string? ImageFullPath { get; set; }
+
 
         [Display(Name = "Usuario")]
         public UserType UserType { get; set; }
@@ -66,5 +70,9 @@ namespace AhorroDigital.API.Data.Entities
         [Display(Name = "Usuario")]
         public string FullName => $"{FirstName} {LastName}";
 
+        public ICollection<Saving> Savings { get; set; }
+
+        [Display(Name ="# Ahorros")]
+        public int SavingAccount => Savings==null? 0 : Savings.Count();
     }
 }

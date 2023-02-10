@@ -9,9 +9,11 @@ using AhorroDigital.API.Data;
 using AhorroDigital.API.Data.Entities;
 using Core.Flash;
 using Vereyon.Web;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AhorroDigital.API.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class AccountTypesController : Controller
     {
         private readonly DataContext _context;

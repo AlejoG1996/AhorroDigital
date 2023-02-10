@@ -48,7 +48,9 @@ a {
 .header_toggle {
     color: var(--first-color);
     font-size: 1.5rem;
-    cursor: pointer
+    cursor: pointer;
+   
+        
 }
 
     .header_toggle i {
@@ -69,10 +71,15 @@ a {
         overflow: hidden
     }
 
+
     .header_img img {
         width: 40px
     }
 
+    .menu__top{
+        width:100%;
+        
+    }
 .l-navbar {
     position: fixed;
     top: 0;
@@ -192,190 +199,196 @@ a {
     height: 100vh
 }
 
-@media screen and (min-width: 768px) {
 
-   
-    body {
-        margin: calc(var(--header-height) + 1rem) 0 0 0;
-        padding-left: calc(var(--nav-width) + 2rem)
-    }
 
-    .header {
-        height: calc(var(--header-height) + 1rem);
-        padding: 0 2rem 0 calc(var(--nav-width) + 2rem)
-    }
+    @media screen and (min-width: 768px) {
 
-    .header_img {
-        width: 40px;
-        height: 40px
-    }
 
-        .header_img img {
-            width: 45px
+        body {
+            margin: calc(var(--header-height) + 1rem) 0 0 0;
+            padding-left: calc(var(--nav-width) + 2rem)
         }
 
-    .l-navbar {
-        left: 0;
-        padding: 1rem 1rem 0 0;
-        z-index:200;
+        .header {
+            height: calc(var(--header-height) + 1rem);
+            padding: 0 2rem 0 calc(var(--nav-width) + 2rem)
+        }
+
+        .header_img {
+            width: 40px;
+            height: 40px
+        }
+
+            .header_img img {
+                width: 45px
+            }
+
+        .l-navbar {
+            left: 0;
+            padding: 1rem 1rem 0 0;
+            z-index: 200;
+        }
+
+        .show {
+            width: calc(var(--nav-width) + 156px)
+        }
+
+        .body-pd {
+            padding-left: calc(var(--nav-width) + 188px)
+        }
     }
 
-    .show {
-        width: calc(var(--nav-width) + 156px)
+    .nav_name {
+        padding-left: 10px !important;
     }
 
-    .body-pd {
-        padding-left: calc(var(--nav-width) + 188px)
+    .container {
+        width: 100%;
+        padding-bottom: 95px;
     }
+
+        .container main {
+            padding-top: 90px;
+            min-height: 650px !important;
+            padding-bottom: 115px !important;
+        }
 
    
-}
-
-.nav_name {
-    padding-left: 10px !important;
-}
-.container {
-    width: 100%;
-    padding-bottom:95px;
   
+
+.nav_link_top {
+    font-size: 17px;
+    color: #252525 !important;
+    transition: color 1s linear;
 }
 
-    .container main {
-        padding-top: 90px;
-        min-height: 650px !important;
-        padding-bottom:115px!important;
+.nav_link_top:hover {
+    color: #27ae60 !important;
+}
+
+    /* footter*/
+    footer {
+        bottom: 0 !important;
+        margin: auto !important;
+        width: 100% !important;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+        left: 0 !important;
+        position: absolute;
+        bottom: 0 !important;
     }
 
-/* footter*/
-
-footer {
-    bottom: 0 !important;
-    margin: auto !important;
-    width: 100% !important;
-    align-items: center;
-    justify-content: space-between;
-    padding-left:0!important;
-    margin-left:0!important;
-    left:0 !important;
-    position:absolute;
-    bottom:0 !important;
-}
-
-.containe__button-footer {
-    padding-bottom: 5px !important;
-    margin-top: 10px !important;
-    height: 50px !important;
-    margin: auto !important;
-    align-content: center;
-    width: 100% !important;
-}
-
-.containe__button-privacy {
-    padding-top: 8px !important;
-    padding-bottom: 5px !important;
-    background: #E8F8F5 !important;
-    color: #808B96 !important;
-    margin: auto !important;
-    align-content: center;
-    width:100%!important;
-}
-
-    .containe__button-privacy a {
-        color: #27ae60 !important;
-    }
-
-.btn-floating {
-    color: #ABB2B9 !important;
-}
-
-    .btn-floating:hover {
-        color: #27ae60 !important;
-    }
-
-@media screen and (max-width:780px){
     .containe__button-footer {
-        padding-left: 0rem !important;
         padding-bottom: 5px !important;
         margin-top: 10px !important;
         height: 50px !important;
+        margin: auto !important;
+        align-content: center;
+        width: 100% !important;
     }
-    
+
     .containe__button-privacy {
-        padding-left: 0rem !important;
         padding-top: 8px !important;
         padding-bottom: 5px !important;
         background: #E8F8F5 !important;
         color: #808B96 !important;
+        margin: auto !important;
+        align-content: center;
+        width: 100% !important;
     }
-}
 
-/*modal eliminar*/
-.modal-header__color {
-    background-image: linear-gradient(to right, #2ecc71, #0eb773, #00a371, #008e6d, #117a65) !important;
-    color: #fff;
-  
-    
-}
+        .containe__button-privacy a {
+            color: #27ae60 !important;
+        }
 
-    .modal-header__color h5 {
-        font-weight: 700 !important;
-        font-family: 'Nunito', sans-serif !important;
-        font-size: 22px;
-        letter-spacing 2px;
+    .btn-floating {
+        transition: color 1s linear !important;
+        color: #ABB2B9 !important;
     }
-.btn__delete-x{
-    background:none!important;
-    border:none!important;
-    font-size:25px;
-    outline:none;
-}
-    .btn__delete-x:focus {
+
+        .btn-floating:hover {
+            color: #27ae60 !important;
+        }
+
+    @media screen and (max-width:780px) {
+        .containe__button-footer {
+            padding-left: 0rem !important;
+            padding-bottom: 5px !important;
+            margin-top: 10px !important;
+            height: 50px !important;
+        }
+
+        .containe__button-privacy {
+            padding-left: 0rem !important;
+            padding-top: 8px !important;
+            padding-bottom: 5px !important;
+            background: #E8F8F5 !important;
+            color: #808B96 !important;
+        }
+    }
+
+    /*modal eliminar*/
+    .modal-header__color {
+        background-image: linear-gradient(to right, #2ecc71, #0eb773, #00a371, #008e6d, #117a65) !important;
+        color: #fff;
+    }
+
+        .modal-header__color h5 {
+            font-weight: 700 !important;
+            font-family: 'Nunito', sans-serif !important;
+            font-size: 22px;
+            letter-spacing 2px;
+        }
+
+    .btn__delete-x {
+        background: none !important;
         border: none !important;
+        font-size: 25px;
         outline: none;
     }
 
-.btn__no-delete {
-    width: 80px;
-    background: #2ECC71 !important;
-    border: none !important;
-    font-size: 25px;
-    color: #fff !important;
-    transition: background 1s linear;
-}
+        .btn__delete-x:focus {
+            border: none !important;
+            outline: none;
+        }
 
-    .btn__no-delete:hover {
-        background: #117A65 !important;
+    .btn__no-delete {
+        width: 80px;
+        background: #2ECC71 !important;
+        border: none !important;
+        font-size: 25px;
+        color: #fff !important;
+        transition: background 1s linear;
     }
 
-.btn-info {
-    outline: none !important;
-    box-shadow: none !important;
-    transition: background 1s linear !important;
-}
+        .btn__no-delete:hover {
+            background: #117A65 !important;
+        }
 
-.btn-light {
-    outline: none !important;
-    box-shadow: none !important;
-    transition: background 1s linear !important;
-}
-
-.btn__delete {
-    width: 80px;
-    background: #EC7063 !important;
-    border: none !important;
-    font-size: 25px;
-    color: #fff !important;
-    transition: background 1s linear;
-}
-
-    .btn__delete:hover {
-        background: #943126 !important;
+    .btn-info {
+        outline: none !important;
+        box-shadow: none !important;
+        transition: background 1s linear !important;
     }
 
-#tooltip {
-    background-color: #333;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 13px;
-}
+    .btn-light {
+        outline: none !important;
+        box-shadow: none !important;
+        transition: background 1s linear !important;
+    }
+
+    .btn__delete {
+        width: 80px;
+        background: #EC7063 !important;
+        border: none !important;
+        font-size: 25px;
+        color: #fff !important;
+        transition: background 1s linear;
+    }
+
+        .btn__delete:hover {
+            background: #943126 !important;
+        }
+

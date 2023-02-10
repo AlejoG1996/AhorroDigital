@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AhorroDigital.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230202032211_AddTableUser")]
-    partial class AddTableUser
+    [Migration("20230209034051_AllBdUsers")]
+    partial class AllBdUsers
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,6 +41,41 @@ namespace AhorroDigital.API.Migrations
                     b.ToTable("AccountTypes");
                 });
 
+            modelBuilder.Entity("AhorroDigital.API.Data.Entities.Contribute", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("ImageId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Marks")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<string>("MarksAdmin")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<int>("SavingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ValueAvail")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SavingId");
+
+                    b.ToTable("Contributes");
+                });
+
             modelBuilder.Entity("AhorroDigital.API.Data.Entities.DocumentType", b =>
                 {
                     b.Property<int>("Id")
@@ -58,6 +93,77 @@ namespace AhorroDigital.API.Migrations
                         .IsUnique();
 
                     b.ToTable("DocumentTypes");
+                });
+
+            modelBuilder.Entity("AhorroDigital.API.Data.Entities.LoanType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("LoanTypes");
+                });
+
+            modelBuilder.Entity("AhorroDigital.API.Data.Entities.Saving", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateIni")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Marks")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<int>("MinValue")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SavingTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SavingTypeId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Savings");
+                });
+
+            modelBuilder.Entity("AhorroDigital.API.Data.Entities.SavingType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("SavingTypes");
                 });
 
             modelBuilder.Entity("AhorroDigital.API.Data.Entities.User", b =>
@@ -115,8 +221,8 @@ namespace AhorroDigital.API.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<Guid>("ImageId")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("ImageFullPath")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -303,16 +409,46 @@ namespace AhorroDigital.API.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("AhorroDigital.API.Data.Entities.Contribute", b =>
+                {
+                    b.HasOne("AhorroDigital.API.Data.Entities.Saving", "Saving")
+                        .WithMany("Contributes")
+                        .HasForeignKey("SavingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Saving");
+                });
+
+            modelBuilder.Entity("AhorroDigital.API.Data.Entities.Saving", b =>
+                {
+                    b.HasOne("AhorroDigital.API.Data.Entities.SavingType", "SavingType")
+                        .WithMany("Savings")
+                        .HasForeignKey("SavingTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AhorroDigital.API.Data.Entities.User", "User")
+                        .WithMany("Savings")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SavingType");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("AhorroDigital.API.Data.Entities.User", b =>
                 {
                     b.HasOne("AhorroDigital.API.Data.Entities.AccountType", "AccountType")
-                        .WithMany("Users")
+                        .WithMany()
                         .HasForeignKey("AccountTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("AhorroDigital.API.Data.Entities.DocumentType", "DocumentType")
-                        .WithMany("Users")
+                        .WithMany()
                         .HasForeignKey("DocumentTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -373,14 +509,19 @@ namespace AhorroDigital.API.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("AhorroDigital.API.Data.Entities.AccountType", b =>
+            modelBuilder.Entity("AhorroDigital.API.Data.Entities.Saving", b =>
                 {
-                    b.Navigation("Users");
+                    b.Navigation("Contributes");
                 });
 
-            modelBuilder.Entity("AhorroDigital.API.Data.Entities.DocumentType", b =>
+            modelBuilder.Entity("AhorroDigital.API.Data.Entities.SavingType", b =>
                 {
-                    b.Navigation("Users");
+                    b.Navigation("Savings");
+                });
+
+            modelBuilder.Entity("AhorroDigital.API.Data.Entities.User", b =>
+                {
+                    b.Navigation("Savings");
                 });
 #pragma warning restore 612, 618
         }

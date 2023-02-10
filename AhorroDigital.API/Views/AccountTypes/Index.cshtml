@@ -20,24 +20,24 @@
            <flash dismissable="true" />
         </div>
 
-        <div class="panel panel-default">
+        <div class="panel panel-default" data-aos="fade-left" data-aos-duration="2000">
 
 
             @foreach (var item in Model)
             {
 
 
-                <div class="col-md-8 mb-5 " data-aos="fade-left" data-aos-duration="2000">
+                <div class="col-md-8 mb-5 " >
                     <div class="card text-white bg-secondary mb-3">
                         <div class="card-header"><i class="fa-solid fa-file-invoice-dollar mr-3"></i>Tipo de Cuenta Bancaria</div>
                         <div class="card-body">
                             <div class="container__buttons">
-                                <p class="card-title mr-3 font-weight-bold"><span>Tipo: </span></p>
-                                <p class="card-text">@Html.DisplayFor(modelItem => item.Name)</p>
+                                <p class="card-title mr-3 font-weight-bold"><span>Tipo:   </span></p>
+                                <p class="card-text">  @Html.DisplayFor(modelItem => item.Name)</p>
                             </div>
                             <div class="container__buttons">
-                                <p class="card-title mr-3 font-weight-bold"><span>Número registros: </span></p>
-                                <p class="card-text">0</p>
+                                <p class="card-title mr-3 font-weight-bold"><span>Número registros:  </span></p>
+                                <p class="card-text">  0</p>
                             </div>
                             <div class="container__buttons">
                                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning mr-3 btn_edit">Editar</a>
@@ -90,10 +90,15 @@
         let home = document.getElementById("home");
         let td = document.getElementById("td");
         let tc = document.getElementById("tc");
-
+        let ta = document.getElementById("ta");
+        let tp = document.getElementById("tp");
+        let user = document.getElementById("user");
         tc.classList.add('active');
         home.classList.remove('active');
         td.classList.remove('active');
+        ta.classList.remove('active');
+         tp.classList.remove('active');
+        user.classList.remove('active');
 
     </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

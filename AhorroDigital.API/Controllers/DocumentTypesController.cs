@@ -3,9 +3,12 @@ using AhorroDigital.API.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vereyon.Web;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace AhorroDigital.API.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class DocumentTypesController:Controller
     {
         private readonly DataContext _context;

@@ -18,6 +18,11 @@ namespace AhorroDigital.API.Controllers
             return View();
         }
 
+        public IActionResult IndexHome()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
