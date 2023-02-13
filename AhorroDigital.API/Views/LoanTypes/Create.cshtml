@@ -16,10 +16,11 @@
         <flash dismissable="true" />
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group content__input">
-                <input asp-for="Name" class="form-control content__input-tcb" placeholder="Ingrese Tipo De Préstamo" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+            <div class="input-field">
+                <i class="fa-solid fa-credit-card " ></i>
+                <input asp-for="Name" class="" placeholder="Tipo de Préstamo" />
             </div>
+            <span asp-validation-for="Name" class="text-danger"></span>
             <div class="form-group content__btns">
                 <input type="submit" value="Guardar" class="btn btn-primary content__btns-save" />
                 <a asp-action="Index" class="btn btn-success content__btns-back">Regresar</a>

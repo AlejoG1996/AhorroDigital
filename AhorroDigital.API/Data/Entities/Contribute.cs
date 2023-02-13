@@ -38,11 +38,11 @@ namespace AhorroDigital.API.Data.Entities
 
 
         [Display(Name = "Foto")]
-        public Guid ImageId { get; set; }
+        public string? ImageFullPath { get; set; }
 
-        [Display(Name = "Foto")]
-        public string ImageFullPath => ImageId == Guid.Empty
-            ? $"http://localhost:65014/images/noimages.png"
-            : $"http://localhost:65014/images/{ImageId}";
+
+        [Display(Name = "Mecanico")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        public User UserAdmin { get; set; }
     }
 }

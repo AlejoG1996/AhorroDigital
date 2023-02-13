@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace AhorroDigital.API.Migrations
 {
     /// <inheritdoc />
-    public partial class AllBdUsers : Migration
+    public partial class allbdfirst : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -287,11 +287,18 @@ namespace AhorroDigital.API.Migrations
                     MarksAdmin = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
                     Value = table.Column<int>(type: "int", nullable: false),
                     ValueAvail = table.Column<int>(type: "int", nullable: false),
-                    ImageId = table.Column<Guid>(type: "char(36)", nullable: false)
+                    ImageFullPath = table.Column<string>(type: "longtext", nullable: true),
+                    UserAdminId = table.Column<string>(type: "varchar(255)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Contributes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Contributes_AspNetUsers_UserAdminId",
+                        column: x => x.UserAdminId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Contributes_Savings_SavingId",
                         column: x => x.SavingId,
@@ -349,6 +356,12 @@ namespace AhorroDigital.API.Migrations
                 column: "DocumentTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_Email_Document",
+                table: "AspNetUsers",
+                columns: new[] { "Email", "Document" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
@@ -358,6 +371,11 @@ namespace AhorroDigital.API.Migrations
                 name: "IX_Contributes_SavingId",
                 table: "Contributes",
                 column: "SavingId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Contributes_UserAdminId",
+                table: "Contributes",
+                column: "UserAdminId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DocumentTypes_Name",

@@ -6,7 +6,9 @@ namespace AhorroDigital.API.Helpers
 {
     public interface IUserHelper
     {
-        Task<User> AddUserAsync(UserViewModel model);
+
+        Task<User> GetUserAsync(Guid id);
+
         Task<User> GetUserAsync(string email);
         Task<IdentityResult> AddUserAsync(User user, string password);
         Task CheckRoleAsync(string roleName);
@@ -16,5 +18,10 @@ namespace AhorroDigital.API.Helpers
         Task<SignInResult> LoginAsync(LoginViewModel model);
 
         Task LogoutAsync();
+        Task<IdentityResult> UpdateUserAsync(User user);
+
+        Task<IdentityResult> DeleteUserAsync(User user);
+
+
     }
 }

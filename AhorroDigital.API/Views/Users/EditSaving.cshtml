@@ -1,0 +1,123 @@
+﻿@model AhorroDigital.API.Models.SavingViewModel
+@{
+    ViewData["Title"] = "AddSaving";
+}
+
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+<link rel="stylesheet" href="~/css/FormProgress.css" />
+<link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+<link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+
+
+
+<div class="row" data-aos="fade-up" data-aos-duration="2000">
+    <div class="col-md-12">
+        <h3>Editar Ahorro</h3>
+        <hr />
+        <p class="questions__show-fs"><span class="qs__sh-focus">Ahorro programado: </span>en el cual se podrá definir el monto mínimo a ahorrar en cada aporte a realizar por el asociado.</p>
+        <p class=""><span class="qs__sh-focus">Ahorro digital: </span>en el cual el asociado podrá realizar aportes de cualquier valor sin un monto mínimo o máximo.</p>
+        <form asp-action="EditSaving" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="UserId" />
+
+            <div class="col-md-12">
+                <flash dismissable="true" />
+            </div>
+
+            <label asp-for="SavingTypeId" class="control-label content__label-tcb"></label>
+            <div class="input-field-em">
+                <i class="fa-solid fa-piggy-bank"></i>
+                <select asp-for="SavingTypeId" asp-items="Model.SavingTypes" class="" id="id_saving"></select>
+            </div>
+            <span asp-validation-for="SavingTypeId" class="text-danger"></span>
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="DateIni" class="control-label content__label-tcb"></label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <input type="date"  asp-for="DateIni" class="" />
+                    </div>
+                    <span asp-validation-for="DateIni" class="text-danger text__error"></span>
+
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="MinValue" class="control-label content__label-tcb"></label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <input asp-for="MinValue" class="" id="id_input" />
+                    </div>
+                    <span asp-validation-for="MinValue" class="text-danger text__error"></span>
+
+                </div>
+
+
+            </div>
+            <label asp-for="Marks" class="control-label content__label-tcb"></label>
+
+            <div class="input-field-em">
+                <i class="fa-solid fa-quote-right"></i>
+                <textarea asp-for="Marks" class="marks" placeholder="Comentarios"></textarea>
+
+            </div>
+            <span asp-validation-for="Marks" class="text-danger text__error"></span>
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+                <a asp-action="Details" asp-route-id="@Model.UserId"  class="btn btn-success">Regresar</a>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jasny/jasny-bootstrap.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+
+<script src="~/js/FormProgress.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+
+        let home = document.getElementById("home");
+        let td = document.getElementById("td");
+        let tc = document.getElementById("tc");
+        let ta = document.getElementById("ta");
+        let tp = document.getElementById("tp");
+        let user = document.getElementById("user");
+
+        user.classList.add('active');
+
+        ta.classList.remove('active');
+        home.classList.remove('active');
+        td.classList.remove('active');
+        tc.classList.remove('active');
+        tp.classList.remove('active');
+        option.classList.add('op_back');
+    </script>
+    <script>
+        $(function () {
+            $("#id_saving").change(function () {
+                if ($(this).val() === "1") {
+                    $("#id_input").prop("disabled", false);
+
+                } else {
+                    $("#id_input").prop("disabled", true);
+                    $("#id_input").val(0);
+
+                }
+            });
+        });
+    </script>
+}
+

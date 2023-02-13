@@ -61,5 +61,33 @@ namespace AhorroDigital.API.Helpers
                 ImageFullPath=user.ImageFullPath
             };
         }
+
+        public async Task<Saving> ToSavingAsync(SavingViewModel model, bool isNew)
+        {
+            return new Saving
+            {
+                SavingType = await _context.SavingTypes.FindAsync(model.SavingTypeId),
+                DateIni = model.DateIni,
+                MinValue = model.MinValue,
+                Id = isNew ? 0 : model.Id,
+                Marks = model.Marks
+            };
+        }
+
+       public  SavingViewModel ToSavingViewModel(Saving saving)
+        {
+            return new SavingViewModel
+            {
+                SavingTypes = _combosHelper.GetComboSavingTypes(),
+                SavingTypeId=saving.SavingType.Id,
+                Id = saving.Id,
+                DateIni = saving.DateIni,
+                MinValue = saving.MinValue,
+                Marks = saving.Marks,
+                UserId = saving.User.Id
+            };
+        }
+
+
     }
 }

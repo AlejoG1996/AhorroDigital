@@ -26,6 +26,8 @@ namespace AhorroDigital.API.Helpers
             return await _context.Users
                .Include(x => x.DocumentType)
                .Include(x => x.AccountType)
+                .Include(x => x.Savings)
+                .ThenInclude(x => x.Contributes)
                .FirstOrDefaultAsync(x => x.Email == email);
         }
 
@@ -63,36 +65,38 @@ namespace AhorroDigital.API.Helpers
             await _signInManager.SignOutAsync();
         }
 
-        public async Task<User> AddUserAsync(UserViewModel model)
+        public async Task<User> GetUserAsync(Guid Id)
         {
-            User user = new User
-            {
-                Address = model.Address,
-                Document = model.Document,
-                Email = model.Email,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                ImageFullPath = model.ImageFullPath,
-                PhoneNumber = model.PhoneNumber,
-                AccountType = await _context.AccountTypes.FindAsync(model.AccountTypeId),
-                DocumentType = await _context.DocumentTypes.FindAsync(model.DocumentTypeId),
-                CountryCode= model.CountryCode,
-                AccountNumber= model.AccountNumber,
-                Bank=model.Bank,
-                UserType = model.UserType,
+            return await _context.Users.Include(x => x.DocumentType)
+                .Include(x=>x.AccountType)
+                .Include(x=>x.Savings)
+                .ThenInclude(x=>x.Contributes)
+                .FirstOrDefaultAsync(x => x.Id == Id.ToString());
+        }
 
-            };
+        public async Task<IdentityResult> UpdateUserAsync(User user) {
 
-            IdentityResult result = await _userManager.CreateAsync(user, "123456");
-            if (result != IdentityResult.Success)
-            {
-                return null;
-            }
+            User currentUser= await GetUserAsync(user.Email);
+            currentUser.LastName= user.LastName;
+            currentUser.FirstName= user.FirstName;
+            currentUser.Address = user.Address;
+            currentUser.CountryCode = user.CountryCode;
+            currentUser.AccountType = user.AccountType;
+            currentUser.Document = user.Document;
+            currentUser.DocumentType = user.DocumentType;
+            currentUser.AccountNumber = user.AccountNumber;
+            currentUser.Bank = user.Bank;
+            currentUser.FirstName = user.FirstName;
+            currentUser.PhoneNumber = user.PhoneNumber;
+            currentUser.ImageFullPath = user.ImageFullPath;
 
-            User newUser = await GetUserAsync(model.Email);
-            await AddUserToRoleAsync(newUser, user.UserType.ToString());
-            return newUser;
+            return await _userManager.UpdateAsync(currentUser);
+        }
 
+
+       public async Task<IdentityResult> DeleteUserAsync(User user)
+        {
+            return await _userManager.DeleteAsync(user);
         }
 
     }

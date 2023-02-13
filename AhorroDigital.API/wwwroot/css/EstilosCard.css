@@ -114,29 +114,41 @@ section > a > i {
 .btn_edit{
     margin-right:14px!important;
 }
-.content__input-tcb {
-    background: #ECF0F1 !important;
-    border: none !important;
-    border-radius: 5px;
-    outline: none !important;
-    transition: all 1s ease;
-    width: 100% !important;
+.input-field {
+    max-width: 100% !important;
+    width: 100%;
+    background-color: #f0f0f0;
+    margin: 10px 0;
+    height: 55px;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 5% 95%;
+    padding: 0 0.4rem;
+    position: relative;
 }
 
-    .content__input-tcb::placeholder {
-        color: #73C6B6 !important;
+    .input-field i {
+        text-align: center;
+        line-height: 55px;
+        color: #acacac;
+        transition: 0.5s;
+        font-size: 1.1rem;
     }
 
-    .content__input-tcb:focus {
-        background: #fff !important;
-        color: #2C3E50 !important;
-        border-bottom: 2px solid #73C6B6 !important;
-        outline: none !important;
+    .input-field input {
+        background: none;
+        outline: none;
+        border: none;
+        line-height: 1;
+        font-weight: 300;
+        font-size: 1.1rem;
+        color: #333;
     }
 
-        .content__input-tcb:focus::placeholder {
-            color: #99A3A4 !important;
-        }
+.input-field-em input::placeholder {
+    color: #aaa;
+    font-weight: 500;
+}
 
 .form-control:focus {
     outline: none !important;

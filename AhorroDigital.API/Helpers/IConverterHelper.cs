@@ -8,5 +8,8 @@ namespace AhorroDigital.API.Helpers
 
         Task<User> ToUserAsync(UserViewModel model,  bool isNew);
         UserViewModel ToUserViewModel(User user);
+
+        Task<Saving>ToSavingAsync(SavingViewModel model, bool isNew);
+        SavingViewModel ToSavingViewModel(Saving saving);
     }
 }

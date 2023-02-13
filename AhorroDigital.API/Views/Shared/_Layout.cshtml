@@ -52,38 +52,41 @@
             <div>
                 <a href="#" class="nav_logo" >
                     <div class="header_img"> <img src="~/images/logonatillera.png" alt="" > </div>
-                    <span class="nav_logo-name">Natillera.com</span>
+                    <span class="nav_logo-name">Ahorro Digital</span>
                 </a>
                 <div class="nav_list" >
                     <a id="home" aria-describedby="tooltip" class="nav_link active" asp-area="" asp-controller="Home" asp-action="Index" data-aos="fade-up" data-aos-duration="1000">
                         
-                        <i class='fa-solid fa-house nav_icon'  title="Inicio"></i>
+                        <i class='fa-solid fa-house nav_icon'  title="Inicio" data-bs-toggle="mensaje"></i>
                         <span class="nav_name">Inicio</span>
                     </a>
                     @if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                     {
                         <a id="tc" class="nav_link" asp-area="" asp-controller="AccountTypes" asp-action="Index" data-aos="fade-up" data-aos-duration="1000">
-                            <i class="fa-solid fa-money-check-dollar nav_icon" title="Tipos Cuentas Bancarias"></i>
+                            <i class="fa-solid fa-money-check-dollar nav_icon" title="Tipos Cuentas Bancarias" data-bs-toggle="mensaje"></i>
 
                             <span class="nav_name">Tipos Cuentas B.</span>
                         </a>
                         <a id="td" class="nav_link" asp-area="" asp-controller="DocumentTypes" asp-action="Index" data-aos="fade-up" data-aos-duration="1000">
-                            <i class='fa-solid fa-address-card nav_icon' title="Tipos Documentos"></i>
+                            <i class='fa-solid fa-address-card nav_icon' title="Tipos Documentos" data-bs-toggle="mensaje"></i>
                             <span class="nav_name">Tipos Documentos</span>
                         </a>
+
                         <a id="ta" class="nav_link" asp-area="" asp-controller="SavingTypes" asp-action="Index" data-aos="fade-up" data-aos-duration="1000">
-                          
-                            <i class="fa-solid fa-piggy-bank nav_icon" title="Tipos Ahorros"></i>
+
+                            <i class="fa-solid fa-piggy-bank nav_icon" title="Tipos Ahorros" data-bs-toggle="mensaje"></i>
                             <span class="nav_name">Tipos Ahorros</span>
                         </a>
+
                         <a id="tp" class="nav_link" asp-area="" asp-controller="LoanTypes" asp-action="Index" data-aos="fade-up" data-aos-duration="1000">
-                            <i class="fa-solid fa-credit-card nav_icon" title="Tipos Prestamos"></i>
+                            <i class="fa-solid fa-credit-card nav_icon" title="Tipos Prestamos" data-bs-toggle="mensaje"></i>
                             
                             <span class="nav_name">Tipos Prestamos</span>
                         </a>
+
                         <a id="user" class="nav_link" asp-area="" asp-controller="Users" asp-action="Index" data-aos="fade-up" data-aos-duration="1000">
 
-                            <i class="fa-solid fa-users nav_icon " title="Usuarios"></i>
+                            <i class="fa-solid fa-users nav_icon " title="Usuarios" data-bs-toggle="mensaje"></i>
                             <span class="nav_name">Usuarios</span>
                         </a>
                     }
@@ -174,7 +177,13 @@
         AOS.init();
         
     </script>
-    
+    <script>
+        var tooltipTriggerList=[].slice.call(document.querySelectorAll('[data-bs-toggle="mensaje"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl){
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

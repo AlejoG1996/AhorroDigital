@@ -137,10 +137,11 @@ select {
 
 .btn-primary {
     width: 200px !important;
-    background-color: #1E8449!important;
+    background-color: #1E8449 !important;
     transition: all 2s ease !important;
-    margin-bottom:8px !important;
-    border:none!important;
+    margin-bottom: 8px !important;
+    border: none !important;
+    outline: none !important;
 }
 
     .btn-primary:hover {
@@ -152,6 +153,7 @@ select {
     transition: all 2s ease !important;
     margin-bottom: 8px !important;
     border: none !important;
+    outline: none !important;
 }
 
     .btn-success:hover {
@@ -172,4 +174,32 @@ select {
 
 .btn-success:active {
     box-shadow: none !important;
+}
+
+.content__label-tcb{
+    display:block;
+    width:100% !important;
+}
+
+.marks{
+    width:150px;
+}
+
+.input-field-em textarea {
+    background: none !important;
+    outline: none !important;
+    border: none !important;
+    line-height: 1 !important;
+    font-weight: 300!important;
+    font-size: 1.1rem !important;
+    color: #333 !important;
+    width:100% !important;
+    margin:5px !important;
+    resize:none!important;
+    
+}
+
+.qs__sh-focus {
+    color: #0B5345 !important;
+    font-weight: 700;
 }

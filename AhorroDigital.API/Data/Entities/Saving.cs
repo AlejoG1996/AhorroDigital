@@ -27,6 +27,7 @@ namespace AhorroDigital.API.Data.Entities
         public int MinValue { get; set; }
 
         [Display(Name = "Propietario")]
+        
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public User User { get; set; }
 
@@ -48,7 +49,7 @@ namespace AhorroDigital.API.Data.Entities
         public int TotalOut=> Contributes == null ? 0 :
            Contributes.Sum(x => x.Value);
 
-      
+       
 
     }
 }

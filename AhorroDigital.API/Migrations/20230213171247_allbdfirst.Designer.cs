@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AhorroDigital.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230209034051_AllBdUsers")]
-    partial class AllBdUsers
+    [Migration("20230213171247_allbdfirst")]
+    partial class allbdfirst
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,8 +47,8 @@ namespace AhorroDigital.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<Guid>("ImageId")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("ImageFullPath")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Marks")
                         .IsRequired()
@@ -63,6 +63,10 @@ namespace AhorroDigital.API.Migrations
                     b.Property<int>("SavingId")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserAdminId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
                     b.Property<int>("Value")
                         .HasColumnType("int");
 
@@ -72,6 +76,8 @@ namespace AhorroDigital.API.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("SavingId");
+
+                    b.HasIndex("UserAdminId");
 
                     b.ToTable("Contributes");
                 });
@@ -278,6 +284,9 @@ namespace AhorroDigital.API.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
+                    b.HasIndex("Email", "Document")
+                        .IsUnique();
+
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
@@ -417,7 +426,15 @@ namespace AhorroDigital.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("AhorroDigital.API.Data.Entities.User", "UserAdmin")
+                        .WithMany()
+                        .HasForeignKey("UserAdminId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Saving");
+
+                    b.Navigation("UserAdmin");
                 });
 
             modelBuilder.Entity("AhorroDigital.API.Data.Entities.Saving", b =>

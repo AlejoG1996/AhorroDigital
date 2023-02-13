@@ -19,11 +19,14 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
 
-            <div class="form-group content__input">
-                <label asp-for="Name" class="control-label content__label-tcb"></label>
-                <input asp-for="Name" class="form-control content__input-tcb" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+            
+            <label asp-for="Name" class="control-label content__label-tcb"></label>
+
+            <div class="input-field">
+                <i class="fa-solid fa-money-check-dollar " ></i>
+                <input asp-for="Name" class="" placeholder="Tipo de Cuenta bancaria" />
             </div>
+            <span asp-validation-for="Name" class="text-danger"></span>
             <div class="form-group content__btns">
                 <input type="submit" value="Guardar" class="btn btn-primary content__btns-save" />
                 <a asp-action="Index" class="btn btn-success content__btns-back">Regresar</a>
