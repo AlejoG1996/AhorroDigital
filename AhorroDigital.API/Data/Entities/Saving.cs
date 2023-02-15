@@ -42,14 +42,22 @@ namespace AhorroDigital.API.Data.Entities
         public int ContributesCount => Contributes == null ? 0 : Contributes.Count;
 
         [Display(Name ="Total Aprobado")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
         public int Total => Contributes== null? 0 : 
             Contributes.Sum(x=>x.ValueAvail);
 
         [Display(Name = "Total Pendiente")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
         public int TotalOut=> Contributes == null ? 0 :
            Contributes.Sum(x => x.Value);
 
-       
+
+        [Display(Name = "Total Denegado")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        public int TotalSlope => Contributes == null ? 0 :
+          Contributes.Sum(x => x.ValueSlop);
+
+
 
     }
 }

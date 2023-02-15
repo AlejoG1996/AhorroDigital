@@ -80,8 +80,7 @@ namespace AhorroDigital.API.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string Bank { get; set; }
 
-        [Display(Name = "Foto")]
-        public byte[]? ImageFull { get; set; }
+      
 
 
         [Display(Name = "Usuario")]

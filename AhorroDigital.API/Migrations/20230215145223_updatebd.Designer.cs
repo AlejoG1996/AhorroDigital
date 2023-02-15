@@ -3,6 +3,7 @@ using System;
 using AhorroDigital.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AhorroDigital.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230215145223_updatebd")]
+    partial class updatebd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,9 +76,6 @@ namespace AhorroDigital.API.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("ValueAvail")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ValueSlop")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

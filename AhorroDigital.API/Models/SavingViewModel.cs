@@ -30,5 +30,7 @@ namespace AhorroDigital.API.Models
         [MaxLength(150, ErrorMessage = "El campo {0} no puede tener más  de {1} carácteres.")]
         [DataType(DataType.MultilineText)]
         public string? Marks { get; set; }
+
+      
     }
 }

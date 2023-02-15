@@ -3,6 +3,7 @@ using System;
 using AhorroDigital.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AhorroDigital.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230214140448_ModifyContribute")]
+    partial class ModifyContribute
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,9 +47,6 @@ namespace AhorroDigital.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<string>("ImageFullPath")
                         .HasColumnType("longtext");
 
@@ -67,15 +67,13 @@ namespace AhorroDigital.API.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("UserAdminId")
+                        .IsRequired()
                         .HasColumnType("varchar(255)");
 
                     b.Property<int>("Value")
                         .HasColumnType("int");
 
                     b.Property<int>("ValueAvail")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ValueSlop")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -433,7 +431,9 @@ namespace AhorroDigital.API.Migrations
 
                     b.HasOne("AhorroDigital.API.Data.Entities.User", "UserAdmin")
                         .WithMany()
-                        .HasForeignKey("UserAdminId");
+                        .HasForeignKey("UserAdminId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Saving");
 

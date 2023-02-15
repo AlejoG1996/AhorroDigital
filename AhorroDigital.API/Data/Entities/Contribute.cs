@@ -14,7 +14,7 @@ namespace AhorroDigital.API.Data.Entities
         [Display(Name = "Fecha")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime Date;
+        public DateTime Date { get; set; }
 
         [Display(Name = "Observación")]
         [MaxLength(150, ErrorMessage = "El campo {0} no puede tener más  de {1} carácteres.")]
@@ -26,23 +26,27 @@ namespace AhorroDigital.API.Data.Entities
         [DataType(DataType.MultilineText)]
         public string MarksAdmin { get; set; }
 
-        [Display(Name = "Valor  Ahorro")]
+        [Display(Name = "Valor  Ahorro Pendiente")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public int Value { get; set; }
 
-        [Display(Name = "Valor  Ahorro")]
+        [Display(Name = "Valor  Ahorro ")]
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public int ValueAvail { get; set; }
 
+        [Display(Name = "Valor  Ahorro Denegado")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        public int ValueSlop{ get; set; }
 
 
         [Display(Name = "Foto")]
         public string? ImageFullPath { get; set; }
 
+        [Display(Name = "Estado")]
+        public string? State { get; set; }
 
         [Display(Name = "Mecanico")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public User UserAdmin { get; set; }
     }
 }

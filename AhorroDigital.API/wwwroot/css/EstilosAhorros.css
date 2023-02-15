@@ -204,11 +204,12 @@ table.dataTable.hover > tbody > tr.selected:hover > *, table.dataTable.display >
 }
 
 .btn-dark {
-    width: 50% !important;
+    width: 100px !important;
     color: #fff !important;
     background-color: #27AE60 !important;
     transition: all 3s ease !important;
     border: none !important;
+    margin: auto !important;
     margin-bottom: 8px !important;
 }
 
@@ -221,7 +222,7 @@ table.dataTable.hover > tbody > tr.selected:hover > *, table.dataTable.display >
     }
 
 .btn-info {
-    width: 50% !important;
+    width: 100px !important;
     color: #fff !important;
     background-color: #16A085 !important;
     transition: all 3s ease !important;
@@ -238,12 +239,14 @@ table.dataTable.hover > tbody > tr.selected:hover > *, table.dataTable.display >
 }
 
 .btn-danger {
-    width: 50% !important;
+    width: 100px !important;
     color: #fff !important;
     background-color: #5D6D7E !important;
     transition: all 3s ease !important;
     border: none !important;
+    margin:auto!important;
     margin-bottom: 8px !important;
+    
 }
 
 .btn-danger:hover {
