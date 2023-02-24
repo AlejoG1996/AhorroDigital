@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AhorroDigital.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230215145223_updatebd")]
-    partial class updatebd
+    [Migration("20230224010018_allBD")]
+    partial class allBD
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -78,6 +78,9 @@ namespace AhorroDigital.API.Migrations
                     b.Property<int>("ValueAvail")
                         .HasColumnType("int");
 
+                    b.Property<int>("ValueSlop")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SavingId");
@@ -106,6 +109,80 @@ namespace AhorroDigital.API.Migrations
                     b.ToTable("DocumentTypes");
                 });
 
+            modelBuilder.Entity("AhorroDigital.API.Data.Entities.Loan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateA")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateNesxtPa")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateS")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Dues")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImageFullPath")
+                        .HasColumnType("longtext");
+
+                    b.Property<double>("Interest")
+                        .HasColumnType("double");
+
+                    b.Property<int>("LoanTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Marks")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<string>("MarksAdmin")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<string>("State")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ValueD")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ValueDues")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ValueDuesInterest")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ValueNextDues")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ValueP")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ValueTotal")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LoanTypeId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Loan");
+                });
+
             modelBuilder.Entity("AhorroDigital.API.Data.Entities.LoanType", b =>
                 {
                     b.Property<int>("Id")
@@ -123,6 +200,61 @@ namespace AhorroDigital.API.Migrations
                         .IsUnique();
 
                     b.ToTable("LoanTypes");
+                });
+
+            modelBuilder.Entity("AhorroDigital.API.Data.Entities.Payments", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("ImageFullPath")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("LoanId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Marks")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<string>("MarksAdmin")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<int>("PaymentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("State")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UserAdminId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ValueP")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ValueSlop")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LoanId");
+
+                    b.HasIndex("PaymentId");
+
+                    b.HasIndex("UserAdminId");
+
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("AhorroDigital.API.Data.Entities.Saving", b =>
@@ -440,6 +572,48 @@ namespace AhorroDigital.API.Migrations
                     b.Navigation("UserAdmin");
                 });
 
+            modelBuilder.Entity("AhorroDigital.API.Data.Entities.Loan", b =>
+                {
+                    b.HasOne("AhorroDigital.API.Data.Entities.LoanType", "LoanType")
+                        .WithMany()
+                        .HasForeignKey("LoanTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AhorroDigital.API.Data.Entities.User", "User")
+                        .WithMany("Loans")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("LoanType");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("AhorroDigital.API.Data.Entities.Payments", b =>
+                {
+                    b.HasOne("AhorroDigital.API.Data.Entities.Loan", null)
+                        .WithMany("Payments")
+                        .HasForeignKey("LoanId");
+
+                    b.HasOne("AhorroDigital.API.Data.Entities.Payments", "Payment")
+                        .WithMany()
+                        .HasForeignKey("PaymentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AhorroDigital.API.Data.Entities.User", "UserAdmin")
+                        .WithMany()
+                        .HasForeignKey("UserAdminId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Payment");
+
+                    b.Navigation("UserAdmin");
+                });
+
             modelBuilder.Entity("AhorroDigital.API.Data.Entities.Saving", b =>
                 {
                     b.HasOne("AhorroDigital.API.Data.Entities.SavingType", "SavingType")
@@ -529,6 +703,11 @@ namespace AhorroDigital.API.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("AhorroDigital.API.Data.Entities.Loan", b =>
+                {
+                    b.Navigation("Payments");
+                });
+
             modelBuilder.Entity("AhorroDigital.API.Data.Entities.Saving", b =>
                 {
                     b.Navigation("Contributes");
@@ -541,6 +720,8 @@ namespace AhorroDigital.API.Migrations
 
             modelBuilder.Entity("AhorroDigital.API.Data.Entities.User", b =>
                 {
+                    b.Navigation("Loans");
+
                     b.Navigation("Savings");
                 });
 #pragma warning restore 612, 618

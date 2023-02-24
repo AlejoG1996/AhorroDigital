@@ -38,6 +38,18 @@
                 @Html.DisplayNameFor(model => model.SavingAccount)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.TotalA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LoanAccount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AvailLoan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValueLoan)
+            </th>
+            <th>
                 Habilitado
             </th>
             <th>
@@ -79,7 +91,18 @@
             <td>
                 @Html.DisplayFor(modelItem => item.SavingAccount)
             </td>
-           
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalA)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoanAccount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AvailLoan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValueLoan)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.EmailConfirmed)
             </td>

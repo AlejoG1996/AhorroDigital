@@ -119,5 +119,20 @@
             });
         });
     </script>
+    <script>
+        window.addEventListener('load', function () {
+            var cod = document.getElementById("id_saving").value;
+            if (cod === "1") {
+                $("#id_input").val(0);
+
+                $("#id_input").prop("disabled", false);
+            } else if (cod === "2") {
+                $("#id_input").prop("disabled", true);
+
+            } else {
+                $("#id_input").prop("disabled", false);
+            }
+        });
+    </script>
 }
 

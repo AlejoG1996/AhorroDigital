@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace AhorroDigital.API.Migrations
 {
     /// <inheritdoc />
-    public partial class allbdfirst : Migration
+    public partial class allBD : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -247,6 +247,49 @@ namespace AhorroDigital.API.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Loan",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    LoanTypeId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "varchar(255)", nullable: false),
+                    DateS = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DateA = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    State = table.Column<string>(type: "longtext", nullable: true),
+                    DateNesxtPa = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Marks = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
+                    MarksAdmin = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
+                    Value = table.Column<int>(type: "int", nullable: false),
+                    ValueP = table.Column<int>(type: "int", nullable: false),
+                    ValueD = table.Column<int>(type: "int", nullable: false),
+                    ValueTotal = table.Column<int>(type: "int", nullable: false),
+                    ValueDues = table.Column<int>(type: "int", nullable: false),
+                    ValueDuesInterest = table.Column<int>(type: "int", nullable: false),
+                    ValueNextDues = table.Column<int>(type: "int", nullable: false),
+                    Interest = table.Column<double>(type: "double", nullable: false),
+                    Dues = table.Column<int>(type: "int", nullable: false),
+                    ImageFullPath = table.Column<string>(type: "longtext", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Loan", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Loan_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Loan_LoanTypes_LoanTypeId",
+                        column: x => x.LoanTypeId,
+                        principalTable: "LoanTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Savings",
                 columns: table => new
                 {
@@ -277,18 +320,62 @@ namespace AhorroDigital.API.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Payments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    PaymentId = table.Column<int>(type: "int", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Marks = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
+                    MarksAdmin = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
+                    Value = table.Column<int>(type: "int", nullable: false),
+                    ValueP = table.Column<int>(type: "int", nullable: false),
+                    ValueSlop = table.Column<int>(type: "int", nullable: false),
+                    ImageFullPath = table.Column<string>(type: "longtext", nullable: true),
+                    State = table.Column<string>(type: "longtext", nullable: true),
+                    UserAdminId = table.Column<string>(type: "varchar(255)", nullable: false),
+                    LoanId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Payments_AspNetUsers_UserAdminId",
+                        column: x => x.UserAdminId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Payments_Loan_LoanId",
+                        column: x => x.LoanId,
+                        principalTable: "Loan",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Payments_Payments_PaymentId",
+                        column: x => x.PaymentId,
+                        principalTable: "Payments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Contributes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     SavingId = table.Column<int>(type: "int", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Marks = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
                     MarksAdmin = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
                     Value = table.Column<int>(type: "int", nullable: false),
                     ValueAvail = table.Column<int>(type: "int", nullable: false),
+                    ValueSlop = table.Column<int>(type: "int", nullable: false),
                     ImageFullPath = table.Column<string>(type: "longtext", nullable: true),
-                    UserAdminId = table.Column<string>(type: "varchar(255)", nullable: false)
+                    State = table.Column<string>(type: "longtext", nullable: true),
+                    UserAdminId = table.Column<string>(type: "varchar(255)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -297,8 +384,7 @@ namespace AhorroDigital.API.Migrations
                         name: "FK_Contributes_AspNetUsers_UserAdminId",
                         column: x => x.UserAdminId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Contributes_Savings_SavingId",
                         column: x => x.SavingId,
@@ -384,10 +470,35 @@ namespace AhorroDigital.API.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Loan_LoanTypeId",
+                table: "Loan",
+                column: "LoanTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Loan_UserId",
+                table: "Loan",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_LoanTypes_Name",
                 table: "LoanTypes",
                 column: "Name",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payments_LoanId",
+                table: "Payments",
+                column: "LoanId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payments_PaymentId",
+                table: "Payments",
+                column: "PaymentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payments_UserAdminId",
+                table: "Payments",
+                column: "UserAdminId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Savings_SavingTypeId",
@@ -428,7 +539,7 @@ namespace AhorroDigital.API.Migrations
                 name: "Contributes");
 
             migrationBuilder.DropTable(
-                name: "LoanTypes");
+                name: "Payments");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -437,10 +548,16 @@ namespace AhorroDigital.API.Migrations
                 name: "Savings");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Loan");
 
             migrationBuilder.DropTable(
                 name: "SavingTypes");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "LoanTypes");
 
             migrationBuilder.DropTable(
                 name: "AccountTypes");

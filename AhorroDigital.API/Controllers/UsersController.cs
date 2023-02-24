@@ -42,8 +42,14 @@ namespace AhorroDigital.API.Controllers
                 .Include(x=>x.DocumentType)
                 .Include(x=>x.Savings)
                 .ThenInclude(x=>x.SavingType)
+                 .Include(x => x.Savings)
+                .ThenInclude(x => x.Contributes)
                 .Include(x => x.AccountType)
-                
+                  .Include(x => x.Loans)
+                .ThenInclude(x => x.LoanType)
+                .Include(x => x.Loans)
+                .ThenInclude(x => x.Payments)
+
                 .ToListAsync());
         }
 

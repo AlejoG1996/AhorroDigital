@@ -48,7 +48,7 @@
                     <label asp-for="MinValue" class="control-label content__label-tcb"></label>
                     <div class="input-field">
                         <i class="fa-solid fa-dollar-sign"></i>
-                        <input asp-for="MinValue" class="" id="id_input" />
+                        <input asp-for="MinValue" class="" id="id_input" disabled />
                     </div>
                     <span asp-validation-for="MinValue" class="text-danger text__error"></span>
 
@@ -117,6 +117,24 @@
         }
     });
 });
+
+       
+    </script>
+
+    <script>
+        window.addEventListener('load', function () {
+            var cod = document.getElementById("id_saving").value;
+            if (cod === "1") {
+                $("#id_input").val(0);
+
+                $("#id_input").prop("disabled", false);
+            } else if (cod === "2") {
+                $("#id_input").prop("disabled", true);
+
+            } else {
+                $("#id_input").prop("disabled", false);
+            }
+        });
     </script>
 }
 

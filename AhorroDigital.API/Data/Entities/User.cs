@@ -74,5 +74,29 @@ namespace AhorroDigital.API.Data.Entities
 
         [Display(Name ="# Ahorros")]
         public int SavingAccount => Savings==null? 0 : Savings.Count();
+
+        [Display(Name = "Total Ahorrado")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        public int TotalA => Savings == null ? 0 :
+           Savings.Sum(x => x.Total);
+
+        public ICollection<Loan> Loans { get; set; }
+
+        [Display(Name = "# Préstamos")]
+        public int LoanAccount => Loans == null ? 0 : Loans.Count();
+
+       
+
+        [Display(Name = "Total Préstamos")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        public int ValueLoan => Loans == null ? 0 :
+           Loans.Sum(x => x.Value);
+
+        [Display(Name = "Total  Disponible Préstamos")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        public int AvailLoan => Loans == null ? 0 :
+        (TotalA * 2) - ValueLoan;
+
+
     }
 }
