@@ -21,6 +21,9 @@ namespace AhorroDigital.API.Data
         public DbSet<Saving> Savings { get; set; }
         public DbSet<Contribute> Contributes { get; set; }
 
+        public DbSet<Loan> Loans { get; set; }
+
+        public DbSet<Payments> Payments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

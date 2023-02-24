@@ -19,96 +19,93 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.6.0/css/select.dataTables.min.css">
 
 
-<div class="container__info-user col-md-12" data-aos="fade-left" data-aos-duration="2000">
-    <div class="questions__container col-md-12">
+<div class=" mb-4" data-aos="fade-left" data-aos-duration="2000">
+    <article class="questions__padding">
+        <div class="questions__answer">
+            <h3 class="questions__title">
+                Usuario
+                <span class="questions__arrow">
+                    <img src="~/images/arrow.svg" class="questions__img">
+                </span>
+            </h3>
 
-        <article class="questions__padding">
-            <div class="questions__answer">
-                <h3 class="questions__title">
-                    INFORMACIÓN DEL USUARIO
-                    <span class="questions__arrow">
-                        <img src="~/images/arrow.svg" class="questions__img">
-                    </span>
-                </h3>
-
-                <div class="questions__show">
-                    <img src="@Model.ImageFullPath" style="width: 100px; height: 100px; border-radius:25px;" />
-                    <dl class="row">
-                        <dt class="col-sm-3">
-                            @Html.DisplayNameFor(model=>model.FullName)
-                        </dt>
-                        <dd class="col-sm-9">
-                            @Html.DisplayFor(model=> model.FullName)
-                        </dd>
-                        <dt class="col-sm-3">
-                            @Html.DisplayNameFor(model=>model.DocumentType.Name)
-                        </dt>
-                        <dd class="col-sm-9">
-                            @Html.DisplayFor(model=> model.DocumentType.Name)
-                        </dd>
-                        <dt class="col-sm-3">
-                            @Html.DisplayNameFor(model=>model.Document)
-                        </dt>
-                        <dd class="col-sm-9">
-                            @Html.DisplayFor(model=> model.Document)
-                        </dd>
-                        <dt class="col-sm-3">
-                            @Html.DisplayNameFor(model=>model.Email)
-                        </dt>
-                        <dd class="col-sm-9">
-                            @Html.DisplayFor(model=> model.Email)
-                        </dd>
-                        <dt class="col-sm-3">
-                            Número de Teléfono
-                        </dt>
-                        <dd class="col-sm-9">
-                            @Html.DisplayFor(model=> model.PhoneNumber)
-                        </dd>
-                        <dt class="col-sm-3">
-                            @Html.DisplayNameFor(model=>model.AccountType.Name)
-                        </dt>
-                        <dd class="col-sm-9">
-                            @Html.DisplayFor(model=> model.AccountType.Name)
-                        </dd>
-                        <dt class="col-sm-3">
-                            @Html.DisplayNameFor(model=>model.AccountNumber)
-                        </dt>
-                        <dd class="col-sm-9">
-                            @Html.DisplayFor(model=> model.AccountNumber)
-                        </dd>
-                        <dt class="col-sm-3">
-                            @Html.DisplayNameFor(model=>model.Bank)
-                        </dt>
-                        <dd class="col-sm-9">
-                            @Html.DisplayFor(model=> model.Bank)
-                        </dd>
-                    </dl>
+            <div class="questions__show">
+                <div class="row">
+                    <div class="col-md-12 content_info-u">
+                        <img src="@Model.ImageFullPath" style="width: 100px; height: 100px; border-radius:25px;" />
+                        <dl class="row">
+                            <dt class="col-sm-5">
+                                @Html.DisplayNameFor(model=>model.FullName)
+                            </dt>
+                            <dd class="col-sm-7">
+                                @Html.DisplayFor(model=> model.FullName)
+                            </dd>
+                            <dt class="col-sm-5">
+                                @Html.DisplayNameFor(model=>model.DocumentType.Name)
+                            </dt>
+                            <dd class="col-sm-7">
+                                @Html.DisplayFor(model=> model.DocumentType.Name)
+                            </dd>
+                            <dt class="col-sm-5">
+                                @Html.DisplayNameFor(model=>model.Document)
+                            </dt>
+                            <dd class="col-sm-7">
+                                @Html.DisplayFor(model=> model.Document)
+                            </dd>
+                            <dt class="col-sm-5">
+                                @Html.DisplayNameFor(model=>model.Email)
+                            </dt>
+                            <dd class="col-sm-7">
+                                @Html.DisplayFor(model=> model.Email)
+                            </dd>
+                            <dt class="col-sm-5">
+                                @Html.DisplayNameFor(model=>model.PhoneNumber)
+                            </dt>
+                            <dd class="col-sm-7">
+                                @Html.DisplayFor(model=> model.PhoneNumber)
+                            </dd>
+                            <dt class="col-sm-5">
+                                @Html.DisplayNameFor(model=>model.AccountType.Name)
+                            </dt>
+                            <dd class="col-sm-7">
+                                @Html.DisplayFor(model=> model.AccountType.Name)
+                            </dd>
+                            <dt class="col-sm-5">
+                                @Html.DisplayNameFor(model=>model.AccountNumber)
+                            </dt>
+                            <dd class="col-sm-7">
+                                @Html.DisplayFor(model=> model.AccountNumber)
+                            </dd>
+                            <dt class="col-sm-5">
+                                @Html.DisplayNameFor(model=>model.Bank)
+                            </dt>
+                            <dd class="col-sm-7">
+                                @Html.DisplayFor(model=> model.Bank)
+                            </dd>
+                        </dl>
+                    </div>
 
                 </div>
 
-
             </div>
 
-        </article>
-
-
-    </div>
-
+        </div>
+    </article>
 
 </div>
 
-<div class="container__infoprocess">
-    <flash dismissable="true" />
-</div>
-<div class="col-md-12 mb-4">
+<div class="col-md-12 mb-4" data-aos="fade-left" data-aos-duration="2000">
     <a asp-action="AddLoan" asp-route-id="@Model.Id" class="btn btn-primary">Adiccionar Préstamo</a>
     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Editar Usuario</a>
     <a asp-action="Index" class="btn btn-success">Regresar</a>
 </div>
 
+<div class="container__infoprocess" data-aos="fade-left" data-aos-duration="2000">
+    <flash dismissable="true" />
+</div>
 
 
-<div class="container__tableUsers saving" data-aos="fade-left" data-aos-duration="2000">
+<div class=" saving" data-aos="fade-left" data-aos-duration="2000">
     <div class="card content__t ">
         <div class="card-header color_text">
             <i class="fa-solid fa-credit-card"></i>  <strong>Préstamos</strong>
@@ -320,6 +317,7 @@
         </div>
     </div>
 </div>
+
 <partial name="_DeleteDialog" />
 
 

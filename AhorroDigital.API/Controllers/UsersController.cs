@@ -16,14 +16,14 @@ using Vereyon.Web;
 namespace AhorroDigital.API.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class UsersController:Controller
+    public class UsersController : Controller
     {
         private readonly DataContext _context;
         private readonly IFlashMessage _flashMessage;
         private readonly IUserHelper _userHelper;
         private readonly ICombosHelper _combosHelper;
         private readonly IConverterHelper _converterHelper;
-        
+
         public UsersController(DataContext context, IFlashMessage flasher, IUserHelper userHelper, ICombosHelper combosHelper, IConverterHelper converterHelper
            )
         {
@@ -32,16 +32,16 @@ namespace AhorroDigital.API.Controllers
             _userHelper = userHelper;
             _combosHelper = combosHelper;
             _converterHelper = converterHelper;
-            
+
         }
 
         public async Task<IActionResult> Index()
         {
-            
+
             return View(await _context.Users
-                .Include(x=>x.DocumentType)
-                .Include(x=>x.Savings)
-                .ThenInclude(x=>x.SavingType)
+                .Include(x => x.DocumentType)
+                .Include(x => x.Savings)
+                .ThenInclude(x => x.SavingType)
                  .Include(x => x.Savings)
                 .ThenInclude(x => x.Contributes)
                 .Include(x => x.AccountType)
@@ -92,23 +92,23 @@ namespace AhorroDigital.API.Controllers
 
                 }
 
-               
+
                 //cedula no repetida
                 User usertwo = await _context.Users
            .FirstOrDefaultAsync(x => x.Document == model.Document);
                 if (usertwo != null)
                 {
-                 
-                        _flashMessage.Danger("El  Número de Documento ingresado ya está siendo usado.");
-                        model.DocumentTypes = _combosHelper.GetComboDocumentTypes();
-                        model.AccountTypes = _combosHelper.GetComboAccountTypes();
-                        return View(model);
+
+                    _flashMessage.Danger("El  Número de Documento ingresado ya está siendo usado.");
+                    model.DocumentTypes = _combosHelper.GetComboDocumentTypes();
+                    model.AccountTypes = _combosHelper.GetComboAccountTypes();
+                    return View(model);
 
 
                 }
                 else
                 {
-                    
+
                     User usertwos = await _context.Users
                     .FirstOrDefaultAsync(x => x.Email == model.Email);
 
@@ -167,28 +167,28 @@ namespace AhorroDigital.API.Controllers
         }
 
         //edita usuario
-        public async Task<IActionResult>Edit(string id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (string.IsNullOrEmpty(id))
             {
                 return NotFound();
             }
 
-            User user= await _userHelper.GetUserAsync(Guid.Parse(id));
-            if(user == null)
+            User user = await _userHelper.GetUserAsync(Guid.Parse(id));
+            if (user == null)
             {
                 return NotFound();
 
             }
-           
+
             UserViewModel model = _converterHelper.ToUserViewModel(user);
-          
+
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult>Edit(UserViewModel model)
+        public async Task<IActionResult> Edit(UserViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -243,9 +243,9 @@ namespace AhorroDigital.API.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            model.DocumentTypes=_combosHelper.GetComboDocumentTypes();
+            model.DocumentTypes = _combosHelper.GetComboDocumentTypes();
             model.AccountTypes = _combosHelper.GetComboAccountTypes();
-            return View(model) ;
+            return View(model);
         }
 
         //elimina usuario
@@ -263,8 +263,8 @@ namespace AhorroDigital.API.Controllers
                 return NotFound();
             }
 
-           
-           
+
+
 
             await _userHelper.DeleteUserAsync(user);
             string nombre = user.ImageFullPath.Split('/').Last();
@@ -288,10 +288,10 @@ namespace AhorroDigital.API.Controllers
                 .Include(x => x.DocumentType)
                 .Include(x => x.AccountType)
                  .Include(x => x.Savings)
-                 .ThenInclude(x=>x.Contributes)
+                 .ThenInclude(x => x.Contributes)
                  .Include(x => x.Savings)
                  .ThenInclude(x => x.SavingType)
-                 .FirstOrDefaultAsync(x=>x.Id== id);
+                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (user == null)
             {
@@ -302,21 +302,21 @@ namespace AhorroDigital.API.Controllers
 
 
         //agregar ahorro
-        public async Task<IActionResult>AddSaving(string id)
+        public async Task<IActionResult> AddSaving(string id)
         {
             if (string.IsNullOrEmpty(id))
             {
                 return NotFound();
             }
 
-            User user =await _context.Users
+            User user = await _context.Users
                 .Include(x => x.DocumentType)
                   .Include(x => x.AccountType)
                  .Include(x => x.Savings)
                 .ThenInclude(x => x.SavingType)
               .Include(x => x.Savings)
                 .ThenInclude(x => x.Contributes)
-                .FirstOrDefaultAsync(x=>x.Id== id);
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             if (user == null)
             {
@@ -334,7 +334,7 @@ namespace AhorroDigital.API.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult>AddSaving(SavingViewModel model)
+        public async Task<IActionResult> AddSaving(SavingViewModel model)
         {
             User user = await _context.Users
                 .Include(x => x.DocumentType)
@@ -345,7 +345,7 @@ namespace AhorroDigital.API.Controllers
                 .ThenInclude(x => x.Contributes)
                 .FirstOrDefaultAsync(x => x.Id == model.UserId);
 
-            if(user== null) { return NotFound(); }
+            if (user == null) { return NotFound(); }
 
             Saving saving = await _converterHelper.ToSavingAsync(model, true);
             try
@@ -356,7 +356,7 @@ namespace AhorroDigital.API.Controllers
                 }
                 if (saving.SavingType.Name.Equals("Ahorro programado"))
                 {
-                    if(saving.MinValue<=0)
+                    if (saving.MinValue <= 0)
                     {
                         _flashMessage.Danger("El tipo de ahorro seleccionado debe tener un valor minimo a ahorrar diferente de 0.");
                         model.SavingTypes = _combosHelper.GetComboSavingTypes();
@@ -370,7 +370,7 @@ namespace AhorroDigital.API.Controllers
                 await _context.SaveChangesAsync();
                 _flashMessage.Info("Ahorro creado  con exito.");
 
-                return RedirectToAction(nameof(Details), new {id=user.Id});
+                return RedirectToAction(nameof(Details), new { id = user.Id });
             }
             catch (Exception exception)
             {
@@ -385,15 +385,15 @@ namespace AhorroDigital.API.Controllers
         //editar ahorro
         public async Task<IActionResult> EditSaving(int? id)
         {
-            if (id==null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             Saving saving = await _context.Savings
                 .Include(x => x.User)
-                 .ThenInclude(x=>x.DocumentType)
-                 .Include(x=>x.SavingType)
+                 .ThenInclude(x => x.DocumentType)
+                 .Include(x => x.SavingType)
                   .Include(x => x.Contributes)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
@@ -411,17 +411,18 @@ namespace AhorroDigital.API.Controllers
         public async Task<IActionResult> EditSaving(int id, SavingViewModel model)
         {
 
-            if (id == null){
+            if (id == null)
+            {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-              
 
-               
 
-              
+
+
+
                 try
                 {
                     Saving saving = await _converterHelper.ToSavingAsync(model, false);
@@ -458,7 +459,7 @@ namespace AhorroDigital.API.Controllers
                     _flashMessage.Danger(string.Empty, exception.Message);
 
                 }
-              
+
             }
             model.SavingTypes = _combosHelper.GetComboSavingTypes();
             return View(model);
@@ -477,7 +478,7 @@ namespace AhorroDigital.API.Controllers
                 .Include(x => x.User)
                 .Include(x => x.SavingType)
                 .Include(x => x.Contributes)
-              
+
                 .FirstOrDefaultAsync(x => x.Id == id);
             if (saving == null)
             {
@@ -494,7 +495,7 @@ namespace AhorroDigital.API.Controllers
         //detalle de ahorro
         public async Task<IActionResult> DetailsSaving(int? id)
         {
-            if (id==null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -518,7 +519,7 @@ namespace AhorroDigital.API.Controllers
         //nuevo contribuccion
         public async Task<IActionResult> AddContribute(int? id)
         {
-            if (id==null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -539,7 +540,7 @@ namespace AhorroDigital.API.Controllers
 
             ContributeViewModel model = new ContributeViewModel()
             {
-              
+
                 SavingId = saving.Id,
 
             };
@@ -550,11 +551,11 @@ namespace AhorroDigital.API.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddContribute(ContributeViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                Saving saving =await _context.Savings
+                Saving saving = await _context.Savings
                     .Include(x => x.User)
-                    .ThenInclude(x=>x.DocumentType)
+                    .ThenInclude(x => x.DocumentType)
                      .Include(x => x.User)
                     .ThenInclude(x => x.AccountType)
                     .Include(x => x.SavingType)
@@ -618,16 +619,16 @@ namespace AhorroDigital.API.Controllers
                     Marks = "",
                     MarksAdmin = model.MarksAdmin,
                     UserAdmin = admin,
-                    State=model.State,
-                    ImageFullPath=ruta
+                    State = model.State,
+                    ImageFullPath = ruta
                 };
-                 if (model.State.Equals("Aprobado"))
+                if (model.State.Equals("Aprobado"))
                 {
                     contribute.ValueAvail = model.Value;
                     contribute.Value = 0;
                     contribute.ValueSlop = 0;
                 }
-                else if(model.State.Equals("Denegado"))
+                else if (model.State.Equals("Denegado"))
                 {
                     contribute.ValueSlop = model.Value;
                     contribute.ValueAvail = 0;
@@ -642,9 +643,9 @@ namespace AhorroDigital.API.Controllers
                 }
                 if (saving.SavingType.Name.Equals("Ahorro programado"))
                 {
-                    if(model.Value <saving.MinValue )
+                    if (model.Value < saving.MinValue)
                     {
-                        _flashMessage.Danger("el valor ahorrado debe ser igual o superior a  "+saving.MinValue);
+                        _flashMessage.Danger("el valor ahorrado debe ser igual o superior a  " + saving.MinValue);
                         return View(model);
                     }
                 }
@@ -671,9 +672,9 @@ namespace AhorroDigital.API.Controllers
                 return NotFound();
             }
 
-            Contribute contribute=await _context.Contributes
-                .Include(x=>x.Saving)
-                .ThenInclude(x=>x.SavingType)
+            Contribute contribute = await _context.Contributes
+                .Include(x => x.Saving)
+                .ThenInclude(x => x.SavingType)
                 .Include(x => x.Saving)
                 .ThenInclude(x => x.User)
                  .ThenInclude(x => x.AccountType)
@@ -692,13 +693,14 @@ namespace AhorroDigital.API.Controllers
                 Date = contribute.Date,
                 State = contribute.State,
                 ImageFullPath = contribute.ImageFullPath,
-                SavingId=contribute.Saving.Id
+                SavingId = contribute.Saving.Id
             };
             if (model.State.Equals("Aprobado"))
             {
                 model.Value = contribute.ValueAvail;
             }
-            else if(model.State.Equals("Denegado")) {
+            else if (model.State.Equals("Denegado"))
+            {
                 model.Value = contribute.ValueSlop;
 
             }
@@ -713,7 +715,7 @@ namespace AhorroDigital.API.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditContribute(int id, ContributeViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 if (model.Value <= 0)
                 {
@@ -739,7 +741,7 @@ namespace AhorroDigital.API.Controllers
                     }
                 }
                 contribute.MarksAdmin = model.MarksAdmin;
-                contribute.State=model.State;
+                contribute.State = model.State;
                 User admin = await _userHelper.GetUserAsync(User.Identity.Name);
                 contribute.UserAdmin = admin;
                 if (model.State.Equals("Aprobado"))
@@ -778,7 +780,7 @@ namespace AhorroDigital.API.Controllers
             }
 
             Contribute contribute = await _context.Contributes
-                .Include(x=>x.Saving)
+                .Include(x => x.Saving)
                 .FirstOrDefaultAsync(x => x.Id == id);
             if (contribute == null)
             {
@@ -797,5 +799,387 @@ namespace AhorroDigital.API.Controllers
 
             return RedirectToAction(nameof(DetailsSaving), new { id = contribute.Saving.Id });
         }
+
+
+        //detalle de ahorro
+      
+
+        public async Task<IActionResult> DetailsLoan(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+            User user = await _context.Users
+                .Include(x => x.DocumentType)
+                .Include(x => x.AccountType)
+                 .Include(x => x.Savings)
+                 .ThenInclude(x => x.Contributes)
+                 .Include(x => x.Savings)
+                 .ThenInclude(x => x.SavingType)
+                  .Include(x => x.Loans)
+                 .ThenInclude(x => x.LoanType)
+                  .Include(x => x.Loans)
+                 .ThenInclude(x => x.Payments)
+                 .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+        }
+
+        //agregar prestamo
+        public async Task<IActionResult> AddLoan(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            User user = await _context.Users
+                .Include(x => x.DocumentType)
+                  .Include(x => x.AccountType)
+                 .Include(x => x.Savings)
+                .ThenInclude(x => x.SavingType)
+              .Include(x => x.Savings)
+                .ThenInclude(x => x.Contributes)
+                 .Include(x => x.Loans)
+                .ThenInclude(x => x.LoanType)
+                 .Include(x => x.Loans)
+                .ThenInclude(x => x.Payments)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            LoanViewModel model = new LoanViewModel()
+            {
+                LoanTypes = _combosHelper.GetComboLoanTypes(),
+                UserId = user.Id,
+
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddLoan(LoanViewModel model)
+        {
+            User user = await _context.Users
+                .Include(x => x.DocumentType)
+                  .Include(x => x.AccountType)
+                 .Include(x => x.Savings)
+                .ThenInclude(x => x.SavingType)
+              .Include(x => x.Savings)
+                .ThenInclude(x => x.Contributes)
+                .Include(x => x.Loans)
+                .ThenInclude(x => x.LoanType)
+                  .Include(x => x.Loans)
+                .ThenInclude(x => x.Payments)
+                .FirstOrDefaultAsync(x => x.Id == model.UserId);
+
+            if (user == null) { return NotFound(); }
+            if (model.Value <= 0)
+            {
+                _flashMessage.Danger("Debes Ingresar Un valor de Prestamo superior a 0");
+                model.LoanTypes = _combosHelper.GetComboLoanTypes();
+                return View(model);
+            }
+            if (model.Value > user.AvailLoan)
+            {
+                _flashMessage.Danger("El valor del Préstamo ni puede superar el valor disponible de : $"+user.AvailLoan);
+                model.LoanTypes = _combosHelper.GetComboLoanTypes();
+                return View(model);
+            }
+
+            //validar img
+            string filename = "";
+            if (model.ImageFile == null)
+            {
+
+                filename = "noexiste.png";
+            }
+            else
+            {
+                filename = model.ImageFile.FileName;
+            }
+            if (!Regex.IsMatch(filename.ToLower(), @"^.*\.(jpg|gif|png|jpeg)$"))
+            {
+                _flashMessage.Danger("la imagen debe ser tipo .jpg .gift .png .jpeg");
+                model.LoanTypes = _combosHelper.GetComboLoanTypes();
+                return View(model);
+
+            }
+
+            if(model.State.Equals("Aprobado") && model.ImageFile == null)
+            {
+                _flashMessage.Danger("El estado del préstamo es aprobado porfavor ingrese imagen del comprobante de la consigancion. ");
+                model.LoanTypes = _combosHelper.GetComboLoanTypes();
+                return View(model);
+            }
+            if (model.LoanTypeId.Equals(1))
+            {
+                model.Dues = 2;
+                model.Interest = 0.03;
+            }
+            else
+            {
+                model.Interest = 0.05;
+            }
+            Loan loan = await _converterHelper.ToLoanAsync(model, true);
+            try
+            {
+              
+
+                if (loan.State.Equals("Aprobado"))
+                {
+                    loan.Value = model.Value;
+                    loan.ValueD = 0;
+                    loan.ValueP = 0;
+                    loan.ValueTotal= model.Value;
+
+                    //imagen si es aprado
+                    //almacenar foto
+                    string ruta = "http://localhost:5047/images/prestamos/noimages.png";
+                    string path = "";
+                    string pic = "";
+                    if (model.ImageFile != null)
+                    {
+
+                        pic = Path.GetFileName(user.Document.ToString() + loan.Id.ToString() + ".png");
+
+                        path = Path.Combine("wwwroot\\images\\prestamos", pic);
+                        ruta = "http://localhost:5047/images/prestamos/" + pic;
+
+                        using (FileStream stream = new FileStream(path, FileMode.Create))
+                        {
+                            model.ImageFile.CopyTo(stream);
+                          
+
+                        }
+
+
+                    }
+                   
+                }
+                else if (loan.State.Equals("Pendiente"))
+                {
+                    loan.Value = 0;
+                    loan.ValueP = model.Value;
+                    loan.ValueD = 0;
+                    loan.ValueTotal = 0;
+                    loan.ImageFullPath = "http://localhost:5047/images/prestamos/noimages.png";
+                }
+                else
+                {
+                    loan.Value = 0;
+                    loan.ValueP = 0;
+                    loan.ValueD = model.Value;
+                    loan.ValueTotal = 0;
+                    loan.ImageFullPath = "http://localhost:5047/images/prestamos/noimages.png";
+                }
+                user.Loans.Add(loan);
+                _context.Users.Update(user);
+                await _context.SaveChangesAsync();
+                _flashMessage.Info("Préstamo creado  con exito.");
+
+                return RedirectToAction(nameof(DetailsLoan), new { id = user.Id });
+            }
+            catch (Exception exception)
+            {
+
+                _flashMessage.Danger(string.Empty, exception.Message);
+
+            }
+            model.LoanTypes = _combosHelper.GetComboLoanTypes();
+            return View(model);
+        }
+
+        //editar prestamo
+        public async Task<IActionResult> EditLoan(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Loan loan = await _context.Loans
+                .Include(x => x.User)
+                 .ThenInclude(x => x.DocumentType)
+                    .Include(x => x.User)
+                 .ThenInclude(x => x.AccountType)
+                 .Include(x => x.LoanType)
+                  .Include(x => x.Payments)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (loan == null)
+            {
+                return NotFound();
+            }
+
+            LoanViewModel model = _converterHelper.ToLoanViewModel(loan);
+            User user = await _context.Users
+                .Include(x => x.DocumentType)
+                  .Include(x => x.AccountType)
+                 .Include(x => x.Savings)
+                .ThenInclude(x => x.SavingType)
+              .Include(x => x.Savings)
+                .ThenInclude(x => x.Contributes)
+                .Include(x => x.Loans)
+                .ThenInclude(x => x.LoanType)
+                  .Include(x => x.Loans)
+                .ThenInclude(x => x.Payments)
+                .FirstOrDefaultAsync(x => x.Id == model.UserId);
+            if (model.State.Equals("Aprobado"))
+            {
+                model.Value = loan.Value;
+            }
+            else if (model.State.Equals("Pendiente"))
+            {
+                model.Value = loan.ValueP;
+            }
+            else
+            {
+                model.Value = loan.ValueD;
+            }
+            model.ValueAvail = user.AvailLoan;
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditLoan(int id, LoanViewModel model)
+        {
+            User user = await _context.Users
+                .Include(x => x.DocumentType)
+                  .Include(x => x.AccountType)
+                 .Include(x => x.Savings)
+                .ThenInclude(x => x.SavingType)
+              .Include(x => x.Savings)
+                .ThenInclude(x => x.Contributes)
+               
+                .FirstOrDefaultAsync(x => x.Id == model.UserId);
+
+            if (user == null) { return NotFound(); }
+            if (model.Value <= 0)
+            {
+                _flashMessage.Danger("Debes Ingresar Un valor de Prestamo superior a 0");
+                model.LoanTypes = _combosHelper.GetComboLoanTypes();
+                return View(model);
+            }
+            if (model.Value > model.ValueAvail)
+            {
+                _flashMessage.Danger("El valor del Préstamo ni puede superar el valor disponible de : $" + user.AvailLoan);
+                model.LoanTypes = _combosHelper.GetComboLoanTypes();
+                return View(model);
+            }
+
+            //validar img
+            string filename = "";
+            if (model.ImageFile == null)
+            {
+
+                filename = "noexiste.png";
+            }
+            else
+            {
+                filename = model.ImageFile.FileName;
+            }
+            if (!Regex.IsMatch(filename.ToLower(), @"^.*\.(jpg|gif|png|jpeg)$"))
+            {
+                _flashMessage.Danger("la imagen debe ser tipo .jpg .gift .png .jpeg");
+                model.LoanTypes = _combosHelper.GetComboLoanTypes();
+                return View(model);
+
+            }
+
+            if (model.State.Equals("Aprobado") && model.ImageFile == null)
+            {
+                _flashMessage.Danger("El estado del préstamo es aprobado porfavor ingrese imagen del comprobante de la consigancion. ");
+                model.LoanTypes = _combosHelper.GetComboLoanTypes();
+                return View(model);
+            }
+            if (model.LoanTypeId.Equals(1))
+            {
+                model.Dues = 2;
+                model.Interest = 0.03;
+            }
+            else
+            {
+                model.Interest = 0.05;
+            }
+            Loan loan = await _converterHelper.ToLoanAsync(model, false);
+            try
+            {
+
+
+                if (loan.State.Equals("Aprobado"))
+                {
+                    loan.Value = model.Value;
+                    loan.ValueD = 0;
+                    loan.ValueP = 0;
+                    loan.ValueTotal = model.Value;
+
+                    //imagen si es aprado
+                    //almacenar foto
+                    string ruta = "http://localhost:5047/images/prestamos/noimages.png";
+                    string path = "";
+                    string pic = "";
+                    if (model.ImageFile != null)
+                    {
+
+                        pic = Path.GetFileName(user.Document.ToString() + loan.Id.ToString() + ".png");
+
+                        path = Path.Combine("wwwroot\\images\\prestamos", pic);
+                        ruta = "http://localhost:5047/images/prestamos/" + pic;
+
+                        using (FileStream stream = new FileStream(path, FileMode.Create))
+                        {
+                            model.ImageFile.CopyTo(stream);
+                            loan.ImageFullPath = ruta;
+
+                        }
+
+
+                    }
+                    
+                }
+                else if (loan.State.Equals("Pendiente"))
+                {
+                    loan.Value = 0;
+                    loan.ValueP = model.Value;
+                    loan.ValueD = 0;
+                    loan.ValueTotal = 0;
+                    loan.ImageFullPath = "http://localhost:5047/images/prestamos/noimages.png";
+                }
+                else
+                {
+                    loan.Value = 0;
+                    loan.ValueP = 0;
+                    loan.ValueD = model.Value;
+                    loan.ValueTotal = 0;
+                    loan.ImageFullPath = "http://localhost:5047/images/prestamos/noimages.png";
+                }
+                
+                _context.Loans.Update(loan);
+                await _context.SaveChangesAsync();
+                _flashMessage.Info("Préstamo editado  con exito.");
+
+                return RedirectToAction(nameof(DetailsLoan), new { id = user.Id });
+            }
+            catch (Exception exception)
+            {
+
+                _flashMessage.Danger(string.Empty, exception.Message);
+
+            }
+            model.LoanTypes = _combosHelper.GetComboLoanTypes();
+            return View(model);
+        }
+
     }
 }

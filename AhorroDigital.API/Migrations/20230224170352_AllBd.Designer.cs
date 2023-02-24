@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AhorroDigital.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230224010018_allBD")]
-    partial class allBD
+    [Migration("20230224170352_AllBd")]
+    partial class AllBd
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -180,7 +180,7 @@ namespace AhorroDigital.API.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Loan");
+                    b.ToTable("Loans");
                 });
 
             modelBuilder.Entity("AhorroDigital.API.Data.Entities.LoanType", b =>
@@ -234,7 +234,6 @@ namespace AhorroDigital.API.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("UserAdminId")
-                        .IsRequired()
                         .HasColumnType("varchar(255)");
 
                     b.Property<int>("Value")
@@ -605,9 +604,7 @@ namespace AhorroDigital.API.Migrations
 
                     b.HasOne("AhorroDigital.API.Data.Entities.User", "UserAdmin")
                         .WithMany()
-                        .HasForeignKey("UserAdminId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserAdminId");
 
                     b.Navigation("Payment");
 

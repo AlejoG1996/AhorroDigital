@@ -88,6 +88,52 @@ namespace AhorroDigital.API.Helpers
             };
         }
 
-      
+
+        public async Task<Loan> ToLoanAsync(LoanViewModel model, bool isNew)
+        {
+            return new Loan
+            {
+                LoanType = await _context.LoanTypes.FindAsync(model.LoanTypeId),
+                User = await _context.Users.FindAsync(model.UserId),
+                DateS = model.DateS,
+                DateA = model.DateS.AddDays(10),
+                State = model.State,
+                DateNesxtPa = model.DateS.AddDays(40),
+                Id = isNew ? 0 : model.Id,
+                Marks = "",
+                MarksAdmin = model.Marks,
+                Value = model.Value,
+                ValueP = 0,
+                ValueD = 0,
+                ValueTotal = 0,
+                Interest = model.Interest,
+                Dues=model.Dues,
+                ValueDuesInterest= Convert.ToInt16(model.Value * model.Interest),
+                ValueDues =(model.Value/model.Dues)+Convert.ToInt16(model.Value*model.Interest),
+                ValueNextDues= (model.Value / model.Dues) + Convert.ToInt16(model.Value * model.Interest),
+                ImageFullPath=model.ImageFullPath,
+
+            };
+        }
+
+        public LoanViewModel ToLoanViewModel(Loan loan)
+        {
+            return new LoanViewModel
+            {
+                LoanTypes = _combosHelper.GetComboLoanTypes(),
+                LoanTypeId = loan.LoanType.Id,
+                Id = loan.Id,
+                DateS = loan.DateS,
+                Value = loan.Value,
+                ValueAvail = loan.User.AvailLoan,
+                Interest=loan.Interest,
+                Dues=loan.Dues,
+                UserId = loan.User.Id,
+                Marks=loan.MarksAdmin,
+                State=loan.State,
+                ImageFullPath=loan.ImageFullPath
+            };
+        }
+
     }
 }
