@@ -182,6 +182,12 @@
                                 @Html.DisplayNameFor(model => model.Loans.FirstOrDefault().TotalAvail)
                             </th>
                             <th>
+                                @Html.DisplayNameFor(model => model.Loans.FirstOrDefault().DayArrears)
+                            </th>
+                              <th>
+                                @Html.DisplayNameFor(model => model.Loans.FirstOrDefault().ValueArrears)
+                            </th>
+                            <th>
                                 @Html.DisplayNameFor(model => model.ImageFullPath)
                             </th>
                             <th>
@@ -300,6 +306,12 @@
                                     @Html.DisplayFor(modelItem=>item.TotalAvail)
                                 </td>
                                 <td>
+                                    @Html.DisplayFor(modelItem=>item.DayArrears)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem=>item.ValueArrears)
+                                </td>
+                                <td>
                                     <img src="@item.ImageFullPath" style="width:60px; height:60px; border-radius:30px" />
                                 </td>
                                 <td>
@@ -350,7 +362,7 @@
 
 
         });
-        sc_deleteDialog.openModal('deleteItem', true, 'btnYesDelete', '/Users/DeleteSaving/', false);
+        sc_deleteDialog.openModal('deleteItem', true, 'btnYesDelete', '/Users/DeleteLoan/', false);
     </script>
     <script>
 

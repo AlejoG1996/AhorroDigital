@@ -50,6 +50,6 @@ namespace AhorroDigital.API.Models
         public string? State { get; set; }
 
         [Display(Name = "Foto")]
-        public string? ImageFullPath { get; set; }
+        public string ImageFullPath { get; set; }
     }
 }

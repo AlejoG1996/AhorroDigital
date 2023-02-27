@@ -961,10 +961,11 @@ namespace AhorroDigital.API.Controllers
                           
 
                         }
+                        loan.ImageFullPath = ruta;
 
 
                     }
-                   
+
                 }
                 else if (loan.State.Equals("Pendiente"))
                 {
@@ -1164,7 +1165,8 @@ namespace AhorroDigital.API.Controllers
                     loan.ValueTotal = 0;
                     loan.ImageFullPath = "http://localhost:5047/images/prestamos/noimages.png";
                 }
-                
+
+                loan.DateA = DateTime.Now;
                 _context.Loans.Update(loan);
                 await _context.SaveChangesAsync();
                 _flashMessage.Info("Préstamo editado  con exito.");
@@ -1179,6 +1181,40 @@ namespace AhorroDigital.API.Controllers
             }
             model.LoanTypes = _combosHelper.GetComboLoanTypes();
             return View(model);
+        }
+
+
+        //eliminar prestamo
+
+        public async Task<IActionResult> DeleteLoan(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Loan loan = await _context.Loans
+                .Include(x => x.LoanType)
+                  .Include(x => x.Payments)
+                  .Include(x=>x.User)
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (loan == null)
+            {
+                return NotFound();
+            }
+
+            _context.Loans.Remove(loan);
+            await _context.SaveChangesAsync();
+            string nombre = loan.ImageFullPath.Split('/').Last();
+            string path = Path.Combine("wwwroot\\images\\prestamos", nombre);
+            if (!nombre.Equals("noimages.png"))
+            {
+                System.IO.File.Delete(path);
+            }
+            _flashMessage.Danger("Se elimino correctamente la consignación ");
+
+            return RedirectToAction(nameof(DetailsLoan), new { id = loan.User.Id });
+
         }
 
     }

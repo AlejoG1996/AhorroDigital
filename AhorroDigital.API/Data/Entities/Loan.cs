@@ -64,7 +64,13 @@ namespace AhorroDigital.API.Data.Entities
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public int ValueTotal { get; set; }
 
+        [Display(Name = "Dias en mora")]
+        public double DayArrears =>   (DateTime.Now - DateNesxtPa).TotalDays;
 
+        [Display(Name = "Valor Total Deuda")]
+
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        public int ValueArrears => ValueNextDues +Convert.ToInt16( ((ValueNextDues * 0.04) * DayArrears));
 
         [Display(Name = "Valor Cuota")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
