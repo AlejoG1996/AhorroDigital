@@ -12,6 +12,10 @@ namespace AhorroDigital.API.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string Name { get; set; }
 
-        //public ICollection<User> Users { get; set; }
+        public ICollection<User>? Users { get; set; }
+
+        [Display(Name = "Número de registros")]
+        public int NumberRegister { get; set; }
     }
+
 }

@@ -59,6 +59,7 @@ namespace AhorroDigital.API.Models
 
         [Display(Name = "Dirección")]
         [MaxLength(150, ErrorMessage = "El campo {0}  no puede tener más de {1} carácteres.")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string? Address { get; set; }
 
 

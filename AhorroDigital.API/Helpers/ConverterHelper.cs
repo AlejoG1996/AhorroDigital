@@ -1,6 +1,9 @@
 ﻿using AhorroDigital.API.Data;
 using AhorroDigital.API.Data.Entities;
 using AhorroDigital.API.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace AhorroDigital.API.Helpers
 {
@@ -34,7 +37,7 @@ namespace AhorroDigital.API.Helpers
                 AccountNumber = model.AccountNumber,
                 Bank = model.Bank,
                 ImageFullPath = model.ImageFullPath
-                
+
 
             };
         }
@@ -56,9 +59,9 @@ namespace AhorroDigital.API.Helpers
                 UserType = user.UserType,
                 AccountTypeId = user.AccountType.Id,
                 AccountTypes = _combosHelper.GetComboAccountTypes(),
-                AccountNumber=user.AccountNumber, 
+                AccountNumber = user.AccountNumber,
                 Bank = user.Bank,
-                ImageFullPath=user.ImageFullPath
+                ImageFullPath = user.ImageFullPath
             };
         }
 
@@ -74,12 +77,12 @@ namespace AhorroDigital.API.Helpers
             };
         }
 
-       public  SavingViewModel ToSavingViewModel(Saving saving)
+        public SavingViewModel ToSavingViewModel(Saving saving)
         {
             return new SavingViewModel
             {
                 SavingTypes = _combosHelper.GetComboSavingTypes(),
-                SavingTypeId=saving.SavingType.Id,
+                SavingTypeId = saving.SavingType.Id,
                 Id = saving.Id,
                 DateIni = saving.DateIni,
                 MinValue = saving.MinValue,
@@ -91,27 +94,37 @@ namespace AhorroDigital.API.Helpers
 
         public async Task<Loan> ToLoanAsync(LoanViewModel model, bool isNew)
         {
+            DateTime date = DateTime.Now;
+            if (model.State.Equals("Aprobado"))
+            {
+                date = DateTime.Now;
+            }
+            else
+            {
+                date = model.DateS.AddDays(10);
+            }
+
             return new Loan
             {
                 LoanType = await _context.LoanTypes.FindAsync(model.LoanTypeId),
                 User = await _context.Users.FindAsync(model.UserId),
                 DateS = model.DateS,
-                DateA = model.DateS.AddDays(10),
+
+                DateA = date,
                 State = model.State,
-                DateNesxtPa = model.DateS.AddDays(40),
+
                 Id = isNew ? 0 : model.Id,
                 Marks = "",
                 MarksAdmin = model.Marks,
                 Value = model.Value,
                 ValueP = 0,
                 ValueD = 0,
-                ValueTotal = 0,
+
                 Interest = model.Interest,
-                Dues=model.Dues,
-                ValueDuesInterest= Convert.ToInt16(model.Value * model.Interest),
-                ValueDues =(model.Value/model.Dues)+Convert.ToInt16(model.Value*model.Interest),
-                ValueNextDues= (model.Value / model.Dues) + Convert.ToInt16(model.Value * model.Interest),
-                ImageFullPath=model.ImageFullPath,
+                Dues = model.Dues,
+                ValueDues = Convert.ToInt16(Math.Ceiling(Convert.ToDecimal(model.Value / model.Dues))),
+                //ValueNextDues= (model.Value / model.Dues) + Convert.ToInt16(model.Value *( model.Interest/100)),
+                ImageFullPath = model.ImageFullPath,
 
             };
         }
@@ -126,14 +139,81 @@ namespace AhorroDigital.API.Helpers
                 DateS = loan.DateS,
                 Value = loan.Value,
                 ValueAvail = loan.User.AvailLoan,
-                Interest=loan.Interest,
-                Dues=loan.Dues,
+                Interest = loan.Interest,
+                Dues = loan.Dues,
                 UserId = loan.User.Id,
-                Marks=loan.MarksAdmin,
-                State=loan.State,
-                ImageFullPath=loan.ImageFullPath
+                Marks = loan.MarksAdmin,
+                State = loan.State,
+                ImageFullPath = loan.ImageFullPath
             };
         }
 
+
+        public async Task<Payments> ToPaymentsPlanAsync(PaymentsPlantViewModel model, bool isNew)
+        {
+
+
+            Payments pt= new Payments
+            {
+                Loan = await _context.Loans.FindAsync(model.LoanId),
+                Date = model.Date,
+                Marks = model.Marks,
+                MarksAdmin = model.MarksAdmin,
+                PaymentType = model.PaymentType,
+                ValueCapital = 0,
+                ValueInt = 0,
+                DayArrears = 0,
+                ValueArrears = 0,
+                Value = 0,
+                ValueP = 0,
+                State = model.State,
+                IdPaymentPlan = model.IdPaymentPlan,
+                Id = isNew ? 0 : model.Id,
+               
+                ImageFullPath = model.ImageFullPath,
+
+            };
+            pt.IdSec = pt.Loan.Id;
+            return pt;
+
+        }
+
+        public async Task<Payments> ToPaymentsAsync(NewPaymentViewModel model, bool isNew)
+        {
+
+
+            Payments st= new Payments
+            {
+                Loan = await _context.Loans.FindAsync(model.LoanId),
+                Date = model.Date,
+                Marks = model.Marks,
+                MarksAdmin = model.MarksAdmin,
+                PaymentType = model.PaymentType,
+                ValueCapital = 0,
+                ValueInt = 0,
+                DayArrears = 0,
+                ValueArrears = 0,
+                Value = 0,
+                ValueP = 0,
+                State = model.State,
+
+                Id = isNew ? 0 : model.Id,
+
+                ImageFullPath = model.ImageFullPath,
+
+            };
+            st.IdSec = st.Loan.Id;
+            return st;
+        }
+
+
+
+        public  List<Payments> ToConvertPaymentsEdit(int id)
+        {
+            List <Payments> list= null;
+            list =   _context.Payments.Where(x => x.Loan.Id == id).ToList();
+            return list;
+        }
     }
+
 }

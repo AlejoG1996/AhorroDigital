@@ -17,19 +17,16 @@
     <div class="col-md-12">
         <h3>Editar Préstamo</h3>
         <hr />
-        <p class="questions__show-fs"><span class="qs__sh-focus">Préstamo A1: </span>nuestros asociados pueden solicitar este préstamo y pagarlo hasta en 2 cuotas mensuales con interés del 3%.</p>
-        <p class=""><span class="qs__sh-focus">Préstamo A2: </span>nuestros asociados  pueden solicitar este préstamo y pagarlo desde 3 a 7 cuotas mensuales con un interés del 5%.</p>
+        
         <form asp-action="EditLoan" enctype="multipart/form-data">
             <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="LoanTypeId" />
-            <input type="hidden" asp-for="Value" />
             <input type="hidden" asp-for="ValueAvail" />
-            <input type="hidden" asp-for="Dues" />
-             <input type="hidden" asp-for="Interest" />
-            <input type="hidden" asp-for="DateS" />
-             <input type="hidden" asp-for="ImageFullPath" />
+           
+            
+          
+           
+            
             <input type="hidden" asp-for="UserId" />
-
             <div class="col-md-12">
                 <flash dismissable="true" />
             </div>
@@ -43,41 +40,50 @@
             <label asp-for="LoanTypeId" class="control-label content__label-tcb"></label>
             <div class="input-field-em">
                 <i class="fa-solid fa-piggy-bank"></i>
-                <select asp-for="LoanTypeId" asp-items="Model.LoanTypes" class="" id="id_saving" disabled></select>
+                <select asp-for="LoanTypeId" asp-items="Model.LoanTypes" class="" id="LoanType"></select>
             </div>
             <span asp-validation-for="LoanTypeId" class="text-danger"></span>
 
+            <div class="content_infoloan">
+                <p class="text_loan" id="text_loan">No ha seleccionado un tipo de prestamo</p>
+                <p class="text_description" id="text_description">No hay descripcion para el prestamo</p>
+            </div>
 
             <div class="row">
                 <div class="col-md-6">
-                    <label asp-for="DateS" class="control-label content__label-tcb"></label>
-                    <div class="input-field">
-                        <i class="fa-solid fa-calendar-days"></i>
-                        <input type="datetime"  asp-for="DateS" class="" disabled />
-                    </div>
-                    <span asp-validation-for="DateS" class="text-danger text__error"></span>
+
 
                     <label asp-for="Interest" class="control-label content__label-tcb"></label>
                     <div class="input-field">
                         <i class="fa-solid fa-percent"></i>
-                        <input asp-for="Interest" class="" id="id_input" disabled />
+                        <input type="text" asp-for="Interest" class="" id="Interes" readonly />
                     </div>
                     <span asp-validation-for="Interest" class="text-danger text__error"></span>
+
+                    <label asp-for="DateS" class="control-label content__label-tcb"></label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <input readonly  class="" style="margin:auto !important; margin-left:0 !important;" asp-for="DateS" class="" />
+                    </div>
+                    <span asp-validation-for="DateS" class="text-danger text__error"></span>
+
                 </div>
                 <div class="col-md-6">
-                    <label asp-for="Value" class="control-label content__label-tcb"></label>
-                    <div class="input-field">
-                        <i class="fa-solid fa-dollar-sign"></i>
-                        <input asp-for="Value" class="" id="" disabled />
-                    </div>
-                    <span asp-validation-for="Value" class="text-danger text__error"></span>
-
                     <label asp-for="Dues" class="control-label content__label-tcb"></label>
                     <div class="input-field">
                         <i class="fa-solid fa-hashtag"></i>
-                        <input asp-for="Dues" class="" id="id_input_t" disabled />
+                        <input asp-for="Dues" class="" id="Dues" />
                     </div>
                     <span asp-validation-for="Dues" class="text-danger text__error"></span>
+
+                    <label asp-for="Value" class="control-label content__label-tcb"></label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <input asp-for="Value" class="" id="" />
+                    </div>
+                    <span asp-validation-for="Value" class="text-danger text__error"></span>
+
+
                 </div>
 
 
@@ -103,8 +109,8 @@
             </div>
             <span asp-validation-for="Marks" class="text-danger text__error"></span>
             <div class="form-group">
-                <input type="submit" value="Crear" class="btn btn-primary" />
-                <a asp-action="Details" asp-route-id="@Model.UserId" class="btn btn-success">Regresar</a>
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+                <a asp-action="DetailsLoan" asp-route-id="@Model.UserId" class="btn btn-success">Regresar</a>
             </div>
         </form>
     </div>
@@ -123,6 +129,46 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#LoanType").change(function () {
+                debugger;
+                $("#Interes").val(0);
+                $("#Dues").val(0);
+
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetInterest")',
+                    dataType: 'json',
+                    data: { LoanTypeId: $("#LoanType").val() },
+                    success: function (states) {
+
+                        $("#Interes").val(states.slice(0, 1));
+                        $("#Dues").val(states.slice(1, 2));
+                        document.getElementById('text_loan').innerHTML = states.slice(2, 3);
+                        document.getElementById('text_description').innerHTML = states.slice(3, 4);
+
+                    },
+                    error: function (ex) {
+                        if ($("#LoanType").val() == 0) {
+                            $("#Interes").val(0);
+                            $("#Dues").val(0);
+                            document.getElementById('text_loan').innerHTML = "No ha seleccionado un tipo de prestamo";
+                            document.getElementById('text_description').innerHTML = "No hay descripcion para el prestamo";
+                        }
+                        //alert('Failed to retrieve Interes.' + ex);
+                    }
+                });
+                return false;
+            })
+        });
+
+    </script>
+
+
 
     <script>
 
@@ -142,7 +188,7 @@
         tp.classList.remove('active');
         option.classList.add('op_back');
     </script>
-    <script type="text/javascript">
+    <script>
 
 
         const realFileBtn = document.getElementById("real-file");
@@ -193,7 +239,7 @@
         });
     </script>
 
-    <script>
+    @*    <script>
         $(function () {
             $("#id_saving").change(function () {
                 if ($(this).val() === "1") {
@@ -211,20 +257,22 @@
             });
         });
 
-        window.addEventListener('load', function () {
+        window.addEventListener('load', function() {
             var cod = document.getElementById("id_saving").value;
-            if (cod === "1") {
+         if(cod ==="1"){
                 $("#id_input").val(3);
                 $("#id_input_t").val(2);
                 $("#id_input").prop("disabled", true);
                 $("#id_input_t").prop("disabled", true);
-            } else if (cod === "2") {
+            } else if (cod === "2"){
                 $("#id_input").prop("disabled", true);
                 $("#id_input").val(5);
                 $("#id_input_t").prop("disabled", false);
                 $("#id_input_t").val(3);
-            }
-        });
+         }
+});
     </script>
+*@
 }
+
 

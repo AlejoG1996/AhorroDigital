@@ -28,7 +28,16 @@ namespace AhorroDigital.API.Controllers
       
         public async Task<IActionResult> Index()
         {
-            return View(await _context.AccountTypes.ToListAsync());
+            List<AccountType>? AC;
+            AC = await _context.AccountTypes
+                .Include(u=>u.Users)
+                .ToListAsync();
+            for(int i =0; i < AC.Count(); i++)
+            {
+                int Cont = _context.Users.Where(o => o.AccountType.Name == AC[i].Name).Count();
+                AC[i].NumberRegister= Cont;
+            }
+            return View(AC);
         }
 
        

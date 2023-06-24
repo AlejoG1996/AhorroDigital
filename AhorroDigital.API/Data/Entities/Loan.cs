@@ -21,7 +21,6 @@ namespace AhorroDigital.API.Data.Entities
         public DateTime DateS{ get; set; }
 
         [Display(Name = "Fecha Apr/Den")]
-        
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DateA { get; set; }
 
@@ -29,17 +28,14 @@ namespace AhorroDigital.API.Data.Entities
         public string? State { get; set; }
 
 
-        [Display(Name = "Fecha Proximo Pago")]
-        
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime DateNesxtPa { get; set; }
+       
 
         [Display(Name = "Observación")]
         [MaxLength(150, ErrorMessage = "El campo {0} no puede tener más  de {1} carácteres.")]
         [DataType(DataType.MultilineText)]
         public string Marks { get; set; }
 
-        [Display(Name = "Observación")]
+        [Display(Name = "Observación Admin")]
         [MaxLength(150, ErrorMessage = "El campo {0} no puede tener más  de {1} carácteres.")]
         [DataType(DataType.MultilineText)]
         public string MarksAdmin { get; set; }
@@ -50,43 +46,19 @@ namespace AhorroDigital.API.Data.Entities
         public int Value { get; set; }
 
         [Display(Name = "Valor Préstamo Pendiente")]
-     
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public int ValueP { get; set; }
 
         [Display(Name = "Valor Préstamo Denegado")]
-      
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public int ValueD { get; set; }
 
-        [Display(Name = "Valor Total Deuda")]
-
-        [DisplayFormat(DataFormatString = "{0:C2}")]
-        public int ValueTotal { get; set; }
-
-        [Display(Name = "Dias en mora")]
-        public double DayArrears =>   (DateTime.Now - DateNesxtPa).TotalDays;
-
-        [Display(Name = "Valor Total Deuda")]
-
-        [DisplayFormat(DataFormatString = "{0:C2}")]
-        public int ValueArrears => ValueNextDues +Convert.ToInt16( ((ValueNextDues * 0.04) * DayArrears));
 
         [Display(Name = "Valor Cuota")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public int ValueDues { get; set; }
 
-        [Display(Name = "Valor Interes")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        [DisplayFormat(DataFormatString = "{0:C2}")]
-        public int ValueDuesInterest { get; set; }
-
-
-        [Display(Name = "Valor Proxima Cuota")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        [DisplayFormat(DataFormatString = "{0:C2}")]
-        public int ValueNextDues { get; set; }
 
         [Display(Name = "Interes")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
@@ -96,37 +68,46 @@ namespace AhorroDigital.API.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public int Dues { get; set; }
 
+       
+
         [Display(Name = "Comprobante")]
         public string? ImageFullPath { get; set; }
 
-        public ICollection<Payments> Payments { get; set; }
+        public ICollection<PaymentPlan> Payments { get; set; }
 
-        [Display(Name = "# Pagos")]
-        public int PaymetsCount => Payments == null ? 0 : Payments.Count;
 
-        [Display(Name = "# Pagos Pendientes")]
-        public int PaymetsCountP => Dues - PaymetsCount ;
+    [Display(Name = "Valor Total Deuda")]
 
-        [Display(Name = "Total Pagado")]
         [DisplayFormat(DataFormatString = "{0:C2}")]
-        public int Total => Payments == null ? 0 :
-            Payments.Sum(x => x.Value);
+        public int ValueTotal => Payments == null ? 0 :
+          Convert.ToInt16(( Payments.Sum(x => x.PendientePago) - Payments.Sum(x => x.TotalInterest) )+((Payments.Sum(x => x.PendientePago) - Payments.Sum(x => x.TotalInterest))*(Interest/100)));
 
-        [Display(Name = "Total Pendiente Aprobación")]
+        [Display(Name = "Total Préstamos Pagado")]
         [DisplayFormat(DataFormatString = "{0:C2}")]
-        public int TotalP => Payments == null ? 0 :
-            Payments.Sum(x => x.ValueP);
+        public int ValueLoanPagado { get; set; }
 
-        [Display(Name = "Total Denegado")]
-        [DisplayFormat(DataFormatString = "{0:C2}")]
-        public int TotalD => Payments == null ? 0 :
-           Payments.Sum(x => x.ValueSlop);
+        //[Display(Name = "# Pagos")]
+        //public int PaymetsCount => Payments == null ? 0 : Payments.Count;
+
+        //[Display(Name = "# Pagos Pendientes")]
+        //public int PaymetsCountP => Dues - PaymetsCount ;
+
+       
+
+     
+        
 
         [Display(Name = "Total Disponible")]
        [DisplayFormat(DataFormatString = "{0:C2}")]
        public int TotalAvail => User == null ? 0 :
           User.AvailLoan;
 
+        public ICollection<Payments> PaymentF { get; set; }
 
+
+        [Display(Name = "Total Pagado")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        public int Total => PaymentF == null ? 0 :
+           PaymentF.Sum(x => x.Value);
     }
 }

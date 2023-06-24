@@ -10,7 +10,7 @@ namespace AhorroDigital.API.Data.Entities
 
         [Display(Name="Tipo de Ahorro")]
         [Required(ErrorMessage ="El campo {0} es obligatorio.")]
-        public SavingType SavingType { get; set; }
+        public SavingType? SavingType { get; set; }
 
         [Display(Name = "Fecha Inicio")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
@@ -34,6 +34,7 @@ namespace AhorroDigital.API.Data.Entities
         [Display(Name = "Observación")]
         [MaxLength(150, ErrorMessage = "El campo {0} no puede tener más  de {1} carácteres.")]
         [DataType(DataType.MultilineText)]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string Marks { get; set; }
 
         public ICollection<Contribute> Contributes { get; set; }

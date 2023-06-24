@@ -22,7 +22,18 @@ namespace AhorroDigital.API.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.LoanTypes.ToListAsync());
+            List<LoanType>? LT;
+            LT = await _context.LoanTypes
+                .Include(u => u.Users)
+                .ToListAsync();
+            for (int i = 0; i < LT.Count(); i++)
+            {
+                int Cont = _context.Loans.Where(o => o.LoanType.Name == LT[i].Name).Count();
+                 
+                LT[i].NumberRegister = Cont;
+            }
+            return View(LT);
+            
         }
 
         public IActionResult Create()
@@ -39,6 +50,16 @@ namespace AhorroDigital.API.Controllers
             {
                 try
                 {
+                    if (loanType.NumberDues <=0)
+                    {
+                        _flashMessage.Danger(string.Empty, "Debes ingresar un valor maximo de cuotas  igual o superior a 1");
+                        return View(loanType);
+                    }
+                    if (loanType.Interes <= 0)
+                    {
+                        _flashMessage.Danger(string.Empty, "Debes ingresar un valor de interest superior a 0%");
+                        return View(loanType);
+                    }
                     _context.Add(loanType);
                     await _context.SaveChangesAsync();
                     _flashMessage.Info(string.Empty, "Se registro exitosamente el  tipo de préstamo.");
@@ -100,6 +121,16 @@ namespace AhorroDigital.API.Controllers
             {
                 try
                 {
+                    if (loanType.NumberDues <= 0)
+                    {
+                        _flashMessage.Danger(string.Empty, "Debes ingresar un valor maximo de cuotas  igual o superior a 1");
+                        return View(loanType);
+                    }
+                    if (loanType.Interes <= 0)
+                    {
+                        _flashMessage.Danger(string.Empty, "Debes ingresar un valor de interest superior a 0%");
+                        return View(loanType);
+                    }
                     _context.Update(loanType);
                     await _context.SaveChangesAsync();
                     _flashMessage.Info(string.Empty, "Se editó exitosamente el  tipo de préstamo.");

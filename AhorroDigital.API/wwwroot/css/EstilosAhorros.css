@@ -292,7 +292,7 @@ table.dataTable.hover > tbody > tr.selected:hover > *, table.dataTable.display >
 .questions__title {
     text-align: left;
     display: flex;
-    font-size: 20px;
+    font-size: 26px;
     padding: 30px 0 30px;
     cursor: pointer;
     color: #1E8449;
@@ -361,3 +361,127 @@ p > i {
     margin-bottom: 30px;
 }
 
+.content__info-card{
+    overflow:hidden!important;
+}
+
+.bod_content {
+    overflow: auto !important;
+}
+
+.border-left-primary {
+    border-left: 0.25rem solid #4e73df !important;
+}
+
+.questions__title_b {
+    cursor: pointer !important;
+    letter-spacing:1px;
+}
+
+.art_info {
+    padding-bottom:0px!important;
+    margin-bottom:0px!important;
+    
+}
+
+.first__content-info {
+    border-radius: 10px;
+    background: #F4F6F6;
+    padding: 25px !important;
+    margin-bottom: 30px !important;
+}
+
+.border-left-primary {
+    border-left-color: #28B463 !important;
+}
+
+.text-primary_s {
+    color: #28B463 !important;
+    font-weight: bold !important;
+}
+.col-auto i {
+    color: #28B463 !important;
+}
+
+.questions__img {
+    color: #707B7C!important;
+}
+
+.sd_icon i {
+    color: #2ECC71!important;
+}
+
+.text-primary_sd {
+    color: #2ECC71 !important;
+    font-weight: bold !important;
+}
+
+.text-primary_st {
+    color: #239B56 !important;
+    font-weight: bold !important;
+}
+
+.sd_icons i {
+    color: #239B56 !important;
+}
+
+.border-left-primarys {
+    border-left-color: #2ECC71 !important;
+}
+
+.border-left-primaryd {
+    border-left-color: #239B56 !important;
+}
+
+
+
+.btn_new {
+    color: #229954 !important;
+    border-color: #229954 !important;
+    transition: all .3s ease !important;
+    outline:none !important;
+}
+
+    .btn_new:hover {
+        color: #fff !important;
+        background: #229954 !important;
+        transition: all .3s ease !important;
+        outline: none !important;
+    }
+
+.btn_new:active {
+    outline: none !important;
+}
+.not-active {
+    pointer-events: none;
+    cursor: default;
+}
+
+.card_info-loan {
+    background-color: #fff !important;
+    border-left: 5px solid  #52BE80 !important;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2) !important;
+    height: 90px !important;
+    border-radius: 6px;
+    margin:auto;
+}
+
+.detail_info-loan{
+    padding:15px;
+    margin:auto !important;
+    align-content:center;
+    align-items:center;
+}
+
+    .detail_info-loan div dt {
+        font-size: 16px;
+        color: #4D5656 !important;
+    }
+    .detail_info-loan div dd {
+        font-size: 20px;
+    }
+
+.icon_card-loan {
+    font-size: 37px;
+    color: #D5D8DC;
+}

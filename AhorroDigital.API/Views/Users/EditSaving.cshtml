@@ -1,6 +1,6 @@
 ﻿@model AhorroDigital.API.Models.SavingViewModel
 @{
-    ViewData["Title"] = "AddSaving";
+    ViewData["Title"] = "EditSaving";
 }
 
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
@@ -40,7 +40,7 @@
                     <label asp-for="DateIni" class="control-label content__label-tcb"></label>
                     <div class="input-field">
                         <i class="fa-solid fa-calendar-days"></i>
-                        <input type="date"  asp-for="DateIni" class="" />
+                        <input type="date" asp-for="DateIni"  class="" style="margin:auto !important; margin-left:0 !important;" />
                     </div>
                     <span asp-validation-for="DateIni" class="text-danger text__error"></span>
 
@@ -106,33 +106,33 @@
         option.classList.add('op_back');
     </script>
     <script>
-        $(function () {
-            $("#id_saving").change(function () {
-                if ($(this).val() === "1") {
-                    $("#id_input").prop("disabled", false);
+        //$(function () {
+        //    $("#id_saving").change(function () {
+        //        if ($(this).val() === "1") {
+        //            $("#id_input").prop("disabled", false);
 
-                } else {
-                    $("#id_input").prop("disabled", true);
-                    $("#id_input").val(0);
+        //        } else {
+        //            $("#id_input").prop("disabled", true);
+        //            $("#id_input").val(0);
 
-                }
-            });
-        });
+        //        }
+        //    });
+        //});
     </script>
     <script>
-        window.addEventListener('load', function () {
-            var cod = document.getElementById("id_saving").value;
-            if (cod === "1") {
-                $("#id_input").val(0);
+        //window.addEventListener('load', function () {
+        //    var cod = document.getElementById("id_saving").value;
+        //    if (cod === "1") {
+        //        $("#id_input").val(0);
 
-                $("#id_input").prop("disabled", false);
-            } else if (cod === "2") {
-                $("#id_input").prop("disabled", true);
+        //        $("#id_input").prop("disabled", false);
+        //    } else if (cod === "2") {
+        //        $("#id_input").prop("disabled", true);
 
-            } else {
-                $("#id_input").prop("disabled", false);
-            }
-        });
+        //    } else {
+        //        $("#id_input").prop("disabled", false);
+        //    }
+        //});
     </script>
 }
 

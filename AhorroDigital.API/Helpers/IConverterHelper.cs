@@ -16,5 +16,12 @@ namespace AhorroDigital.API.Helpers
         Task<Loan> ToLoanAsync(LoanViewModel model, bool isNew);
         LoanViewModel ToLoanViewModel(Loan saving);
 
+        Task<Payments> ToPaymentsPlanAsync(PaymentsPlantViewModel model, bool isNew);
+
+        Task<Payments> ToPaymentsAsync(NewPaymentViewModel model, bool isNew);
+
+        //LoanViewModel ToPaymentsViewModel(Payments payments);
+
+         List<Payments> ToConvertPaymentsEdit(int id);
     }
 }

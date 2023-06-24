@@ -42,7 +42,7 @@ namespace AhorroDigital.API.Data.Entities
 
         [Display(Name = "Tipo de cuenta bancaria")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        public AccountType AccountType { get; set; }
+        public AccountType? AccountType { get; set; }
 
         [Display(Name = "Número cuenta bancaria")]
         [MaxLength(20, ErrorMessage = "El campo {0}  no puede tener más de {1} carácteres.")]
@@ -80,6 +80,8 @@ namespace AhorroDigital.API.Data.Entities
         public int TotalA => Savings == null ? 0 :
            Savings.Sum(x => x.Total);
 
+        
+
         public ICollection<Loan> Loans { get; set; }
 
         [Display(Name = "# Préstamos")]
@@ -87,15 +89,26 @@ namespace AhorroDigital.API.Data.Entities
 
        
 
-        [Display(Name = "Total Préstamos")]
+
+        [Display(Name = "Total Préstamos Aprobado")]
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public int ValueLoan => Loans == null ? 0 :
            Loans.Sum(x => x.Value);
 
+        [Display(Name = "Total Préstamos Pendiente")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        public int ValueLoanP => Loans == null ? 0 :
+          Loans.Sum(x => x.ValueP);
+
+        [Display(Name = "Total Préstamos Pagado")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        public int ValueLoanPag => Loans == null ? 0 :
+         Loans.Sum(x => x.ValueLoanPagado);
+
         [Display(Name = "Total  Disponible Préstamos")]
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public int AvailLoan => Loans == null ? 0 :
-        (TotalA * 2) - ValueLoan;
+        (TotalA * 2) - ValueLoanP - ValueLoan + ValueLoanPag;
 
 
     }

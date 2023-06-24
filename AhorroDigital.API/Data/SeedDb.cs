@@ -70,8 +70,8 @@ namespace AhorroDigital.API.Data
         {
             if (!_context.LoanTypes.Any())
             {
-                _context.LoanTypes.Add(new LoanType { Name = "Préstamo A1" });
-                _context.LoanTypes.Add(new LoanType { Name = "Préstamo A2" });
+                _context.LoanTypes.Add(new LoanType { Name = "Préstamo A1", NumberDues=2,Interes=3,Marks= "Este ahorro tiene una taza de interes del 3% y se cancela a 2 cuotas mensuales"});
+                _context.LoanTypes.Add(new LoanType { Name = "Préstamo A2", NumberDues = 7, Interes = 5, Marks = "Este ahorro tiene una taza de interes del 5% y se cancela  hasta en  7 cuotas mensuales" });
                 await _context.SaveChangesAsync();
             }
         }
@@ -80,8 +80,8 @@ namespace AhorroDigital.API.Data
         {
             if (!_context.SavingTypes.Any())
             {
-                _context.SavingTypes.Add(new SavingType { Name = "Ahorro programado" });
-                _context.SavingTypes.Add(new SavingType { Name = "Ahorro digital" });
+                _context.SavingTypes.Add(new SavingType { Name = "Ahorro programado", MinValue=20000 });
+                _context.SavingTypes.Add(new SavingType { Name = "Ahorro digital", MinValue=0 });
                 await _context.SaveChangesAsync();
             }
         }

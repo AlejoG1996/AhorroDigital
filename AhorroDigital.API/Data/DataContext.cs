@@ -16,7 +16,7 @@ namespace AhorroDigital.API.Data
         public DbSet<DocumentType> DocumentTypes { get; set; }
 
         public DbSet<SavingType> SavingTypes { get; set; }
-          public DbSet<LoanType> LoanTypes { get; set; }
+        public DbSet<LoanType> LoanTypes { get; set; }
 
         public DbSet<Saving> Savings { get; set; }
         public DbSet<Contribute> Contributes { get; set; }
@@ -25,6 +25,7 @@ namespace AhorroDigital.API.Data
 
         public DbSet<Payments> Payments { get; set; }
 
+        public DbSet<PaymentPlan> PaymentPlan { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -35,6 +36,11 @@ namespace AhorroDigital.API.Data
             modelBuilder.Entity<LoanType>().HasIndex(x => x.Name).IsUnique();
             modelBuilder.Entity<User>().HasIndex("Email", "Document").IsUnique();
 
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.EnableSensitiveDataLogging(false);
         }
 
     }

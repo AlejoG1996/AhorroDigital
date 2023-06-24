@@ -135,6 +135,21 @@ select {
     width: 35px;
 }
 
+#custom-button_2 {
+    position: absolute;
+   
+    left: 24em;
+    top:500px;
+    background-color: #186A3B;
+    border-radius: 50%;
+    color: #fff;
+    text-transform: uppercase;
+    padding: 5px;
+    border: none !important;
+    height: 55px;
+    width: 55px;
+}
+
 .btn-primary {
     width: 200px !important;
     background-color: #1E8449 !important;
@@ -202,4 +217,29 @@ select {
 .qs__sh-focus {
     color: #0B5345 !important;
     font-weight: 700;
+}
+
+.content_infoloan {
+    max-width: 100% !important;
+    width: 100%;
+    background-color: #CED1D7;
+    margin: 10px 0;
+    height: 95px;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 0 0.4rem;
+    position: relative;
+}
+
+.text_loan {
+    color: #196F3D;
+    font-weight:600;
+    margin:10px;
+    font-size:20px;
+}
+
+.text_description {
+    color: #212F3D;
+    margin: 10px;
+    font-size:16px;
 }

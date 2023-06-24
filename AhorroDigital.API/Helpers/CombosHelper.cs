@@ -1,5 +1,7 @@
 ﻿using AhorroDigital.API.Data;
+using AhorroDigital.API.Data.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace AhorroDigital.API.Helpers
 {
@@ -76,6 +78,7 @@ namespace AhorroDigital.API.Helpers
 
             return list;
         }
+
 
     }
 }

@@ -83,6 +83,25 @@
                                 <dd class="col-sm-7">
                                     @Html.DisplayFor(model=> model.User.Bank)
                                 </dd>
+                                <dt class="col-sm-5">
+                                    @Html.DisplayNameFor(model=>model.User.TotalA)
+                                </dt>
+                                <dd class="col-sm-7">
+                                    @Html.DisplayFor(model=> model.User.TotalA)
+                                </dd>
+                                <dt class="col-sm-5">
+                                    @Html.DisplayNameFor(model=>model.User.AvailLoan)
+                                </dt>
+                                <dd class="col-sm-7">
+                                    @Html.DisplayFor(model=> model.User.AvailLoan)
+                                </dd>
+                                <dt class="col-sm-5">
+                                    @Html.DisplayNameFor(model=>model.User.ValueLoan)
+                                </dt>
+                                <dd class="col-sm-7">
+                                    @Html.DisplayFor(model=> model.User.ValueLoan)
+                                </dd>
+                            </dl>
                             </dl>
 
                     </div>
@@ -230,14 +249,34 @@
                                             string[] noteWords = item.Marks.Split(' ');
                                             if (noteWords.Count() > 7)
                                             {
-                                                <a class="" role="button" data-bs-toggle="collapse" href="#collapseSum@(item.Id)" aria-expanded="false" aria-controls="collapseSum@(item.Id)">
-                                                    @(string.Join(" ", noteWords.Take(7)) + "...")
-                                                </a>
-                                                <div class="collapse" id="collapseSum@(item.Id)">
-                                                    <div class="card card-body bg-light">
-                                                        @(string.Join(" ", noteWords.Skip(7)))
+                                                <div class=" card__info_c">
+                                                    <div class="   content__info-card">
+                                                        <div class="card-body bod_content">
+
+                                                            <article class="mt-2 art_info">
+                                                                <div class="">
+                                                                    <p class="questions__title_b">
+
+                                                                        <span class="">
+                                                                            <a class="questions__img" style="color:#16A085 !important"> Leer Observación --> </a>
+                                                                        </span>
+                                                                    </p>
+
+                                                                    <div class="questions__show">
+                                                                        @Html.DisplayFor(modelItem => item.Marks)
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </article>
+                                                        </div>
                                                     </div>
                                                 </div>
+
+
+
+
+
                                             }
                                             else
                                             {
@@ -255,14 +294,34 @@
                                             string[] noteWords = item.MarksAdmin.Split(' ');
                                             if (noteWords.Count() > 7)
                                             {
-                                                <a class="" role="button" data-bs-toggle="collapse" href="#collapseSum@(item.Id)" aria-expanded="false" aria-controls="collapseSum@(item.Id)">
-                                                    @(string.Join(" ", noteWords.Take(7)) + "...")
-                                                </a>
-                                                <div class="collapse" id="collapseSum@(item.Id)">
-                                                    <div class="card card-body bg-light">
-                                                        @(string.Join(" ", noteWords.Skip(7)))
+                                                <div class=" card__info_c">
+                                                    <div class="   content__info-card">
+                                                        <div class="card-body bod_content">
+
+                                                            <article class="mt-2 art_info">
+                                                                <div class="">
+                                                                    <p class="questions__title_b">
+
+                                                                        <span class="">
+                                                                            <a class="questions__img" style="color:#16A085 !important"> Leer Observación del administrador--> </a>
+                                                                        </span>
+                                                                    </p>
+
+                                                                    <div class="questions__show">
+                                                                        @Html.DisplayFor(modelItem => item.MarksAdmin)
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </article>
+                                                        </div>
                                                     </div>
                                                 </div>
+
+
+
+
+
                                             }
                                             else
                                             {
@@ -314,7 +373,7 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     <script src="~/js/services.js"></script>
-
+     <script src="~/js/infoexpand.js"></script>
     <script src="~/js/showmodal.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jasny/jasny-bootstrap.min.js"></script>

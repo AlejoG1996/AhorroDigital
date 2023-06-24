@@ -22,7 +22,23 @@ namespace AhorroDigital.API.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.SavingTypes.ToListAsync());
+            List<SavingType>? ST;
+            ST = await _context.SavingTypes
+                .Include(u => u.Savings)
+                .ToListAsync();
+
+          
+            int Cont = 0;
+            for (int i = 0; i < ST.Count(); i++)
+            {
+                
+                    Cont = _context.Savings.Where(o=>o.SavingType.Name == ST[i].Name).Count();
+                
+               
+                ST[i].NumberRegister = Cont;
+            }
+            return View(ST);
+            
         }
 
         public IActionResult Create()
@@ -39,6 +55,11 @@ namespace AhorroDigital.API.Controllers
             {
                 try
                 {
+                    if (savingType.MinValue < 0)
+                    {
+                        _flashMessage.Danger(string.Empty, "Debes ingresar un valor minimo de ahorro igual o superior a $0");
+                        return View(savingType);
+                    }
                     _context.Add(savingType);
                     await _context.SaveChangesAsync();
                     _flashMessage.Info(string.Empty, "Se registro exitosamente el  tipo de ahorro.");
@@ -100,6 +121,11 @@ namespace AhorroDigital.API.Controllers
             {
                 try
                 {
+                    if (savingType.MinValue < 0)
+                    {
+                        _flashMessage.Danger(string.Empty, "Debes ingresar un valor minimo de ahorro igual o superior a $0");
+                        return View(savingType);
+                    }
                     _context.Update(savingType);
                     await _context.SaveChangesAsync();
                     _flashMessage.Info(string.Empty, "Se editó exitosamente el  tipo de ahorro.");

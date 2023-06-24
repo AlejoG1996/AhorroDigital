@@ -29,6 +29,7 @@ namespace AhorroDigital.API.Models
         [Display(Name = "Observación")]
         [MaxLength(150, ErrorMessage = "El campo {0} no puede tener más  de {1} carácteres.")]
         [DataType(DataType.MultilineText)]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string? Marks { get; set; }
 
       

@@ -46,7 +46,7 @@ namespace AhorroDigital.API.Data.Entities
         [Display(Name = "Estado")]
         public string? State { get; set; }
 
-        [Display(Name = "Mecanico")]
+        [Display(Name = "Admin")]
         public User UserAdmin { get; set; }
     }
 }

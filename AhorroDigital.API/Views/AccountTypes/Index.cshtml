@@ -37,7 +37,7 @@
                             </div>
                             <div class="container__buttons">
                                 <p class="card-title mr-3 font-weight-bold"><span>Número registros:  </span></p>
-                                <p class="card-text">  0</p>
+                                <p class="card-text">  @Html.DisplayFor(modelitem=> item.NumberRegister)</p>
                             </div>
                             <div class="container__buttons">
                                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning mr-3 btn_edit">Editar</a>

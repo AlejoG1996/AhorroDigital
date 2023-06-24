@@ -18,13 +18,27 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            
+            
 
-            <label asp-for="Name" class="control-label"></label>
-            <div class="input-field">
-                <i class="fa-solid fa-piggy-bank "></i>
-                <input asp-for="Name" class="" placeholder="Tipo de Ahorro" />
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="Name" class="control-label"></label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-piggy-bank "></i>
+                        <input asp-for="Name" class="" placeholder="Tipo de Ahorro" />
+                    </div>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="MinValue" class="control-label"></label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <input asp-for="MinValue" class="" placeholder="Valor minimo de ahorro" />
+                    </div>
+                    <span asp-validation-for="MinValue" class="text-danger"></span>
+                </div>
             </div>
-            <span asp-validation-for="Name" class="text-danger"></span>
             <div class="form-group content__btns">
                 <input type="submit" value="Guardar" class="btn btn-primary content__btns-save" />
                 <a asp-action="Index" class="btn btn-success content__btns-back">Regresar</a>

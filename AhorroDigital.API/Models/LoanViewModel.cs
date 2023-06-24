@@ -15,8 +15,9 @@ namespace AhorroDigital.API.Models
         public IEnumerable<SelectListItem>? LoanTypes { get; set; }
 
         [Display(Name = "Fecha Solicitud")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+     
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public DateTime DateS { get; set; }
 
         [Display(Name = "Valor Préstamo")]
@@ -41,6 +42,7 @@ namespace AhorroDigital.API.Models
         [Display(Name = "Observación")]
         [MaxLength(150, ErrorMessage = "El campo {0} no puede tener más  de {1} carácteres.")]
         [DataType(DataType.MultilineText)]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string? Marks { get; set; }
 
         [Display(Name = "Foto")]
@@ -51,5 +53,8 @@ namespace AhorroDigital.API.Models
 
         [Display(Name = "Foto")]
         public string ImageFullPath { get; set; }
+
+        [Display(Name = "# prestamos")]
+        public int NumberLoan { get; set; }
     }
 }

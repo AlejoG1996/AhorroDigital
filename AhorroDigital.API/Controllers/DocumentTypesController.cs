@@ -23,7 +23,17 @@ namespace AhorroDigital.API.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.DocumentTypes.ToListAsync());
+            List<DocumentType>? DC;
+            DC = await _context.DocumentTypes
+                .Include(u => u.Users)
+                .ToListAsync();
+            for (int i = 0; i < DC.Count(); i++)
+            {
+                int Cont = _context.Users.Where(o => o.DocumentType.Name == DC[i].Name).Count();
+                DC[i].NumberRegister = Cont;
+            }
+            return View(DC);
+           
         }
 
 
