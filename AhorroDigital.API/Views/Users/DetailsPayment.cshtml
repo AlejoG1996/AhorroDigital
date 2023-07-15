@@ -22,7 +22,7 @@
     <div >
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-6 ">
+                <div class="col-md-6 content_first">
                     <article class="questions__padding" style="background-color:#F4F6F6 !important; border: none !important;
                                                                              border-left: 5px solid #27AE60 !important;">
                         <div class="questions__answer">
@@ -114,7 +114,7 @@
                     </article>
 
                 </div>
-                <div class="col-md-6 ">
+                <div class="col-md-6  content_first">
                     <article class="questions__padding" style="background-color: #F4F6F6 !important; border: none !important;
                                                                              border-left: 5px solid #27AE60 !important;">
                         <div class="questions__answer">
@@ -257,9 +257,9 @@
                                                         <th>
                                                             @Html.DisplayNameFor(model => model.Payments.FirstOrDefault().ValueTP)
                                                         </th>
-                                                        <th>
+                                                        @*<th>
                                                             @Html.DisplayNameFor(model => model.Payments.FirstOrDefault().PendientePago)
-                                                        </th>
+                                                        </th>*@
                                                         <th>
                                                             @Html.DisplayNameFor(model => model.Payments.FirstOrDefault().DatePR)
                                                         </th>
@@ -287,10 +287,23 @@
                                                                 @Html.DisplayFor(modelItem=>item.ValueInt)
                                                             </td>
                                                             <td>
-                                                                @Html.DisplayFor(modelItem=>item.DayArrears)
+                                                                @if (item.State.Equals("Pendiente"))
+                                                                {
+                                                                    @Html.DisplayFor(modelItem=>item.DayArrears)
+                                                                }  else
+                                                                    {
+                                                                        @Html.DisplayFor(modelItem=>item.DayArrearsM)
+                                                                    }
+
                                                             </td>
                                                             <td>
-                                                                @Html.DisplayFor(modelItem=>item.ValueArrears)
+                                                                @if (item.State.Equals("Pendiente"))
+                                                                {
+                                                                      @Html.DisplayFor(modelItem=>item.ValueArrears)
+                                                                }
+                                                              else{
+                                                                   @Html.DisplayFor(modelItem=>item.ValueArrearsM)
+                                                              }
                                                             </td>
                                                             <td>
                                                                 @Html.DisplayFor(modelItem=>item.TotalValue)
@@ -298,9 +311,9 @@
                                                             <td>
                                                                 @Html.DisplayFor(modelItem=>item.ValueTP)
                                                             </td>
-                                                             <td>
+                                                             @*<td>
                                                                 @Html.DisplayFor(modelItem=>item.PendientePago)
-                                                            </td>
+                                                            </td>*@
                                                             <td>
                                                                 @Html.DisplayFor(modelItem=>item.DatePR)
                                                             </td>
@@ -382,91 +395,105 @@
 
 
 
-<div class="mt-4">
-    <div clas="" data-aos=" fade-up" data-aos-duration="2000">
+<div class="col-md-12">
+<div clas="mt-4" >
+    <div class="mt-4" data-aos=" fade-up" data-aos-duration="2000">
         <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-3 ">
-                    <div class="card_info-loan">
-                          <div class="col-md-12 " >
-                            <dl class="row detail_info-loan">
-                               <div class="col-md-8">
-                                    <dt class="col-sm-12">
-                                        Proxima  Pago
-                                     </dt>
-                                     <dd class="col-sm-12">
-                                               
-                                        @dateDues
-                                      </dd>
-                               </div>
-                                <div class="col-md-4">
-                                    <i class="fa-solid fa-calendar icon_card-loan"></i>
-                                </div>
-                            </dl>
-                          </div>
-                    </div>
-                </div>
-                <div class="col-md-3" >
-                    <div class="card_info-loan" style=" border-left: 5px solid #17A589 !important;">
-                        <div class="col-md-12 ">
-                            <dl class="row detail_info-loan">
-                                <div class="col-md-8">
-                                    <dt class="col-sm-12">
-                                         Valor Proxima Cuota
-                                    </dt>
-                                    <dd class="col-sm-12">
-                                        @ValueDuesNext.ToString("C")
-                                    </dd>
-                                </div>
-                                <div class="col-md-4">
-                                    <i class="fa-solid fa-dollar-sign icon_card-loan"></i>
-                                </div>
-                            </dl>
+            <div class="container-fluid">
+
+                <div class="row cont_dr">
+
+                    <div class="col-xl-3 col-md-6 mb-4 cont_p">
+                        <div class="card_info-loan">
+                            <div class="col-md-12 ">
+                                <dl class="row detail_info-loan">
+                                    <div class="col-md-8">
+                                        <dt class="col-sm-12">
+                                            Proxima  Pago
+                                        </dt>
+                                        <dd class="col-sm-12">
+
+                                            @dateDues
+                                        </dd>
+                                    </div>
+                                    <div class="col-auto">
+                                            <i class="fa-solid fa-calendar icon_card-loan" style="color: #D5D8DC!important"></i>
+                                    </div>
+                                </dl>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3" >
-                    <div class="card_info-loan" style=" border-left: 5px solid #229954 !important;">
-                        <div class="col-md-12 ">
-                            <dl class="row detail_info-loan">
-                                <div class="col-md-8">
-                                    <dt class="col-sm-12">
-                                        @Html.DisplayNameFor(model=>model.ValueTotal)
-                                    </dt>
-                                    <dd class="col-sm-12">
-                                        @Html.DisplayFor(model=> model.ValueTotal)
-                                    </dd>
-                                </div>
-                                <div class="col-md-4">
-                                    <i class="fa-solid fa-sack-dollar icon_card-loan"></i>
-                                </div>
-                            </dl>
+
+                    <div class="col-xl-3 col-md-6 mb-4 cont_p">
+                        <div class="card_info-loan" style=" border-left: 5px solid #17A589 !important;">
+                            <div class="col-md-12 ">
+                                <dl class="row detail_info-loan">
+                                    <div class="col-md-8">
+                                        <dt class="col-sm-12">
+                                            Vr Proxima Cuota
+                                        </dt>
+                                        <dd class="col-sm-12">
+                                            @ValueDuesNext.ToString("C")
+                                        </dd>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa-solid fa-dollar-sign icon_card-loan"></i>
+                                    </div>
+                                </dl>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3 " >
-                    <div class="card_info-loan" style=" border-left: 5px solid #196F3D !important;">
-                        <div class="col-md-12 ">
-                            <dl class="row detail_info-loan">
-                                <div class="col-md-8">
-                                    <dt class="col-sm-12">
-                                        @Html.DisplayNameFor(model=>model.Total)
-                                    </dt>
-                                    <dd class="col-sm-12">
-                                        @Html.DisplayFor(model=> model.Total)
-                                    </dd>
-                                </div>
-                                <div class="col-md-4">
-                                    <i class="fa-solid fa-hand-holding-dollar icon_card-loan"></i>
-                                </div>
-                            </dl>
+
+                    <div class="col-xl-3 col-md-6 mb-4 cont_p">
+                        <div class="card_info-loan" style=" border-left: 5px solid #229954 !important;">
+                            <div class="col-md-12 ">
+                                <dl class="row detail_info-loan">
+                                    <div class="col-md-8">
+                                        <dt class="col-sm-12">
+                                            Vr Total Deuda
+                                        </dt>
+                                        <dd class="col-sm-12">
+                                                @{
+                                               int vrtotal    = Model.ValueTotal + Model.ValueArrearst;
+                                                }
+                                                @vrtotal.ToString("C")
+                                        </dd>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa-solid fa-sack-dollar icon_card-loan"></i>
+                                    </div>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4 cont_p">
+                        <div class="card_info-loan" style=" border-left: 5px solid #196F3D !important;">
+                            <div class="col-md-12 ">
+                                <dl class="row detail_info-loan">
+                                    <div class="col-md-8">
+                                        <dt class="col-sm-12">
+                                            @Html.DisplayNameFor(model=>model.Total)
+                                        </dt>
+                                        <dd class="col-sm-12">
+                                            @Html.DisplayFor(model=> model.Total)
+                                        </dd>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa-solid fa-hand-holding-dollar icon_card-loan"></i>
+                                    </div>
+                                </dl>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
+</div>
+
 
 <div class="col-md-12 mb-4 mt-4" data-aos="fade-left" data-aos-duration="2000">
     <a asp-action="DetailsLoan" asp-route-id="@Model.User.Id" class="btn btn-warning">Regresar</a>
@@ -486,12 +513,12 @@
             <div class="mb-2">
                 @if (countpagos > 0)
                 {
-                    <a asp-action="AddNewPayments" asp-route-id="@Model.Id" class="btn btn-outline-primary btn_new  not-active"><i class="fa-solid fa-circle-plus"></i> Nuevo Pago</a>
+                    <a asp-action="AddNewPayments" asp-route-id="@Model.Id" class="btn btn-outline-primary btn_new btns  not-active"><i class="fa-solid fa-circle-plus"></i> Nuevo Pago</a>
                 }
                 else
 
                 {
-                    <a asp-action="AddNewPayments" asp-route-id="@Model.Id" class="btn btn-outline-primary btn_new"><i class="fa-solid fa-circle-plus"></i> Nuevo Pago</a>
+                    <a asp-action="AddNewPayments" asp-route-id="@Model.Id" class="btn btn-outline-primary btn_new btns"><i class="fa-solid fa-circle-plus"></i> Nuevo Pago</a>
 
                 }
             </div>

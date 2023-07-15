@@ -80,7 +80,13 @@ namespace AhorroDigital.API.Data.Entities
 
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public int ValueTotal => Payments == null ? 0 :
-          Convert.ToInt16(( Payments.Sum(x => x.PendientePago) - Payments.Sum(x => x.TotalInterest) )+((Payments.Sum(x => x.PendientePago) - Payments.Sum(x => x.TotalInterest))*(Interest/100)));
+          Convert.ToInt16(( Payments.Sum(x => x.PendientePago) - Payments.Sum(x => x.TotalInterest) )+ ((Payments.Sum(x => x.PendientePago) - Payments.Sum(x => x.TotalInterest))*(Interest/100)) );
+
+        [Display(Name = "Valor Total Mora")]
+
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        public int ValueArrearst => Payments == null ? 0 :
+            Payments.Sum(x => x.ValueArrears);
 
         [Display(Name = "Total Préstamos Pagado")]
         [DisplayFormat(DataFormatString = "{0:C2}")]

@@ -162,6 +162,9 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.Savings.FirstOrDefault().Total)
                                 </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Savings.FirstOrDefault().TotalR)
+                            </th>
                                 <th>
 
                                 </th>
@@ -236,10 +239,14 @@
                                     <td>
                                         @Html.DisplayFor(modelItem=>item.Total)
                                     </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem=>item.TotalR)
+                                </td>
                                     <td>
                                         <a asp-action="EditSaving" asp-route-id="@item.Id" class="btn btn-dark"><i class="fa-solid fa-pen-to-square"></i></a>
                                         <a asp-action="DetailsSaving" asp-route-id="@item.Id" class="btn btn-info"><i class="fa-solid fa-money-bill-transfer"></i></a>
                                         <button data-id="@item.Id" class="btn btn-danger deleteItem" data-bs-toggle="modal" data-bs-target="#deleteDialog"><i class="fa-solid fa-trash"></i></button>
+                                    <a asp-action="DetailsRetreat" asp-route-id="@item.Id" class="btn btn-info" style="background: #424949 !important"><i class="fa-solid fa-hand-holding-dollar"></i></a>
 
                                     </td>
                                 </tr>

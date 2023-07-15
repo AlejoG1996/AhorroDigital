@@ -1,7 +1,6 @@
-﻿@model AhorroDigital.API.Models.ContributeViewModel
-
+﻿@model AhorroDigital.API.Models.RetreatViewModel
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "AddRetreat";
 }
 
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
@@ -16,12 +15,15 @@
 
 <div class="row" data-aos="fade-up" data-aos-duration="2000">
     <div class="col-md-12">
-        <h3>Nueva Consignación</h3>
+        <h3>Nuevo Retiro</h3>
         <hr />
-        <form asp-action="AddContribute" enctype="multipart/form-data">
-             <input type="hidden" asp-for="Id"/>
+
+        <form asp-action="AddRetreat" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+
+   
             <input type="hidden" asp-for="SavingId" />
-            
+
             <div class="col-md-12">
                 <flash dismissable="true" />
             </div>
@@ -32,33 +34,35 @@
             </div>
             <span asp-validation-for="ImageFile" class="text-danger text__error"></span>
 
-          
+            
 
             <div class="row">
                 <div class="col-md-6">
 
-                    <label asp-for="Date" class="control-label content__label-tcb"></label>
+
+                    <label asp-for="DateS" class="control-label content__label-tcb"></label>
                     <div class="input-field">
                         <i class="fa-solid fa-calendar-days"></i>
-                        <input asp-for="Date" type="date" value="2023/01/01" class="" style="margin:auto !important; margin-left:0 !important;" />
+                        <input value="01/01/2023" type="date" class="" style="margin:auto !important; margin-left:0 !important;" asp-for="DateS" class="" />
                     </div>
-                    <span asp-validation-for="Date" class="text-danger text__error" ></span>
+                    <span asp-validation-for="DateS" class="text-danger text__error"></span>
 
-                   
-
-                   
                 </div>
                 <div class="col-md-6">
-                    <label asp-for="Value" class="control-label content__label-tcb"></label>
+                    
 
+                    <label asp-for="Value" class="control-label content__label-tcb"></label>
                     <div class="input-field">
                         <i class="fa-solid fa-dollar-sign"></i>
-                        <input asp-for="Value" class=""  />
+                        <input asp-for="Value" class="" id="" />
                     </div>
                     <span asp-validation-for="Value" class="text-danger text__error"></span>
-                </div>
-            </div>
 
+
+                </div>
+
+
+            </div>
             <label asp-for="State" class="control-label content__label-tcb"></label>
             <div class="input-field-em">
                 <i class="fa-solid fa-filter-circle-dollar"></i>
@@ -71,8 +75,8 @@
             </div>
             <span asp-validation-for="State" class="text-danger text__error"></span>
 
-
             <label asp-for="Marks" class="control-label content__label-tcb"></label>
+
             <div class="input-field-em">
                 <i class="fa-solid fa-quote-right"></i>
                 <textarea asp-for="Marks" class="marks" placeholder="Comentarios"></textarea>
@@ -80,7 +84,9 @@
             </div>
             <span asp-validation-for="Marks" class="text-danger text__error"></span>
 
+
             <label asp-for="MarksAdmin" class="control-label content__label-tcb"></label>
+
             <div class="input-field-em">
                 <i class="fa-solid fa-quote-right"></i>
                 <textarea asp-for="MarksAdmin" class="marks" placeholder="Comentarios"></textarea>
@@ -88,11 +94,9 @@
             </div>
             <span asp-validation-for="MarksAdmin" class="text-danger text__error"></span>
 
-            
-
             <div class="form-group">
                 <input type="submit" value="Crear" class="btn btn-primary" />
-                <a asp-action="DetailsSaving" asp-route-id="@Model.SavingId" class="btn btn-success">Regresar</a>
+                <a asp-action="DetailsRetreat" asp-route-id="@Model.SavingId" class="btn btn-success">Regresar</a>
             </div>
         </form>
     </div>
@@ -101,16 +105,33 @@
 <script src="~/lib/jasny/jasny-bootstrap.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+
+<script src="~/js/FormProgress.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     AOS.init();
 </script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jasny/jasny-bootstrap.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+
 <script src="~/js/FormProgress.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    <script type="text/javascript">
+
+
+
+
+
+
+    <script>
 
 
         const realFileBtn = document.getElementById("real-file");
@@ -160,22 +181,6 @@
             }
         });
     </script>
-    <script>
 
-        let home = document.getElementById("home");
-        let td = document.getElementById("td");
-        let tc = document.getElementById("tc");
-        let ta = document.getElementById("ta");
-        let tp = document.getElementById("tp");
-        let user = document.getElementById("user");
-
-        user.classList.add('active');
-
-        ta.classList.remove('active');
-        home.classList.remove('active');
-        td.classList.remove('active');
-        tc.classList.remove('active');
-        tp.classList.remove('active');
-        option.classList.add('op_back');
-    </script>
-}
+  
+}   

@@ -19,7 +19,7 @@ namespace AhorroDigital.API.Data.Entities
 
         [Display(Name = "Fecha Fin")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime DateEnd =>DateIni.AddDays(200);
+        public DateTime DateEnd { get; set; }
 
         [Display(Name = "Valor Minimo Ahorro")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
@@ -47,6 +47,11 @@ namespace AhorroDigital.API.Data.Entities
         public int Total => Contributes== null? 0 : 
             Contributes.Sum(x=>x.ValueAvail);
 
+        [Display(Name = "Total Retirado")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        public int TotalR => Contributes == null ? 0 :
+         Contributes.Sum(x => x.ValueRetreat);
+
         [Display(Name = "Total Pendiente")]
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public int TotalOut=> Contributes == null ? 0 :
@@ -58,6 +63,7 @@ namespace AhorroDigital.API.Data.Entities
         public int TotalSlope => Contributes == null ? 0 :
           Contributes.Sum(x => x.ValueSlop);
 
+        public ICollection<Retreat> Retreats { get; set; }
 
 
     }

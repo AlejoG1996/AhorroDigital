@@ -78,6 +78,9 @@ namespace AhorroDigital.API.Migrations
                     b.Property<int>("ValueAvail")
                         .HasColumnType("int");
 
+                    b.Property<int>("ValueRetreat")
+                        .HasColumnType("int");
+
                     b.Property<int>("ValueSlop")
                         .HasColumnType("int");
 
@@ -222,6 +225,9 @@ namespace AhorroDigital.API.Migrations
                     b.Property<DateTime?>("DatePR")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<double>("DayArrearsM")
+                        .HasColumnType("double");
+
                     b.Property<int>("LoanId")
                         .HasColumnType("int");
 
@@ -243,10 +249,16 @@ namespace AhorroDigital.API.Migrations
                     b.Property<int>("TotalInterest")
                         .HasColumnType("int");
 
+                    b.Property<int>("ValueArrearsM")
+                        .HasColumnType("int");
+
                     b.Property<int>("ValueCapital")
                         .HasColumnType("int");
 
                     b.Property<int>("ValueInt")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ValueIntG")
                         .HasColumnType("int");
 
                     b.Property<int>("ValueTP")
@@ -324,11 +336,58 @@ namespace AhorroDigital.API.Migrations
                     b.ToTable("Payments");
                 });
 
+            modelBuilder.Entity("AhorroDigital.API.Data.Entities.Retreat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateM")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateS")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("ImageFullPath")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Marks")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<string>("MarksAdmin")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<int>("SavingId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("State")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UserAdmin")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SavingId");
+
+                    b.ToTable("Retreats");
+                });
+
             modelBuilder.Entity("AhorroDigital.API.Data.Entities.Saving", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("DateEnd")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("DateIni")
                         .HasColumnType("datetime(6)");
@@ -363,6 +422,11 @@ namespace AhorroDigital.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("Marks")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
                     b.Property<int>("MinValue")
                         .HasColumnType("int");
 
@@ -370,6 +434,9 @@ namespace AhorroDigital.API.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
+
+                    b.Property<int>("NumberDays")
+                        .HasColumnType("int");
 
                     b.Property<int>("NumberRegister")
                         .HasColumnType("int");
@@ -702,6 +769,17 @@ namespace AhorroDigital.API.Migrations
                     b.Navigation("UserAdmin");
                 });
 
+            modelBuilder.Entity("AhorroDigital.API.Data.Entities.Retreat", b =>
+                {
+                    b.HasOne("AhorroDigital.API.Data.Entities.Saving", "Saving")
+                        .WithMany("Retreats")
+                        .HasForeignKey("SavingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Saving");
+                });
+
             modelBuilder.Entity("AhorroDigital.API.Data.Entities.Saving", b =>
                 {
                     b.HasOne("AhorroDigital.API.Data.Entities.SavingType", "SavingType")
@@ -824,6 +902,8 @@ namespace AhorroDigital.API.Migrations
             modelBuilder.Entity("AhorroDigital.API.Data.Entities.Saving", b =>
                 {
                     b.Navigation("Contributes");
+
+                    b.Navigation("Retreats");
                 });
 
             modelBuilder.Entity("AhorroDigital.API.Data.Entities.SavingType", b =>

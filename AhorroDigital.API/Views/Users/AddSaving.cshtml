@@ -17,8 +17,11 @@
     <div class="col-md-12">
         <h3>Nuevo Ahorro</h3>
         <hr />
-        <p class="questions__show-fs"><span class="qs__sh-focus">Ahorro programado: </span>en el cual se podrá definir el monto mínimo a ahorrar en cada aporte a realizar por el asociado.</p>
-        <p class=""><span class="qs__sh-focus">Ahorro digital: </span>en el cual el asociado podrá realizar aportes de cualquier valor sin un monto mínimo o máximo.</p>
+     
+
+     
+
+
         <form asp-action="AddSaving" enctype="multipart/form-data">
              <input type="hidden" asp-for="UserId" />
 
@@ -32,7 +35,11 @@
                 <select asp-for="SavingTypeId" asp-items="Model.SavingTypes" class="" id="id_saving"></select>
             </div>
             <span asp-validation-for="SavingTypeId" class="text-danger"></span>
-        
+
+            <div class="content_infoloan">
+                <p class="text_loan" id="text_loan">No ha seleccionado un tipo de Ahorro</p>
+                <p class="text_description" id="text_description">No hay descripcion para el Ahorro</p>
+            </div>
 
             <div class="row">
                 <div class="col-md-6">
@@ -107,36 +114,39 @@
         option.classList.add('op_back');
     </script>
     <script>
-//        $( function() {
-//    $("#id_saving").change( function() {
-//        if ($(this).val() === "1") {
-//                    $("#id_input").prop("disabled", false);
-                  
-//        } else {
-//                    $("#id_input").prop("disabled", true);
-//                    $("#id_input").val(0);
-           
-//        }
-//    });
-//});
 
-       
+        $(document).ready(function () {
+
+            $("#id_saving").change(function () {
+                debugger;
+
+               
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetSaving")',
+                    dataType: 'json',
+                    data: { SavingTypeId: $("#id_saving").val() },
+                    success: function (states) {
+
+                       
+                        document.getElementById('text_loan').innerHTML = states.slice(0, 1);
+                        document.getElementById('text_description').innerHTML = states.slice(1, 2);
+
+                    },
+                    error: function (ex) {
+                        if ($("#id_saving").val() == 0) {
+                          
+                            document.getElementById('text_loan').innerHTML = "No ha seleccionado un tipo de Ahorro";
+                            document.getElementById('text_description').innerHTML = "No hay descripcion para el Ahorro";
+                        }
+                        alert('Failed to retrieve Interes.' + ex);
+                    }
+                });
+                return false;
+            })
+        });
+
     </script>
 
-    <script>
-        //window.addEventListener('load', function () {
-        //    var cod = document.getElementById("id_saving").value;
-        //    if (cod === "1") {
-        //        $("#id_input").val(0);
-
-        //        $("#id_input").prop("disabled", false);
-        //    } else if (cod === "2") {
-        //        $("#id_input").prop("disabled", true);
-
-        //    } else {
-        //        $("#id_input").prop("disabled", false);
-        //    }
-        //});
-    </script>
 }
 

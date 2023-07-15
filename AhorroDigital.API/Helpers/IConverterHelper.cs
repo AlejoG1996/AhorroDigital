@@ -23,5 +23,7 @@ namespace AhorroDigital.API.Helpers
         //LoanViewModel ToPaymentsViewModel(Payments payments);
 
          List<Payments> ToConvertPaymentsEdit(int id);
+
+        Task<Retreat> ToRetreatAsync(RetreatViewModel model, bool isNew);
     }
 }

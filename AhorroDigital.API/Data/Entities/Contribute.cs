@@ -39,6 +39,10 @@ namespace AhorroDigital.API.Data.Entities
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public int ValueSlop{ get; set; }
 
+        [Display(Name = "Valor  Ahorro Retirado")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        public int ValueRetreat { get; set; }
+
 
         [Display(Name = "Foto")]
         public string? ImageFullPath { get; set; }

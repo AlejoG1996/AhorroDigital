@@ -38,12 +38,12 @@ namespace AhorroDigital.API.Models
         [Display(Name = "Valor Pagado ")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         [DisplayFormat(DataFormatString = "{0:C2}")]
-        public int? Value { get; set; }
+        public int Value { get; set; }
 
         [Display(Name = "Valor Pagado ")]
       
         [DisplayFormat(DataFormatString = "{0:C2}")]
-        public int? Deuda { get; set; }
+        public int Deuda { get; set; }
 
         [Display(Name = "Estado")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
@@ -57,7 +57,6 @@ namespace AhorroDigital.API.Models
        
 
         [Display(Name = "Foto")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public IFormFile? ImageFile { get; set; }
 
 

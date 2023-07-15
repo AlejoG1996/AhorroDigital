@@ -33,18 +33,32 @@ namespace AhorroDigital.API.Data.Entities
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public int ValueInt { get; set; }
 
+
+        [Display(Name = "Vr Interest  G ")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        public int ValueIntG { get; set; }
+
         [Display(Name = "Dias en mora")]
-        public double DayArrears => Math.Round(((DateTime.Now - Date).TotalDays) < 0 ? 0 : (DateTime.Now - Date).TotalDays);
+        public double DayArrears => State.Equals("Pendiente") ?  Math.Round(((DateTime.Now - Date).TotalDays) < 0 ? 0 : (DateTime.Now - Date).TotalDays):0;
+
+        [Display(Name = "Dias en mora")]
+        public double DayArrearsM { get; set; }
+
 
         [Display(Name = "Valor en Mora")]
 
         [DisplayFormat(DataFormatString = "{0:C2}")]
-        public int ValueArrears => Convert.ToInt16(((ValueCapital + ValueInt) * 0.04) * DayArrears);
+        public int ValueArrears => State.Equals("Pendiente") ? Convert.ToInt16(((ValueCapital + ValueInt) * 0.04) * DayArrears):0;
+
+        [Display(Name = "Valor en Mora")]
+
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        public int ValueArrearsM { get; set; }
 
         [Display(Name = " Total Cuota a Pagar")]
 
         [DisplayFormat(DataFormatString = "{0:C2}")]
-        public int TotalValue => ValueCapital + ValueInt + ValueArrears;
+        public int TotalValue => State.Equals("Pendiente") ?  ValueCapital + ValueInt + ValueArrears : 0;
 
         [Display(Name = "Total Pagado")]
         [DisplayFormat(DataFormatString = "{0:C2}")]

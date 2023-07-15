@@ -136,28 +136,33 @@ select {
 }
 
 #custom-button_2 {
-    position: absolute;
-   
-    left: 24em;
-    top:500px;
-    background-color: #186A3B;
-    border-radius: 50%;
+    background-color: #616A6B;
     color: #fff;
     text-transform: uppercase;
-    padding: 5px;
+    padding-top: 5px !important;
+    margin-top: 15px;
     border: none !important;
-    height: 55px;
-    width: 55px;
+    height: 35px;
+    width: 99%;
+    border-radius: 5px;
+    text-align: center !important;
 }
 
-.btn-primary {
-    width: 200px !important;
-    background-color: #1E8449 !important;
-    transition: all 2s ease !important;
-    margin-bottom: 8px !important;
-    border: none !important;
-    outline: none !important;
-}
+    #custom-button_2 i {
+        margin-top: 5px;
+        margin-left: 57px;
+        margin-right: 57px;
+        text-align: center;
+    }
+
+    .btn-primary {
+        width: 200px !important;
+        background-color: #1E8449 !important;
+        transition: all 2s ease !important;
+        margin-bottom: 8px !important;
+        border: none !important;
+        outline: none !important;
+    }
 
     .btn-primary:hover {
         background-color: #0B5345 !important;
@@ -229,6 +234,7 @@ select {
     display: inline-block;
     padding: 0 0.4rem;
     position: relative;
+    overflow-y:auto;
 }
 
 .text_loan {

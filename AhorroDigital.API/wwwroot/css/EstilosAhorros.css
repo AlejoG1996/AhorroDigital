@@ -228,6 +228,7 @@ table.dataTable.hover > tbody > tr.selected:hover > *, table.dataTable.display >
     transition: all 3s ease !important;
     border: none !important;
     margin-bottom: 8px !important;
+    margin-top:9px !important;
 }
 
     .btn-info:hover {
@@ -478,10 +479,38 @@ p > i {
         color: #4D5656 !important;
     }
     .detail_info-loan div dd {
-        font-size: 20px;
+        font-size: 18px;
     }
 
+.cont_p {
+    margin-right: 0px !important;
+    padding-left: 0px !important;
+}
 .icon_card-loan {
     font-size: 37px;
     color: #D5D8DC;
 }
+.col-auto i {
+    color: #D5D8DC !important;
+}
+.btns {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+
+
+@media screen and (max-width:800px) {
+    .content_first{
+        margin-bottom:35px !important;
+    }
+
+    .detail_info-loan{
+        display:flex!important;
+    }
+
+    .col-md-8{
+        width:75%!important;
+    }
+}
+

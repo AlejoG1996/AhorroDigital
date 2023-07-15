@@ -3,6 +3,7 @@ using AhorroDigital.API.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using AhorroDigital.API.Models;
+using AhorroDigital.Common.Enums;
 
 namespace AhorroDigital.API.Helpers
 {
@@ -99,5 +100,36 @@ namespace AhorroDigital.API.Helpers
             return await _userManager.DeleteAsync(user);
         }
 
+        public async Task<User> AddUserAsync(AddUserViewModel model, UserType userType)
+        {
+            User user = new User
+            {
+                Address = model.Address,
+                Document = model.Document,
+                Email = model.UserName,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                CountryCode = model.CountryCode,
+                PhoneNumber = model.PhoneNumber,
+                DocumentType = await _context.DocumentTypes.FindAsync(model.DocumentTypeId),
+                AccountNumber = model.AccountNumber,
+                Bank = model.Bank,
+                AccountType = await _context.AccountTypes.FindAsync(model.AccountTypeId),
+                UserName = model.UserName,
+                ImageFullPath=model.ImageFullPath,
+                UserType = userType
+            };
+
+            IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+            if (result != IdentityResult.Success)
+            {
+                return null;
+            }
+
+            User newUser = await GetUserAsync(model.UserName);
+            await AddUserToRoleAsync(newUser, user.UserType.ToString());
+            return newUser;
+
+        }
     }
 }

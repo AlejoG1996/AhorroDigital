@@ -1,5 +1,6 @@
 ﻿using AhorroDigital.API.Data.Entities;
 using AhorroDigital.API.Models;
+using AhorroDigital.Common.Enums;
 using Microsoft.AspNetCore.Identity;
 
 namespace AhorroDigital.API.Helpers
@@ -22,6 +23,6 @@ namespace AhorroDigital.API.Helpers
 
         Task<IdentityResult> DeleteUserAsync(User user);
 
-
+        Task<User>AddUserAsync(AddUserViewModel model, UserType userType);
     }
 }

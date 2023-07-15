@@ -6,6 +6,7 @@
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <link rel="stylesheet" href="~/css/EstilosCard.css" />
+<link rel="stylesheet" href="~/css/FormProgress.css" />
 <link rel="stylesheet" href="https://kit.fontawesome.com/f9b2f7ab54.css" crossorigin="anonymous">
 
 
@@ -31,9 +32,21 @@
                     </div>
                     <span asp-validation-for="MinValue" class="text-danger"></span>
                 </div>
+                
             </div>
-            
-            
+            <div class="input-field-em">
+                <i class="fa-solid fa-hashtag"></i>
+                <input asp-for="NumberDays" class="marks" placeholder="Número de días para retiro">
+
+            </div>
+            <span asp-validation-for="NumberDays" class="text-danger"></span>
+
+            <div class="input-field-em">
+                <i class="fa-solid fa-quote-right"></i>
+                <textarea asp-for="Marks" class="marks" placeholder="Comentario"></textarea>
+
+            </div>
+            <span asp-validation-for="Marks" class="text-danger text__error"></span>
             <div class="form-group content__btns">
                 <input type="submit" value="Guardar" class="btn btn-primary content__btns-save" />
                 <a asp-action="Index" class="btn btn-success content__btns-back">Regresar</a>

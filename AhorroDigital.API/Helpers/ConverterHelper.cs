@@ -74,6 +74,7 @@ namespace AhorroDigital.API.Helpers
                 MinValue = model.MinValue,
                 Id = isNew ? 0 : model.Id,
                 Marks = model.Marks
+                
             };
         }
 
@@ -114,15 +115,15 @@ namespace AhorroDigital.API.Helpers
                 State = model.State,
 
                 Id = isNew ? 0 : model.Id,
-                Marks = "",
-                MarksAdmin = model.Marks,
+                Marks = model.Marks,
+                MarksAdmin = model.MarksAdmin,
                 Value = model.Value,
                 ValueP = 0,
                 ValueD = 0,
 
                 Interest = model.Interest,
                 Dues = model.Dues,
-                ValueDues = Convert.ToInt16(Math.Ceiling(Convert.ToDecimal(model.Value / model.Dues))),
+                ValueDues = Convert.ToInt16(model.Value / model.Dues),
                 //ValueNextDues= (model.Value / model.Dues) + Convert.ToInt16(model.Value *( model.Interest/100)),
                 ImageFullPath = model.ImageFullPath,
 
@@ -142,7 +143,9 @@ namespace AhorroDigital.API.Helpers
                 Interest = loan.Interest,
                 Dues = loan.Dues,
                 UserId = loan.User.Id,
-                Marks = loan.MarksAdmin,
+                MarksAdmin = loan.MarksAdmin,
+                Marks = loan.Marks,
+
                 State = loan.State,
                 ImageFullPath = loan.ImageFullPath
             };
@@ -214,6 +217,27 @@ namespace AhorroDigital.API.Helpers
             list =   _context.Payments.Where(x => x.Loan.Id == id).ToList();
             return list;
         }
+
+
+        public async Task<Retreat> ToRetreatAsync(RetreatViewModel model, bool isNew)
+        {
+           
+            return new Retreat
+            {
+             
+                Saving = await _context.Savings.FindAsync(model.SavingId),
+                DateS = model.DateS,
+                DateM = model.DateS,
+                State = model.State,
+                Id = isNew ? 0 : model.Id,
+                Marks = model.Marks,
+                MarksAdmin = model.MarksAdmin,
+                Value = model.Value,
+                ImageFullPath = model.ImageFullPath,
+
+            };
+        }
+
     }
 
 }

@@ -70,8 +70,8 @@ namespace AhorroDigital.API.Data
         {
             if (!_context.LoanTypes.Any())
             {
-                _context.LoanTypes.Add(new LoanType { Name = "Préstamo A1", NumberDues=2,Interes=3,Marks= "Este ahorro tiene una taza de interes del 3% y se cancela a 2 cuotas mensuales"});
-                _context.LoanTypes.Add(new LoanType { Name = "Préstamo A2", NumberDues = 7, Interes = 5, Marks = "Este ahorro tiene una taza de interes del 5% y se cancela  hasta en  7 cuotas mensuales" });
+                _context.LoanTypes.Add(new LoanType { Name = "Préstamo A1", NumberDues=2,Interes=3,Marks= "Este Préstamo tiene una taza de interes del 3% y se cancela a 2 cuotas mensuales" });
+                _context.LoanTypes.Add(new LoanType { Name = "Préstamo A2", NumberDues = 7, Interes = 5, Marks = "Este Préstamo tiene una taza de interes del 5% y se cancela  hasta en  7 cuotas mensuales" });
                 await _context.SaveChangesAsync();
             }
         }
@@ -80,8 +80,8 @@ namespace AhorroDigital.API.Data
         {
             if (!_context.SavingTypes.Any())
             {
-                _context.SavingTypes.Add(new SavingType { Name = "Ahorro programado", MinValue=20000 });
-                _context.SavingTypes.Add(new SavingType { Name = "Ahorro digital", MinValue=0 });
+                _context.SavingTypes.Add(new SavingType { Name = "Ahorro programado", MinValue=20000, NumberDays=365, Marks="Este ahorro tiene como ahorro minimo $20.000 y se  puede realizar retiro pasado los 365 días." });
+                _context.SavingTypes.Add(new SavingType { Name = "Ahorro digital", MinValue=0 , NumberDays = 365, Marks = "Este ahorro tiene como ahorro minimo $0 y se  puede realizar retiro pasado los 365 días." });
                 await _context.SaveChangesAsync();
             }
         }

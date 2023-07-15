@@ -82,7 +82,10 @@ namespace AhorroDigital.API.Data.Entities
 
         
 
+
         public ICollection<Loan> Loans { get; set; }
+
+      
 
         [Display(Name = "# Préstamos")]
         public int LoanAccount => Loans == null ? 0 : Loans.Count();
@@ -100,6 +103,7 @@ namespace AhorroDigital.API.Data.Entities
         public int ValueLoanP => Loans == null ? 0 :
           Loans.Sum(x => x.ValueP);
 
+
         [Display(Name = "Total Préstamos Pagado")]
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public int ValueLoanPag => Loans == null ? 0 :
@@ -109,6 +113,10 @@ namespace AhorroDigital.API.Data.Entities
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public int AvailLoan => Loans == null ? 0 :
         (TotalA * 2) - ValueLoanP - ValueLoan + ValueLoanPag;
+
+
+        //[Display(Name = "# Pagos")]
+        //public int RetreatAccount => Retreats == null ? 0 : Retreats.Count();
 
 
     }

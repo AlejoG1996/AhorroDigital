@@ -26,6 +26,8 @@ namespace AhorroDigital.API.Data
         public DbSet<Payments> Payments { get; set; }
 
         public DbSet<PaymentPlan> PaymentPlan { get; set; }
+
+        public DbSet<Retreat> Retreats { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

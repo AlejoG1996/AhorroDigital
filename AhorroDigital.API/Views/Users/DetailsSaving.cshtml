@@ -181,10 +181,33 @@
     <flash dismissable="true" />
 </div>
 
+@{
+    //valida si existe retiro
+    int countpagos = 0;
+    foreach (var item in Model.Retreats)
+    {
+        if (item.State.Equals("Aprobado"))
+        {
+            countpagos = countpagos + 1;
+        }
+        else if (item.State.Equals("Pendiente"))
+        {
+            countpagos = countpagos + 1;
+        }
+    }
+
+}
 
 <div class="col-md-12 mb-4" data-aos="fade-up" data-aos-duration="2000">
-    <a asp-action="AddContribute" asp-route-id="@Model.Id" class="btn btn-primary">Adiccionar Consignación</a>
-    <a asp-action="EditSaving" asp-route-id="@Model.Id" class="btn btn-warning">Editar Ahorro</a>
+
+    @if(countpagos>0){
+        <a asp-action="AddContribute" asp-route-id="@Model.Id" class="btn btn-primary not-active">Adiccionar Consignación</a>
+        <a asp-action="EditSaving" asp-route-id="@Model.Id" class="btn btn-warning not-active">Editar Ahorro</a>
+    }else{
+        <a asp-action="AddContribute" asp-route-id="@Model.Id" class="btn btn-primary">Adiccionar Consignación</a>
+        <a asp-action="EditSaving" asp-route-id="@Model.Id" class="btn btn-warning">Editar Ahorro</a>
+    }
+  
     <a asp-action="Details" asp-route-id="@Model.User.Id" class="btn btn-success">Regresar</a>
 
 
@@ -222,6 +245,9 @@
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Contributes.FirstOrDefault().ValueSlop)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Contributes.FirstOrDefault().ValueRetreat)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Contributes.FirstOrDefault().UserAdmin.FullName)
@@ -345,15 +371,26 @@
                                     @Html.DisplayFor(modelItem=>item.ValueSlop)
                                 </td>
                                 <td>
+                                    @Html.DisplayFor(modelItem=>item.ValueRetreat)
+                                </td>
+                                <td>
                                     @Html.DisplayFor(modelItem=>item.UserAdmin.FullName)
                                 </td>
                                 <td>
                                     <img src="@item.ImageFullPath" style="width:60px; height:60px; border-radius:30px" />
                                 </td>
                                 <td>
-                                    <a asp-action="EditContribute" asp-route-id="@item.Id" class="btn btn-dark"><i class="fa-solid fa-pen-to-square"></i></a>
-                                   @* <a asp-action="DetailsSaving" asp-route-id="@item.Id" class="btn btn-info"><i class="fa-solid fa-money-bill-transfer"></i></a>*@
-                                    <button data-id="@item.Id" class="btn btn-danger deleteItem" data-bs-toggle="modal" data-bs-target="#deleteDialog"><i class="fa-solid fa-trash"></i></button>
+                                    @if (item.ValueRetreat > 0)
+                                    {
+                                        <a asp-action="EditContribute" asp-route-id="@item.Id" class="btn btn-dark not-active"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <button data-id="@item.Id" class="btn btn-danger deleteItem not-active" data-bs-toggle="modal" data-bs-target="#deleteDialog"><i class="fa-solid fa-trash"></i></button>
+                                    }
+
+                                    else
+                                    {
+                                        <a asp-action="EditContribute" asp-route-id="@item.Id" class="btn btn-dark "><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <button data-id="@item.Id" class="btn btn-danger deleteItem " data-bs-toggle="modal" data-bs-target="#deleteDialog"><i class="fa-solid fa-trash"></i></button>
+                                    }
 
                                 </td>
                             </tr>
