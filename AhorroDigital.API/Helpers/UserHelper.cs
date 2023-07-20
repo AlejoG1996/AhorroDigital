@@ -8,7 +8,9 @@ using AhorroDigital.Common.Enums;
 namespace AhorroDigital.API.Helpers
 {
     public class UserHelper:IUserHelper
+
     {
+      
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly DataContext _context;
@@ -131,5 +133,32 @@ namespace AhorroDigital.API.Helpers
             return newUser;
 
         }
+
+        public async Task<IdentityResult> ChangePasswordAsync(User  user, string OldPassword, string NewPassword)
+        {
+            return await _userManager.ChangePasswordAsync(user, OldPassword, NewPassword);
+        }
+
+        public async Task<string> GenerateEmailConfirmationTokenAsync(User user)
+        {
+            return await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        }
+
+        public async Task<IdentityResult> ConfirmEmailAsync(User user, string token)
+        {
+            return await _userManager.ConfirmEmailAsync(user, token);
+        }
+
+        public async Task<string> GeneratePasswordResetTokenAsync(User user)
+        {
+            return await _userManager.GeneratePasswordResetTokenAsync(user);
+        }
+
+        public async Task<IdentityResult> ResetPasswordAsync(User user, string token, string password)
+        {
+            return await _userManager.ResetPasswordAsync(user, token, password);
+        }
+
+
     }
 }

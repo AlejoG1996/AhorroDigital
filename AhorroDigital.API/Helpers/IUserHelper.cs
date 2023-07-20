@@ -24,5 +24,15 @@ namespace AhorroDigital.API.Helpers
         Task<IdentityResult> DeleteUserAsync(User user);
 
         Task<User>AddUserAsync(AddUserViewModel model, UserType userType);
+
+        Task<IdentityResult> ChangePasswordAsync(User user,string OldPaswword, string NewPaswword);
+
+        Task<string> GenerateEmailConfirmationTokenAsync(User user);
+
+        Task<IdentityResult> ConfirmEmailAsync(User user, string token);
+
+        Task<string> GeneratePasswordResetTokenAsync(User user);
+
+        Task<IdentityResult> ResetPasswordAsync(User user, string token, string password);
     }
 }

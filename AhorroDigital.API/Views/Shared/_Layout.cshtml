@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -10,12 +12,11 @@
     <link rel="stylesheet" href="~/lib/jqueryui/jquery-ui.min.css" />
     <link rel="stylesheet" href="https://kit.fontawesome.com/f9b2f7ab54.css" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
-          crossorigin="anonymous"
-        />
+          crossorigin="anonymous" />
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,19 +29,80 @@
 
     <header class="header shadow-sm" id="header" >
         <div class="header_toggle"> <i class='fa-solid fa-bars-staggered' id="header-toggle"></i> </div>
-        
+        <input style="display:none" value="@User.Identity.Name" id="id_img"></input>
+
         @*<div class="header_img">
                 <img src="https://i.imgur.com/hczKIze.jpg" alt="">
          </div>*@
          @if (User.Identity.IsAuthenticated )
         {
-            <a class="nav_link_top" asp-area="" asp-controller="Account" asp-action="Logout">
-                Cerrar Sesión
-            </a>
+
+            <nav class="menu">
+                <section class="menu__container">
+                    
+
+                    <ul class="menu__links">
+                        
+
+                       
+
+                        <li class="menu__item  menu__item--show">
+                            <a href="#" class="menu__link"> @User.Identity.Name  <img src="~/images/arrows.svg" class="menu__arrow"></a>
+
+                            <ul class="menu__nesting">
+                                <div class="content_nesting">
+                                <li class="menu__inside">
+                                    <a href="#" class="menu__link menu__link--inside">
+                                        <span class="icon_first_img">
+                                            <img src="" class="imgprofile" id="imgprofile" />                                       
+                                        </span>
+                                        <span class="sp_title">@User.Identity.Name</span>
+                                    </a>
+                                </li>
+                                <hr>
+                                <li class="menu__inside">
+                                    <a  class="menu__link menu__link--inside" asp-controller="Account" asp-action="ChangeUser">
+                                        <span class="icon_first"><i class="fa-solid fa-user"></i></span>
+                                        <span class="icon_text">Editar Perfil</span>
+                                        <span class="icon_second">></span>
+                                    </a>
+                                </li>
+                                <li class="menu__inside">
+                                    <a  class="menu__link menu__link--inside">
+                                        <span class="icon_first"><i class="fa-solid fa-unlock-keyhole"></i></span>
+                                        <span class="icon_text">Cambiar Contraseña</span>
+                                        <span class="icon_second">></span>
+                                    </a>
+                                </li>
+                                <li class="menu__inside">
+                                    <a  class="menu__link menu__link--inside" asp-controller="Account" asp-action="Logout">
+                                        <span class="icon_first"><i class="fa-solid fa-right-from-bracket"></i></span>
+                                        <span class="icon_text">Cerrar Sesión</span>
+                                        <span class="icon_second">></span>
+                                    </a>
+                                </li>
+                                <br>
+                                </div>
+                                
+                            </ul>
+                        </li>
+
+                       
+
+                    </ul>
+
+                    
+                </section>
+
+
+            </nav>
+
+
+          
         }
         else
         {
-            <a class="nav_link_top" asp-area="" asp-controller="Account" asp-action="Login">
+            <a class="nav_link_top" asp-area="" asp-controller="Account" asp-action="Login"> 
                 Iniciar Sesión
             </a>
         }
@@ -60,6 +122,8 @@
                         <i class='fa-solid fa-house nav_icon'  title="Inicio" data-bs-toggle="mensaje"></i>
                         <span class="nav_name">Inicio</span>
                     </a>
+
+                  
                     @if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                     {
                         <a id="tc" class="nav_link" asp-area="" asp-controller="AccountTypes" asp-action="Index" data-aos="fade-up" data-aos-duration="1000">
@@ -89,6 +153,8 @@
                             <i class="fa-solid fa-users nav_icon " title="Usuarios" data-bs-toggle="mensaje"></i>
                             <span class="nav_name">Usuarios</span>
                         </a>
+
+                       
                     }
                   
 
@@ -160,9 +226,8 @@
         </div>
         <!-- Copyright -->
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
-            crossorigin="anonymous"></script>
+ 
+    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/Menu.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -173,6 +238,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/f9b2f7ab54.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+            crossorigin="anonymous"></script>
+    
     <script>
         AOS.init();
         
@@ -182,8 +251,41 @@
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl){
             return new bootstrap.Tooltip(tooltipTriggerEl)
         });
+       
+      
+    </script>
+    <script>
+
+        window.addEventListener('load', function () {
+
+
+
+            debugger;
+
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetImagenes")',
+                dataType: 'json',
+                data: { Email: $("#id_img").val() },
+                success: function (states) {
+
+                    document.getElementById('imgprofile').src = states.slice(0, 1);
+
+                },
+                error: function (ex) {
+
+                    document.getElementById('imgprofile').src = "http://localhost:5047/images/users/noimages.png";
+                    alert('Failed to retrieve Interes.' + ex);
+                }
+            });
+            return false;
+
+
+        });
 
     </script>
+   
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

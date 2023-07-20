@@ -3,10 +3,42 @@
 }
 
 <div class="text-center">
+    <input type="hidden" style="display:none" value="@User.Identity.Name" id="id_img"></input>
     <h1 class="display-4">Welcome</h1>
         <img  src="~/images/logonatillera.png" style="width:400px"/>
 </div>
 
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jasny/jasny-bootstrap.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+
+<script src="~/js/FormProgress.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jasny/jasny-bootstrap.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+
+<script src="~/js/FormProgress.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+
+<script src="~/js/services.js"></script>
+<script src="~/js/infoexpand.js"></script>
+<script src="~/js/showmodal.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jasny/jasny-bootstrap.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js"></script>
+<script>
+    AOS.init();
+</script>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 <script>
       let home = document.getElementById("home");
         let td = document.getElementById("td");
@@ -21,3 +53,39 @@
          tp.classList.remove('active');
         user.classList.remove('active');
 </script>
+
+  
+
+<script>
+
+    window.addEventListener('load', function () {
+
+
+
+            debugger;
+           
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetImagenes")',
+                dataType: 'json',
+                data: { Email: $("#id_img").val() },
+                success: function (states) {
+
+                    document.getElementById('imgprofile').src = states.slice(0, 1);
+
+                },
+                error: function (ex) {
+
+                    document.getElementById('imgprofile').src = "http://localhost:5047/images/users/noimages.png";
+                    alert('Failed to retrieve Interes.' + ex);
+                }
+            });
+            return false;
+
+
+    });
+
+</script>
+
+            }

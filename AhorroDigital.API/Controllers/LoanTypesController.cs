@@ -182,5 +182,30 @@ namespace AhorroDigital.API.Controllers
             return RedirectToAction(nameof(Index));
 
         }
+
+        public JsonResult GetImagenes(string Email)
+        {
+            User user = _context.Users
+                 .FirstOrDefault(c => c.Email == Email);
+            List<string> info = new List<string>();
+
+            if (user == null || Email == null)
+            {
+                info.Add("http://localhost:5047/images/users/noimages.png");
+
+            }
+            else
+            {
+                info.Add(user.ImageFullPath.ToString());
+
+            }
+
+
+
+
+
+            return Json(info);
+        }
+
     }
 }

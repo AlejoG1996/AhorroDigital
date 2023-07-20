@@ -3,7 +3,7 @@ using AhorroDigital.API.Data.Entities;
 using AhorroDigital.API.Helpers;
 using AhorroDigital.API.Models;
 using AhorroDigital.Common.Enums;
-using Azure;
+using AhorroDigital.Common.Response;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -31,15 +31,18 @@ namespace AhorroDigital.API.Controllers
         private readonly IUserHelper _userHelper;
         private readonly ICombosHelper _combosHelper;
         private readonly IConverterHelper _converterHelper;
+        private readonly IMailHelper _mailHelper;
 
-        public UsersController(DataContext context, IFlashMessage flasher, IUserHelper userHelper, ICombosHelper combosHelper, IConverterHelper converterHelper
-           )
+
+        public UsersController(DataContext context, IFlashMessage flasher, IUserHelper userHelper, ICombosHelper combosHelper, IConverterHelper converterHelper,
+          IMailHelper mailHelper )
         {
             _context = context;
             _flashMessage = flasher;
             _userHelper = userHelper;
             _combosHelper = combosHelper;
             _converterHelper = converterHelper;
+            _mailHelper = mailHelper;
 
         }
 
@@ -165,8 +168,51 @@ namespace AhorroDigital.API.Controllers
                 await _userHelper.AddUserAsync(user, "123456");
                 await _userHelper.AddUserToRoleAsync(user, user.UserType.ToString());
 
+                string myToken = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
+                string tokenLink = Url.Action("ConfirmEmail", "Account", new
+                {
+                    userid = user.Id,
+                    token = myToken
+                }, protocol: HttpContext.Request.Scheme);
 
-                _flashMessage.Info("Usuario Administrador creado con exito.");
+                Response response = _mailHelper.SendMail(model.Email,
+                  "Ahorro Digital - Confirmación de cuenta",
+                  $"<div style='width: 100%; height: 800px; background-color: #F2F4F4;' >" +
+                        $"<div style='width: 100%; height: 130px; background-color: #27AE60; justify-content: center !important; align-items: center !important; text-align: center !important; color:#fff  !important;' >" +
+                                $"<br>" +
+                                $"<h1 style=' text-align: center !important; color: #fff !important; font-family: 'Roboto', sans-serif; padding-top: 20px; letter-spacing: 1px; font-size: 45px; '>" +
+                                    user.FullName.ToUpper() +
+                                $"</h1>" +
+                                  $"<p style=' text-align: center !important; color: #fff !important; font-family: 'Roboto', sans-serif; padding-top: 20px; letter-spacing: 1px; font-size: 45px; '>" +
+                                    "Felicidades falta poco para hacer parte de esta gran familia y obtener grandes beneficios" +
+                                $"</p>" +
+
+                                 $"<br>" +
+                        $"</div>" +
+                                $"<div style='width: 100%; justify-content: center; align-items: center; text-align: center;' >" +
+                                      $"<br>" +
+                                      $"<img src='cid:imagen' style='width: 350px; margin: auto;  '  >" +
+                                      $"<br>" +
+                                        $"<h1 style=' text-align: center !important; color: #2ECC71 !important; font-family: 'Roboto', sans-serif; padding-top: 20px; letter-spacing: 1px; font-size: 45px;  '>" +
+                                      "WOOW!" +
+                                    $"</h1>" +
+
+                                               $"<p style=' text-align: center; color: #616A6B; font-family: 'Roboto', sans-serif; ' >" +
+                                                    "Estas a un solo paso de pertenecer a la familia de AHORRO DIGITAL " +
+                                               $"</p>" +
+                                               $"<p style=' text-align: center; color: #616A6B; font-family: 'Roboto', sans-serif;  ' >" +
+                                                    "confirma tu cuenta y accede a todos nuestros servicios y beneficios." +
+                                               $"</p>" +
+                                               $"<br>" +
+                                               $"<a  href = \"{tokenLink}\" style=' height: 90px !important; width: 400px !important; padding: 15px !important; background-color: #27AE60 !important; color:#fff !important; border-radius: 15px !important; font-size: 20px !important;  cursor: pointer !important; text-decoration:none !important;' >" +
+                                                    "Confirmar Cuenta!" +
+                                               $"</a>" +
+                                $"</div>" +
+
+                  $"</div>");
+
+              
+                _flashMessage.Info("Usuario Administrador creado con exito, para el ingreso a la plataforma debe activar la cuenta con el link enviado al email registrado.");
                 return RedirectToAction(nameof(Index));
             }
 
@@ -3386,5 +3432,32 @@ namespace AhorroDigital.API.Controllers
 
 
         #endregion
+
+        public JsonResult GetImagenes(string Email)
+        {
+            User user = _context.Users
+                 .FirstOrDefault(c => c.Email == Email);
+            List<string> info = new List<string>();
+
+            if (user == null || Email == null)
+            {
+                info.Add("http://localhost:5047/images/users/noimages.png");
+
+            }
+            else
+            {
+                info.Add(user.ImageFullPath.ToString());
+
+            }
+
+
+
+
+
+            return Json(info);
+        }
+
     }
+
+
 }
