@@ -45,13 +45,16 @@
             <div class="col-md-12">
                 <flash dismissable="true" />
             </div>
+
+             @if (User.IsInRole("Admin"))
+                                            {
             <div class="viewphoto">
                 <img id="imagenPrevisualizacion" src="~/images/noimages.png" />
                 <button type="button" id="custom-button"><i class="fa-solid fa-cloud-arrow-up"></i></button>
                 <input asp-for="ImageFile" class="form-control" type="file" id="real-file" hidden="hidden" accept="image/*" display="none" />
             </div>
             <span asp-validation-for="ImageFile" class="text-danger text__error"></span>
-
+                                            }
             <label asp-for="LoanTypeId" class="control-label content__label-tcb"></label>
             <div class="input-field-em">
                 <i class="fa-solid fa-piggy-bank"></i>
@@ -107,9 +110,18 @@
             <div class="input-field-em">
                 <i class="fa-solid fa-filter-circle-dollar"></i>
                 <select asp-for="State" class="marks" placeholder="Comentarios">
-                    <option value="Pendiente">Pendiente</option>
-                    <option value="Denegado">Denegado</option>
-                    <option value="Aprobado">Aprobado</option>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Denegado">Denegado</option>
+                        <option value="Aprobado">Aprobado</option>
+                    }
+                    else
+                    {
+                        <option value="Pendiente">Pendiente</option>
+
+
+                    }
                 </select>
 
             </div>
@@ -261,8 +273,6 @@
 
     </script>
 
-
-
     <script>
 
         let home = document.getElementById("home");
@@ -281,6 +291,14 @@
         tp.classList.remove('active');
         option.classList.add('op_back');
     </script>
+    <script>
+        document.getElementById("homes").classList.remove('active');
+        document.getElementById("pre").classList.add('active');
+        document.getElementById("ahr").classList.remove('active');
+
+    </script>
+
+  
     <script>
 
 
@@ -365,8 +383,12 @@
 
         });
   </script>
+   
 
     <script>
+
+      
+
         BtnSimulacion.addEventListener("click", function () {
             var _dues = document.getElementById("Dues").value;
             var _value = document.getElementById("Value").value;

@@ -21,7 +21,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Itim&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
 </head>
@@ -110,22 +112,28 @@
  
     </header>
     <div class="l-navbar" id="nav-bar">
-        <nav class="nav">
-            <div>
-                <a href="#" class="nav_logo" >
-                    <div class="header_img"> <img src="~/images/logonatillera.png" alt="" > </div>
-                    <span class="nav_logo-name">Ahorro Digital</span>
-                </a>
-                <div class="nav_list" >
-                    <a id="home" aria-describedby="tooltip" class="nav_link active" asp-area="" asp-controller="Home" asp-action="Index" data-aos="fade-up" data-aos-duration="1000">
-                        
-                        <i class='fa-solid fa-house nav_icon'  title="Inicio" data-bs-toggle="mensaje"></i>
-                        <span class="nav_name">Inicio</span>
-                    </a>
 
-                  
-                    @if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-                    {
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+        {
+            <nav class="nav">
+                <div>
+                    <a href="#" class="nav_logo" >
+                        <div class="header_img"> <img src="~/images/logonatillera.png" alt="" > </div>
+                        <span class="nav_logo-name">Ahorro Digital</span>
+                    </a>
+                    <div class="nav_list" >
+
+                        <a id="home" aria-describedby="tooltip" class="nav_link active" asp-area="" asp-controller="Home" asp-action="Index" data-aos="fade-up" data-aos-duration="1000">
+
+                            <i class='fa-solid fa-house nav_icon' title="Inicio" data-bs-toggle="mensaje"></i>
+                            <span class="nav_name">Inicio</span>
+                        </a>
+
+
+
+
+
+
                         <a id="tc" class="nav_link" asp-area="" asp-controller="AccountTypes" asp-action="Index" data-aos="fade-up" data-aos-duration="1000">
                             <i class="fa-solid fa-money-check-dollar nav_icon" title="Tipos Cuentas Bancarias" data-bs-toggle="mensaje"></i>
 
@@ -144,7 +152,7 @@
 
                         <a id="tp" class="nav_link" asp-area="" asp-controller="LoanTypes" asp-action="Index" data-aos="fade-up" data-aos-duration="1000">
                             <i class="fa-solid fa-credit-card nav_icon" title="Tipos Prestamos" data-bs-toggle="mensaje"></i>
-                            
+
                             <span class="nav_name">Tipos Prestamos</span>
                         </a>
 
@@ -154,13 +162,55 @@
                             <span class="nav_name">Usuarios</span>
                         </a>
 
-                       
-                    }
-                  
 
+
+
+
+
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        }
+        else
+       if (User.Identity.IsAuthenticated && User.IsInRole("User"))
+        {
+            <nav class="nav">
+                <div>
+                    <a href="#" class="nav_logo">
+                        <div class="header_img"> <img src="~/images/logonatillera.png" alt=""> </div>
+                        <span class="nav_logo-name">Ahorro Digital</span>
+                    </a>
+                    <div class="nav_list">
+
+                        <a id="homes" aria-describedby="tooltip" class="nav_link active" asp-area="" asp-controller="Home" asp-action="Index" data-aos="fade-up" data-aos-duration="1000">
+
+                            <i class='fa-solid fa-house nav_icon' title="Inicio" data-bs-toggle="mensaje"></i>
+                            <span class="nav_name">Inicio</span>
+                        </a>
+
+
+                        <a id="ahr" class="nav_link " asp-area="" asp-controller="Users" asp-action="MySavings" data-aos="fade-up" data-aos-duration="1000">
+
+                            <i class="fa-solid fa-money-bill-1 nav_icon" title="Ahorros" data-bs-toggle="mensaje"></i>
+                            <span class="nav_name">Ahorros</span>
+                        </a>
+                        <a id="pre" class="nav_link" asp-area="" asp-controller="Users" asp-action="MyLoans" data-aos="fade-up" data-aos-duration="1000">
+
+                            <i class="fa-solid fa-credit-card nav_icon" title="Prestamos" data-bs-toggle="mensaje"></i>
+                            <span class="nav_name">Prestamos </span>
+                        </a>
+
+
+                        }
+
+
+
+
+                    </div>
+                </div>
+            </nav>
+
+        }
     </div>
 
     <div class=" container  ">

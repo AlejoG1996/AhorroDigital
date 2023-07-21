@@ -74,9 +74,18 @@
                                     <div class="input-field-em">
                                         <i class="fa-solid fa-filter-circle-dollar"></i>
                                         <select asp-for="State" class="marks" placeholder="Comentarios">
-                                            <option value="Pendiente">Pendiente</option>
+                                            @if (User.IsInRole("Admin"))
+                                            {
+                                                <option value="Pendiente">Pendiente</option>
 
-                                            <option value="Aprobado">Aprobado</option>
+                                                <option value="Aprobado">Aprobado</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="Pendiente">Pendiente</option>
+
+                                            }
+
                                         </select>
 
                                     </div>
@@ -185,6 +194,12 @@
         tc.classList.remove('active');
         tp.classList.remove('active');
         option.classList.add('op_back');
+    </script>
+    <script>
+        document.getElementById("homes").classList.remove('active');
+        document.getElementById("pre").classList.add('active');
+        document.getElementById("ahr").classList.remove('active');
+
     </script>
     <script type="text/javascript">
 

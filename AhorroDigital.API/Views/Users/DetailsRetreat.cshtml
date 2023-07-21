@@ -315,12 +315,20 @@
                                     
 
 
+                                     @if (User.IsInRole("Admin"))
+                    {
+                                        <a asp-action="EditRetreat" asp-route-id="@item.Id" class="btn btn-dark"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <button data-id="@item.Id" class="btn btn-danger deleteItem" data-bs-toggle="modal" data-bs-target="#deleteDialog"><i class="fa-solid fa-trash"></i></button>
 
-                                    <a asp-action="EditRetreat" asp-route-id="@item.Id" class="btn btn-dark"><i class="fa-solid fa-pen-to-square"></i></a>
+                    }
+                    else
+                     {
+                                        <a asp-action="EditRetreat" asp-route-id="@item.Id" class="btn btn-dark not-active"><i class="fa-solid fa-pen-to-square"></i></a>
+
+                        }
 
                                         
                                     
-                                    <button data-id="@item.Id" class="btn btn-danger deleteItem" data-bs-toggle="modal" data-bs-target="#deleteDialog"><i class="fa-solid fa-trash"></i></button>
 
                                 </td>
                             </tr>
@@ -387,6 +395,12 @@
         tc.classList.remove('active');
         tp.classList.remove('active');
         option.classList.add('op_back');
+    </script>
+    <script>
+        document.getElementById("homes").classList.remove('active');
+        document.getElementById("ahr").classList.add('active');
+        document.getElementById("pre").classList.remove('active');
+
     </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>

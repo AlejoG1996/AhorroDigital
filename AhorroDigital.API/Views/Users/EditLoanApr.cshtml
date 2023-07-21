@@ -31,18 +31,19 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="row">
+                         @if (User.IsInRole("Admin"))
+                        {
+                            <div class="col-md-4" style="height:500px !important">
+                                <div class="col-md-12" style="height:100% !important">
+                                    <img id="imagenPrevisualizacion" src="@Model.ImageFullPath" style="object-fit: cover; width:100%; height:100%;" />
+                                    <input asp-for="ImageFile" class="form-control" type="file" id="real-file" hidden="hidden" accept="image/*" display="none" />
+                                </div>
+                                <span asp-validation-for="ImageFile" class="text-danger text__error"></span>
+                                <a type="button" id="custom-button_2"> Subir Comprobante</a>
 
-                        <div class="col-md-4" style="height:500px !important">
-                            <div class="col-md-12" style="height:100% !important">
-                                <img id="imagenPrevisualizacion" src="@Model.ImageFullPath" style="object-fit: cover; width:100%; height:100%;" />
-                                <input asp-for="ImageFile" class="form-control" type="file" id="real-file" hidden="hidden" accept="image/*" display="none" />
                             </div>
-                            <span asp-validation-for="ImageFile" class="text-danger text__error"></span>
-                            <a type="button" id="custom-button_2"> Subir Comprobante</a>
 
-                        </div>
-
-
+                        }
                         <div class="col-md-8" style="margin-top:55px !important;">
                             <div class="row">
                                 <div class="col-md-6">
@@ -91,9 +92,18 @@
                                     <div class="input-field-em">
                                         <i class="fa-solid fa-filter-circle-dollar"></i>
                                         <select asp-for="State" class="marks" placeholder="Comentarios" disabled>
-                                            <option value="Pendiente">Pendiente</option>
-                                            <option value="Denegado">Denegado</option>
-                                            <option value="Aprobado">Aprobado</option>
+                                            @if (User.IsInRole("Admin"))
+                                            {
+                                                <option value="Pendiente">Pendiente</option>
+                                                <option value="Denegado">Denegado</option>
+                                                <option value="Aprobado">Aprobado</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="Pendiente">Pendiente</option>
+
+
+                                            }
                                         </select>
 
                                     </div>
@@ -153,7 +163,34 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+    <script>
+
+        let home = document.getElementById("home");
+        let td = document.getElementById("td");
+        let tc = document.getElementById("tc");
+        let ta = document.getElementById("ta");
+        let tp = document.getElementById("tp");
+        let user = document.getElementById("user");
+
+        user.classList.add('active');
+
+        ta.classList.remove('active');
+        home.classList.remove('active');
+        td.classList.remove('active');
+        tc.classList.remove('active');
+        tp.classList.remove('active');
+        option.classList.add('op_back');
+    </script>
+    <script>
+        document.getElementById("homes").classList.remove('active');
+        document.getElementById("pre").classList.add('active');
+        document.getElementById("ahr").classList.remove('active');
+
+    </script>
     <script type="text/javascript">
+
+     
 
         $(document).ready(function () {
 
@@ -192,26 +229,9 @@
 
     </script>
 
+ 
 
 
-    <script>
-
-        let home = document.getElementById("home");
-        let td = document.getElementById("td");
-        let tc = document.getElementById("tc");
-        let ta = document.getElementById("ta");
-        let tp = document.getElementById("tp");
-        let user = document.getElementById("user");
-
-        user.classList.add('active');
-
-        ta.classList.remove('active');
-        home.classList.remove('active');
-        td.classList.remove('active');
-        tc.classList.remove('active');
-        tp.classList.remove('active');
-        option.classList.add('op_back');
-    </script>
     <script type="text/javascript">
 
 

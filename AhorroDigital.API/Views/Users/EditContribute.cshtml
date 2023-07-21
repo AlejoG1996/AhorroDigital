@@ -75,11 +75,21 @@
                         <label asp-for="State" class="control-label content__label-tcb"></label>
                         <div class="input-field-em">
                             <i class="fa-solid fa-filter-circle-dollar"></i>
-                            <select asp-for="State" class="marks" placeholder="Comentarios">
-                                <option value="Pendiente">Pendiente</option>
-                                <option value="Denegado">Denegado</option>
-                                <option value="Aprobado">Aprobado</option>
-                            </select>
+                                <select asp-for="State" class="marks" placeholder="Comentarios">
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <option value="Pendiente">Pendiente</option>
+                                        <option value="Denegado">Denegado</option>
+                                        <option value="Aprobado">Aprobado</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="Pendiente">Pendiente</option>
+
+
+                                    }
+
+                                </select>
 
                         </div>
                         <span asp-validation-for="State" class="text-danger text__error"></span>
@@ -195,5 +205,11 @@
         tc.classList.remove('active');
         tp.classList.remove('active');
         option.classList.add('op_back');
+    </script>
+    <script>
+        document.getElementById("homes").classList.remove('active');
+        document.getElementById("ahr").classList.add('active');
+        document.getElementById("pre").classList.remove('active');;
+
     </script>
 }

@@ -67,9 +67,18 @@
             <div class="input-field-em">
                 <i class="fa-solid fa-filter-circle-dollar"></i>
                 <select asp-for="State" class="marks" placeholder="Comentarios">
-                    <option value="Pendiente">Pendiente</option>
-                    <option value="Denegado">Denegado</option>
-                    <option value="Aprobado">Aprobado</option>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Denegado">Denegado</option>
+                        <option value="Aprobado">Aprobado</option>
+                    }
+                    else{
+                     <option value="Pendiente">Pendiente</option>
+                        
+                        }
+
+                    
                 </select>
 
             </div>
@@ -180,6 +189,34 @@
                 $imagenPrevisualizacion.src = objectURL;
             }
         });
+
+     
+
+
+    </script>
+    <script>
+
+        let home = document.getElementById("home");
+        let td = document.getElementById("td");
+        let tc = document.getElementById("tc");
+        let ta = document.getElementById("ta");
+        let tp = document.getElementById("tp");
+        let user = document.getElementById("user");
+
+        user.classList.add('active');
+
+        ta.classList.remove('active');
+        home.classList.remove('active');
+        td.classList.remove('active');
+        tc.classList.remove('active');
+        tp.classList.remove('active');
+        option.classList.add('op_back');
+    </script>
+    <script>
+        document.getElementById("homes").classList.remove('active');
+        document.getElementById("ahr").classList.add('active');
+        document.getElementById("pre").classList.remove('active');;
+
     </script>
 
   

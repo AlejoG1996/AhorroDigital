@@ -458,6 +458,10 @@ p > i {
     cursor: default;
 }
 
+.active{
+    color: #fff !important;
+}
+
 .card_info-loan {
     background-color: #fff !important;
     border-left: 5px solid  #52BE80 !important;
