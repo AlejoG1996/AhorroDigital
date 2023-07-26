@@ -10,7 +10,7 @@ namespace AhorroDigital.API.Data.Entities
 
         [Display(Name="Tipo de Ahorro")]
         [Required(ErrorMessage ="El campo {0} es obligatorio.")]
-        public SavingType? SavingType { get; set; }
+        public SavingType SavingType { get; set; }
 
         [Display(Name = "Fecha Inicio")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
@@ -63,7 +63,19 @@ namespace AhorroDigital.API.Data.Entities
         public int TotalSlope => Contributes == null ? 0 :
           Contributes.Sum(x => x.ValueSlop);
 
+        [Display(Name = "Porcentaje Ganancia")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        public double PorcentageWin { get; set; }
         public ICollection<Retreat> Retreats { get; set; }
+
+        [Display(Name ="Ganancia Ahorro")]
+        [DisplayFormat(DataFormatString ="{0:C2}")]
+        public int ValueWing =>
+          Convert.ToInt16(Total * (PorcentageWin / 100));
+
+        [Display(Name = "Disponible Retiro")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        public int ValueDRetiro => Total + ValueWing;
 
 
     }

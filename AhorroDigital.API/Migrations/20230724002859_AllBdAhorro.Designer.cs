@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AhorroDigital.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230707174758_AllBd")]
-    partial class AllBd
+    [Migration("20230724002859_AllBdAhorro")]
+    partial class AllBdAhorro
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,12 +57,10 @@ namespace AhorroDigital.API.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Marks")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("varchar(150)");
 
                     b.Property<string>("MarksAdmin")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("varchar(150)");
 
@@ -143,12 +141,10 @@ namespace AhorroDigital.API.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Marks")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("varchar(150)");
 
                     b.Property<string>("MarksAdmin")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("varchar(150)");
 
@@ -355,12 +351,10 @@ namespace AhorroDigital.API.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Marks")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("varchar(150)");
 
                     b.Property<string>("MarksAdmin")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("varchar(150)");
 
@@ -403,6 +397,9 @@ namespace AhorroDigital.API.Migrations
                     b.Property<int>("MinValue")
                         .HasColumnType("int");
 
+                    b.Property<double>("PorcentageWin")
+                        .HasColumnType("double");
+
                     b.Property<int>("SavingTypeId")
                         .HasColumnType("int");
 
@@ -443,6 +440,9 @@ namespace AhorroDigital.API.Migrations
 
                     b.Property<int>("NumberRegister")
                         .HasColumnType("int");
+
+                    b.Property<double>("PorcentageWin")
+                        .HasColumnType("double");
 
                     b.HasKey("Id");
 

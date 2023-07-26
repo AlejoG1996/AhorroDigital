@@ -25,7 +25,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
+    <style>
+        .active {
+            color: #fff !important;
+        }
+    </style>
 </head>
 <body id="body-pd">
 
@@ -115,7 +119,7 @@
 
         @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
         {
-            <nav class="nav">
+            <nav class="navs">
                 <div>
                     <a href="#" class="nav_logo" >
                         <div class="header_img"> <img src="~/images/logonatillera.png" alt="" > </div>
@@ -162,6 +166,11 @@
                             <span class="nav_name">Usuarios</span>
                         </a>
 
+                        <a id="dashboard" class="nav_link" asp-area="" asp-controller="DashBoard" asp-action="Index" data-aos="fade-up" data-aos-duration="1000">
+
+                            <i class="fa-solid fa-chart-line nav_icon " title="DashBoard" data-bs-toggle="mensaje"></i>
+                            <span class="nav_name">DashBoard</span>
+                        </a>
 
 
 
@@ -174,7 +183,7 @@
         else
        if (User.Identity.IsAuthenticated && User.IsInRole("User"))
         {
-            <nav class="nav">
+            <nav class="navs">
                 <div>
                     <a href="#" class="nav_logo">
                         <div class="header_img"> <img src="~/images/logonatillera.png" alt=""> </div>

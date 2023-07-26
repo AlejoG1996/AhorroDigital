@@ -446,7 +446,7 @@ namespace AhorroDigital.API.Controllers
                         return View(model);
                     }
                 }
-
+                saving.PorcentageWin = saving.SavingType.PorcentageWin;
                 saving.DateEnd = saving.DateIni.AddDays(saving.SavingType.NumberDays);
                 user.Savings.Add(saving);
                 _context.Users.Update(user);
@@ -531,6 +531,8 @@ namespace AhorroDigital.API.Controllers
                         }
                     }
                     saving.DateEnd = saving.DateIni.AddDays(saving.SavingType.NumberDays);
+                    saving.PorcentageWin = saving.SavingType.PorcentageWin;
+
                     _context.Savings.Update(saving);
                     await _context.SaveChangesAsync();
                     _flashMessage.Info("Ahorro Editado  con exito.");
@@ -2072,19 +2074,21 @@ namespace AhorroDigital.API.Controllers
                                 }
                                 else
                                 {
-                                    item.ValueTP = item.ValueCapital + item.ValueInt + item.ValueArrears;
-                                    item.State = model.State;
-                                    auxvr = item.PendientePago;
-                                    item.TotalCapital = 0;
-                                    item.PendientePago = 0;
-                                    item.TotalInterest = 0;
-                                    item.DatePR = DateTime.Now;
-                                    item.PaymentType = "Total";
+                                   
                                 }
-                                item.Pago = "SiTotal";
                                 _context.PaymentPlan.Update(item);
                                 await _context.SaveChangesAsync();
 
+                            }
+                            else
+                            {
+                                item.ValueTP = item.ValueCapital + item.ValueInt + item.ValueArrears;
+                                item.State = model.State;
+                                auxvr = item.PendientePago;
+                                item.TotalCapital = 0;
+                                item.PendientePago = 0;
+                                item.TotalInterest = 0;
+                                item.DatePR = DateTime.Now;
                             }
 
 
@@ -2104,17 +2108,21 @@ namespace AhorroDigital.API.Controllers
                         int valued = payments.Loan.Value;
                         foreach (var item in paymentsPlan)
                         {
-                            item.ValueArrearsM = 0;
-                            item.DayArrearsM = 0;
-                            item.ValueIntG = item.ValueInt;
+                          if(item.ValueTP == 0)
+                            {
+                                item.ValueArrearsM = 0;
+                                item.DayArrearsM = 0;
+                                item.ValueIntG = item.ValueInt;
 
-                            valued = valued - item.ValueCapital;
-                            item.PendientePago = item.ValueInt + item.ValueCapital;
-                            item.TotalInterest = item.ValueInt;
-                            item.TotalCapital = item.ValueCapital;
-                            item.Pago = "SiTotal";
-                            _context.PaymentPlan.Update(item);
-                            await _context.SaveChangesAsync();
+                                valued = valued - item.ValueCapital;
+                                item.PendientePago = item.ValueInt + item.ValueCapital;
+                                item.TotalInterest = item.ValueInt;
+                                item.TotalCapital = item.ValueCapital;
+                                item.Pago = "SiTotal";
+                                item.PaymentType = "Total";
+                                _context.PaymentPlan.Update(item);
+                                await _context.SaveChangesAsync();
+                            }
                         }
 
 
@@ -2472,8 +2480,8 @@ namespace AhorroDigital.API.Controllers
                 ImageFullPath = payments.ImageFullPath,
                 LoanId = payments.Loan.Id,
                 Value = 0,
-                Deuda = loan.ValueTotal + loan.ValueArrearst
-
+                Deuda = loan.ValueTotal + loan.ValueArrearst,
+                Statet = payments.State
             };
 
             if (payments.State.Equals("Aprobado"))
@@ -2585,10 +2593,20 @@ namespace AhorroDigital.API.Controllers
 
                     if (model.State.Equals("Aprobado"))
                     {
-
+                      
 
                         int vrtotral = model.Value - vrft;
                         int auxvr = 0;
+                        if(model.Statet.Equals("Pendiente") && payments.State.Equals("Aprobado"))
+                        {
+                            if (model.Value != loan.ValueTotal + loan.ValueArrearst)
+                            {
+                                int valor = loan.ValueArrearst + loan.ValueTotal;
+                                _flashMessage.Danger("Si quieres hacer un pago total debes ingresar un valor a pagar igual a  " + valor.ToString("C"));
+                                return View(model);
+                            };
+                        }
+                       
 
                         foreach (var item in paymentsPlan)
                         {
@@ -2660,8 +2678,11 @@ namespace AhorroDigital.API.Controllers
 
                         int valued = payments.Loan.Value;
                         foreach (var item in paymentsPlan)
+
                         {
-                            DateTime fecha = Convert.ToDateTime(item.DatePR);
+                            if (item.ValueTP >= 0 &&  item.PaymentType.Equals("Total"))
+                            {
+                                DateTime fecha = Convert.ToDateTime(item.DatePR);
                             string datePr = fecha.ToString("dd-MM-yyyy");
                             string date = model.Date.ToString("dd-MM-yyyy");
 
@@ -2670,35 +2691,35 @@ namespace AhorroDigital.API.Controllers
                             ids = model.LoanId;
                             DateTime dtaux = Convert.ToDateTime("01/01/2100");
 
-                            if (item.State.Equals("Aprobado") && datePr == date && item.PaymentType.Equals("Total"))
-                            {
+                                if (item.State.Equals("Aprobado") && datePr == date && item.PaymentType.Equals("Total"))
+                                {
 
-                                item.ValueArrearsM = 0;
-                                item.DayArrearsM = 0;
-                                item.ValueCapital = (payments.Loan.Value / loan.Dues);
-                                item.ValueInt = item.ValueIntG;
-                                valued = valued - item.ValueCapital;
-
-
+                                    item.ValueArrearsM = 0;
+                                    item.DayArrearsM = 0;
+                                    item.ValueCapital = (payments.Loan.Value / loan.Dues);
+                                    item.ValueInt = item.ValueIntG;
+                                    valued = valued - item.ValueCapital;
 
 
 
-                                item.State = "Pendiente";
-                                item.ValueTP = 0;
-                                item.TotalCapital = item.ValueCapital;
-                                item.TotalInterest = item.ValueInt;
-                                item.PendientePago = item.ValueInt + item.ValueCapital;
 
-                                item.DatePR = null;
-                                item.PaymentType = null;
-                                item.Pago = "SiTotal";
 
-                                payments.ValueCapital = valuecapital;
-                                payments.ValueInt = Convert.ToInt16(valuecapital * (loan.Interest / 100));
+                                    item.State = "Pendiente";
+                                    item.PaymentType = "Total";
+                                    item.ValueTP = 0;
+                                    item.TotalCapital = item.ValueCapital;
+                                    item.TotalInterest = item.ValueInt;
+                                    item.PendientePago = item.ValueInt + item.ValueCapital;
 
-                                _context.PaymentPlan.Update(item);
-                                await _context.SaveChangesAsync();
+                                    item.DatePR = null;
+                                    item.Pago = "SiTotal";
 
+                                    payments.ValueCapital = valuecapital;
+                                    payments.ValueInt = Convert.ToInt16(valuecapital * (loan.Interest / 100));
+
+                                    _context.PaymentPlan.Update(item);
+                                    await _context.SaveChangesAsync();
+                                }
                             }
 
 
@@ -2848,7 +2869,12 @@ namespace AhorroDigital.API.Controllers
                     int auxid = 0, val = 0, ids = 0;
 
                     DateTime dtaux = Convert.ToDateTime("01/01/2100");
-                    if (item.State.Equals("Aprobado") && datePr == date && item.PaymentType.Equals("Total"))
+                    if (item.ValueTP >= 0 && item.PaymentType.Equals("Total"))
+                    {
+                        item.Pago = "No";
+
+                    }
+                    if (item.State.Equals("Aprobado") &&  datePr == date  && item.PaymentType.Equals("Total"))
                     {
 
                         item.State = "Pendiente";
@@ -2858,7 +2884,6 @@ namespace AhorroDigital.API.Controllers
                         item.PendientePago = item.ValueInt + item.ValueCapital;
                         item.DatePR = null;
                         item.PaymentType = null;
-                        item.Pago = "No";
                         item.ValueCapital = (payments.Loan.Value / payments.Loan.Dues);
                         item.ValueInt = item.ValueIntG;
 
@@ -2867,10 +2892,7 @@ namespace AhorroDigital.API.Controllers
                         await _context.SaveChangesAsync();
 
                     }
-                    if (!item.Pago.Equals("No"))
-                    {
-                        item.Pago = "No";
-                    }
+                   
                     valued = valued - item.ValueCapital;
                 }
             }
@@ -3060,11 +3082,11 @@ namespace AhorroDigital.API.Controllers
                     return View(model);
                 }
 
-                if (model.DateS< saving.DateEnd)
-                {
-                    _flashMessage.Danger("Debes esperar hasta la fecha: "+ saving.DateEnd.ToString("dd-MM-yyyy") + " para poder hacer retiro del valor ahorrado.");
-                    return View(model);
-                }
+                //if (model.DateS< saving.DateEnd)
+                //{
+                //    _flashMessage.Danger("Debes esperar hasta la fecha: "+ saving.DateEnd.ToString("dd-MM-yyyy") + " para poder hacer retiro del valor ahorrado.");
+                //    return View(model);
+                //}
 
 
                 if (model.Value <= 0)
@@ -3073,6 +3095,8 @@ namespace AhorroDigital.API.Controllers
 
                     return View(model);
                 }
+
+                
 
                 int vrd = saving.User.TotalA * 2;
 
@@ -3083,7 +3107,19 @@ namespace AhorroDigital.API.Controllers
                     return View(model);
                 }
 
-               
+               if(saving.ValueDRetiro != model.Value)
+                {
+                    _flashMessage.Danger("Debes ingresar un valor a retirar igual al disponible: "+ saving.ValueDRetiro.ToString("C"));
+
+                    return View(model);
+                }
+
+                if (model.ImageFile== null && model.State.Equals("Aprobado"))
+                {
+                    _flashMessage.Danger("Debes ingresar imagen del comprobante del retiro ");
+
+                    return View(model);
+                }
                 //validar img
                 string filename = "";
                 if (model.ImageFile == null)
@@ -3103,11 +3139,7 @@ namespace AhorroDigital.API.Controllers
                 }
 
                 Retreat retreat = await _converterHelper.ToRetreatAsync(model, true);
-                if (model.Value != saving.User.TotalA)
-                {
-                    _flashMessage.Danger("El valor a retirar debe ser igual al valor ahorrado: " + saving.User.TotalA.ToString("C"));
-                    return View(model);
-                }
+               
                 //almacenar foto
                 string ruta = "http://localhost:5047/images/retiros/noimages.png";
                
@@ -3274,6 +3306,13 @@ namespace AhorroDigital.API.Controllers
                     return View(model);
                 }
 
+              
+                if (model.ImageFile == null && model.State.Equals("Aprobado"))
+                {
+                    _flashMessage.Danger("Debes ingresar imagen del comprobante del retiro ");
+
+                    return View(model);
+                }
                 //validar img
                 string filename = "";
                 if (model.ImageFile == null)

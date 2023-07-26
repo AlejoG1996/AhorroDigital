@@ -25,6 +25,11 @@ namespace AhorroDigital.API.Data.Entities
        
         public int NumberDays { get; set; }
 
+        [Display(Name = "Porcentaje Ganancia")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        public double PorcentageWin { get; set; }
+
 
         [Display(Name = "Número de registros")]
         public int NumberRegister { get; set; }

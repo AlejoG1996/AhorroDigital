@@ -83,8 +83,8 @@ namespace AhorroDigital.API.Data
         {
             if (!_context.SavingTypes.Any())
             {
-                _context.SavingTypes.Add(new SavingType { Name = "Ahorro programado", MinValue=20000, NumberDays=365, Marks="Este ahorro tiene como ahorro minimo $20.000 y se  puede realizar retiro pasado los 365 días." });
-                _context.SavingTypes.Add(new SavingType { Name = "Ahorro digital", MinValue=0 , NumberDays = 365, Marks = "Este ahorro tiene como ahorro minimo $0 y se  puede realizar retiro pasado los 365 días." });
+                _context.SavingTypes.Add(new SavingType { Name = "Ahorro programado", MinValue=20000, NumberDays=365, PorcentageWin=2, Marks="Este ahorro tiene como ahorro minimo $20.000, se  puede realizar retiro pasado los 365 días. y las ganancias generadas es del 2%" });
+                _context.SavingTypes.Add(new SavingType { Name = "Ahorro digital", MinValue=0 , NumberDays = 365, PorcentageWin = 1, Marks = "Este ahorro tiene como ahorro minimo $0, se  puede realizar retiro pasado los 365 días. y las ganancias generadas es del 2%" });
                 await _context.SaveChangesAsync();
             }
         }

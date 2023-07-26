@@ -28,7 +28,7 @@ namespace AhorroDigital.API.Models
         [Display(Name = "Observación Administrador")]
         [MaxLength(150, ErrorMessage = "El campo {0} no puede tener más  de {1} carácteres.")]
         [DataType(DataType.MultilineText)]
-        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+       
         public string? MarksAdmin { get; set; }
 
         [Display(Name = "Tipo de Pago")]
@@ -48,6 +48,9 @@ namespace AhorroDigital.API.Models
         [Display(Name = "Estado")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string? State { get; set; }
+
+        [Display(Name = "Estado")]
+        public string? Statet { get; set; }
 
 
         public string? UserId { get; set; }

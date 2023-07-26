@@ -21,8 +21,18 @@ namespace AhorroDigital.API.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public  async Task<IActionResult> Index()
         {
+            ViewBag.ContContribute = _context.Contributes.Count();
+            ViewBag.ContLoan = _context.Loans.Count();
+            ViewBag.ContPayments = _context.Payments.Count();
+            ViewBag.ContRetreat = _context.Retreats.Count();
+
+            ViewBag.ContContributev = _context.Contributes.Where(o => o.State.Equals("Aprobado")).Sum(x=>x.ValueAvail);
+            ViewBag.ContLoanv = _context.Loans.Where(o => o.State.Equals("Apronado")).Sum(x => x.Value);
+            ViewBag.ContPaymentsv = _context.Payments.Where(o => o.State.Equals("Aprobado")).Sum(x => x.Value);
+            ViewBag.ContRetreatv = _context.Retreats.Where(o => o.State.Equals("Aprobado")).Sum(x => x.Value);
+
             return View();
         }
 

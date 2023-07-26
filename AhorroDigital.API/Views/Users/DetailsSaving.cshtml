@@ -396,6 +396,7 @@
                                         }
                                         @if (User.IsInRole("Admin"))
                                         {        
+                                             <a asp-action="EditContribute" asp-route-id="@item.Id" class="btn btn-dark not-active"><i class="fa-solid fa-pen-to-square"></i></a>
                                             <button data-id="@item.Id" class="btn btn-danger deleteItem not-active" data-bs-toggle="modal" data-bs-target="#deleteDialog"><i class="fa-solid fa-trash"></i></button>
                                         }
                                     }
@@ -479,7 +480,8 @@
         let ta = document.getElementById("ta");
         let tp = document.getElementById("tp");
         let user = document.getElementById("user");
-
+        let dash = document.getElementById("dashboard");
+        dash.classList.remove('active');
         user.classList.add('active');
 
         ta.classList.remove('active');

@@ -458,9 +458,10 @@ p > i {
     cursor: default;
 }
 
-.active{
+.active {
     color: #fff !important;
 }
+
 
 .card_info-loan {
     background-color: #fff !important;
@@ -497,9 +498,31 @@ p > i {
 .col-auto i {
     color: #D5D8DC !important;
 }
+.more_infoli {
+    display: flex;
+    color: #85929E !important;
+    transition: transform  ease .5s !important;
+    margin-right: 10px;
+}
+
+.more_infoli:hover{
+    color:#229954 !important;
+}
+
+    .more_infoli span {
+        transition: transform ease .5s !important;
+        margin-left: 10px;
+    }
+
+    .more_infoli:hover .icon_seconds {
+        transform: translateX(10px);
+    }
+
+
 .btns {
     box-shadow: none !important;
     outline: none !important;
+
 }
 
 
@@ -517,4 +540,5 @@ p > i {
         width:75%!important;
     }
 }
+
 

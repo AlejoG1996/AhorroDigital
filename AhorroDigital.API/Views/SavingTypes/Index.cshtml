@@ -55,7 +55,9 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.NumberDays)
                             </th>
-                            
+                            <th>
+                                @Html.DisplayNameFor(model => model.PorcentageWin)
+                            </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.NumberRegister)
                             </th>
@@ -121,6 +123,9 @@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem=>item.NumberDays)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem=>item.PorcentageWin)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem=>item.NumberRegister)
@@ -189,7 +194,8 @@
         let user = document.getElementById("user");
 
         ta.classList.add('active');
-
+        let dash = document.getElementById("dashboard");
+        dash.classList.remove('active');
         tp.classList.remove('active');
         home.classList.remove('active');
         td.classList.remove('active');

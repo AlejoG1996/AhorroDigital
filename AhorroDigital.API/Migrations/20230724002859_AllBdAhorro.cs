@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace AhorroDigital.API.Migrations
 {
     /// <inheritdoc />
-    public partial class AllBd : Migration
+    public partial class AllBdAhorro : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -87,6 +87,7 @@ namespace AhorroDigital.API.Migrations
                     Name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     MinValue = table.Column<int>(type: "int", nullable: false),
                     NumberDays = table.Column<int>(type: "int", nullable: false),
+                    PorcentageWin = table.Column<double>(type: "double", nullable: false),
                     NumberRegister = table.Column<int>(type: "int", nullable: false),
                     Marks = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false)
                 },
@@ -279,8 +280,8 @@ namespace AhorroDigital.API.Migrations
                     DateS = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     DateA = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     State = table.Column<string>(type: "longtext", nullable: true),
-                    Marks = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
-                    MarksAdmin = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
+                    Marks = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true),
+                    MarksAdmin = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true),
                     Value = table.Column<int>(type: "int", nullable: false),
                     ValueP = table.Column<int>(type: "int", nullable: false),
                     ValueD = table.Column<int>(type: "int", nullable: false),
@@ -319,7 +320,8 @@ namespace AhorroDigital.API.Migrations
                     DateEnd = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     MinValue = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "varchar(255)", nullable: false),
-                    Marks = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false)
+                    Marks = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
+                    PorcentageWin = table.Column<double>(type: "double", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -421,8 +423,8 @@ namespace AhorroDigital.API.Migrations
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     SavingId = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Marks = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
-                    MarksAdmin = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
+                    Marks = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true),
+                    MarksAdmin = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true),
                     Value = table.Column<int>(type: "int", nullable: false),
                     ValueAvail = table.Column<int>(type: "int", nullable: false),
                     ValueSlop = table.Column<int>(type: "int", nullable: false),
@@ -458,8 +460,8 @@ namespace AhorroDigital.API.Migrations
                     SavingId = table.Column<int>(type: "int", nullable: false),
                     DateM = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Value = table.Column<int>(type: "int", nullable: false),
-                    Marks = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
-                    MarksAdmin = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
+                    Marks = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true),
+                    MarksAdmin = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true),
                     State = table.Column<string>(type: "longtext", nullable: true),
                     ImageFullPath = table.Column<string>(type: "longtext", nullable: true),
                     UserAdmin = table.Column<string>(type: "longtext", nullable: true)

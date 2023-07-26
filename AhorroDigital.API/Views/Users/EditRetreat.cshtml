@@ -16,7 +16,7 @@
 
 <div class="row" data-aos="fade-up" data-aos-duration="2000">
     <div class="col-md-12">
-        <h3>Nueva Consignación</h3>
+        <h3>Editar Pago</h3>
         <hr />
         <form asp-action="EditRetreat" enctype="multipart/form-data">
             <input type="hidden" asp-for="Id" />
@@ -33,16 +33,20 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="col-md-4" style="height:500px !important">
-                            <div class="col-md-12" style="height:100% !important">
+                        @if (User.IsInRole("Admin"))
+
+            {
+                            <div class="col-md-4" style="height:500px !important">
+                                <div class="col-md-12" style="height:100% !important">
                                 <img id="imagenPrevisualizacion" src="@Model.ImageFullPath" style="object-fit: cover; width:100%; height:100%;" />
-                                <button type="button" id="custom-button_2"><i class="fa-solid fa-cloud-arrow-up"></i></button>
+
                                 <input asp-for="ImageFile" class="form-control" type="file" id="real-file" hidden="hidden" accept="image/*" display="none" />
+
                             </div>
                             <span asp-validation-for="ImageFile" class="text-danger text__error"></span>
                             <a type="button" id="custom-button_2"> Subir Comprobante</a>
 
-                        </div>
+                        </div>}
 
 
                         <div class="col-md-8" style="margin-top:55px !important;">
@@ -89,23 +93,35 @@
                                 </select>
 
                             </div>
-                            <span asp-validation-for="State" class="text-danger text__error"></span>
+                            @if (User.IsInRole("Admin"))
 
-                            <label asp-for="Marks" class="control-label content__label-tcb"></label>
-                            <div class="input-field-em">
-                                <i class="fa-solid fa-quote-right"></i>
-                                <textarea asp-for="Marks" class="marks" placeholder="Comentarios"></textarea>
+                            {
+                                <label asp-for="Marks" class="control-label content__label-tcb"></label>
+                                <div class="input-field-em">
+                                    <i class="fa-solid fa-quote-right"></i>
+                                    <textarea asp-for="Marks" class="marks" placeholder="Comentarios" readonly></textarea>
 
-                            </div>
-                            <span asp-validation-for="Marks" class="text-danger text__error"></span>
+                                </div>
+                                <span asp-validation-for="Marks" class="text-danger text__error"></span>
 
-                            <label asp-for="MarksAdmin" class="control-label content__label-tcb"></label>
-                            <div class="input-field-em">
-                                <i class="fa-solid fa-quote-right"></i>
-                                <textarea asp-for="MarksAdmin" class="marks" placeholder="Comentarios"></textarea>
+                                <label asp-for="MarksAdmin" class="control-label content__label-tcb"></label>
+                                <div class="input-field-em">
+                                    <i class="fa-solid fa-quote-right"></i>
+                                    <textarea asp-for="MarksAdmin" class="marks" placeholder="Comentarios"></textarea>
 
-                            </div>
-                            <span asp-validation-for="MarksAdmin" class="text-danger text__error"></span>
+                                </div>
+                                <span asp-validation-for="MarksAdmin" class="text-danger text__error"></span>
+                            }
+                            else
+                            {
+                                <label asp-for="Marks" class="control-label content__label-tcb"></label>
+                                <div class="input-field-em">
+                                    <i class="fa-solid fa-quote-right"></i>
+                                    <textarea asp-for="Marks" class="marks" placeholder="Comentarios"></textarea>
+
+                                </div>
+                                <span asp-validation-for="Marks" class="text-danger text__error"></span>
+                            }
                         </div>
                     </div>
                 </div>
@@ -134,6 +150,7 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
     <script type="text/javascript">
 
 
@@ -192,7 +209,8 @@
         let ta = document.getElementById("ta");
         let tp = document.getElementById("tp");
         let user = document.getElementById("user");
-
+        let dash = document.getElementById("dashboard");
+        dash.classList.remove('active');
         user.classList.add('active');
 
         ta.classList.remove('active');

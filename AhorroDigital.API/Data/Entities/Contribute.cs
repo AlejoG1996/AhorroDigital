@@ -19,12 +19,12 @@ namespace AhorroDigital.API.Data.Entities
         [Display(Name = "Observación")]
         [MaxLength(150, ErrorMessage = "El campo {0} no puede tener más  de {1} carácteres.")]
         [DataType(DataType.MultilineText)]
-        public string Marks { get; set; }
+        public string? Marks { get; set; }
 
         [Display(Name = "Observación Administrador")]
         [MaxLength(150, ErrorMessage = "El campo {0} no puede tener más  de {1} carácteres.")]
         [DataType(DataType.MultilineText)]
-        public string MarksAdmin { get; set; }
+        public string? MarksAdmin { get; set; }
 
         [Display(Name = "Valor  Ahorro Pendiente")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
