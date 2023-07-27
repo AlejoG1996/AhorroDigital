@@ -526,7 +526,10 @@ p > i {
 }
 
 
-
+.icono-user {
+    color: #27AE60 !important;
+    font-size: 40px;
+}
 @media screen and (max-width:800px) {
     .content_first{
         margin-bottom:35px !important;
@@ -539,6 +542,109 @@ p > i {
     .col-md-8{
         width:75%!important;
     }
+
+    .card_info-loan-b{
+        width: 100% !important;
+    }
+
+    .icono-user {
+        font-size: 30px !important;
+    }
+
+    .fr_info{
+        display:flex!important;
+    }
+    .card_info-loanb {
+        background-color: #fff !important;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2) !important;
+        height: 600px !important;
+        border-radius: 6px;
+        margin: auto;
+    }
 }
 
+.content_inicio-info{
+    margin-left:15px!important;
+}
+.content_inicio-info h1 {
+    font-size: 55px !important;
+    color: #27AE60 !important;
+    font-weight: 700 !important;
+}
 
+    .content_inicio-info h3 {
+        font-size: 45px !important;
+        color: #99A3A4 !important;
+        font-weight: 700 !important;
+    }
+
+.card_bs{
+    margin-right:15px;
+}
+
+.contenedor-noticias {
+    margin: auto !important;
+}
+
+.card_info-loanb {
+    background-color: #fff !important;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2) !important;
+    height: 515px !important;
+    border-radius: 6px;
+    margin: auto;
+}
+
+.contenedor_textos {
+    margin: 10px;
+    padding:10px;
+    text-align: justify;
+    color: #99A3A4;
+    font-weight:500;
+    font-size:16px;
+    
+}
+
+.contenedor_imgnoticia {
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 250px !important;
+    position: relative;
+    clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
+}
+
+    .contenedor_imgnoticia > img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        border-radius: 6px 6px 0 0;
+    }
+
+    .contenedor_imgnoticia::after {
+        content: "";
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: 6px 6px 0 0;
+        opacity: 0.7;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+.card1 > .contenedor_imgnoticia::after {
+    background-image: linear-gradient(to right top, #000000, #161616, #242424, #333333, #434343);
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.title_img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color:#fff;
+    opacity:1!important;
+    font-size:50px;
+    z-index:100;
+}

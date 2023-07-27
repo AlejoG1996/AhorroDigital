@@ -25,6 +25,11 @@
         height: 142px !important;
     }
 
+    .card_info-loan-b {
+        height: auto !important;
+        background-color: #F4F6F6!important;
+    }
+
     dd {
         color: #99A3A4;
         font-size: 20px !important;
@@ -43,11 +48,69 @@
         padding-top: 0px !important;
     }
 
-   
+   .icono-user{
+        color: #27AE60 !important;
+    }
 </style>
 
-@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+@if(User.Identity.IsAuthenticated)
 {
+    <div class="col-md-12 content_inicio-info" data-aos="fade-left" data-aos-duration="2000">
+        <h1>Hola!</h1>
+        <p> @ViewBag.Name, Bienvenido a tu portal transacional.</p>
+    </div>
+
+    <div class="col-md-12 " data-aos="fade-left" data-aos-duration="2000">
+        <div clas="mt-4">
+            <div class="mt-4">
+                <div class="col-md-12">
+                    <div class="container-fluid">
+
+                        <div class="row cont_dr">
+
+                            <div class="col-xl-12 col-md-12 mb-4 cont_p">
+                                <div class="card_info-loan card_info-loan-b">
+                                    <div class="col-md-12 ">
+                                        <dl class="row detail_info-loan ">
+                                            <div class="col-md-8">
+                                                <dt class="col-sm-12">
+                                                    Gracias a ti ya somos
+                                                </dt>
+                                                <dd class="col-sm-12" style="  color: #27AE60 !important; font-size:22px!important;">
+                                                    + @ViewBag.ContUser Asociados
+                                                </dd>
+                                            </div>
+
+                                            <div class="col-auto">
+                                                <i class=" fa-solid fa-users icon_card-loan icono-user" style="   color: #27AE60 !important;  font-size: 40px;  "></i>
+                                            </div>
+                                            <div class="col-md-12 ">
+
+                                                <dd class="col-sm-12" style="color:#4D5656 !important; font-size:15px!important;">
+                                                    con mas de @ViewBag.ContSaving   Ahorros que continuamente generan beneficios para ti. Seguiremos trabajando por tu bienestar.
+                                                </dd>
+                                            </div>
+
+
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+   
+
     <div class="col-md-12" data-aos="fade-left" data-aos-duration="2000">
         <div clas="mt-4">
             <div class="mt-4">
@@ -192,8 +255,84 @@
         </div>
     </div>
 
+   
 }
 
+<div class="col-md-12 content_inicio-info" data-aos="fade-left" data-aos-duration="2000">
+    
+    <h3 style="color: #99A3A4;">Novedades</h3>
+</div>
+
+<div class="col-md-12" data-aos="fade-left" data-aos-duration="2000">
+    <div clas="mt-4">
+        <div class="mt-4">
+            <div class="col-md-12">
+                <div class="container-fluid">
+
+                    <div class="row cont_dr">
+
+                        <div class="col-xl-4 col-md-6 mb-4 cont_p">
+                            <div class="card_info-loanb">
+                                <div class="col-md-12  card1">
+                                    <div class="contenedor_imgnoticia">
+                                        <img src="~/images/fondo.jpg">
+                                        <h1 class="title_img">Ahorros</h1>
+                                    </div>
+                                    <div class="contenedor_textos">
+                                        <p>
+                                            En ahorro digital entendemos la importancia del ahorro es por eso que tenemos para ti varios tipos de ahorros que te
+                                            generan grandes beneficios a largo y corto plazo, no dudes en hacer parte de nosotros y empieza a ahorrar.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-xl-4 col-md-6 mb-4 cont_p">
+                            <div class="card_info-loanb">
+                                <div class="col-md-12  card1">
+                                    <div class="contenedor_imgnoticia">
+                                        <img src="~/images/fondoprestamo.jpg" />
+                                        <h1 class="title_img">Préstamos</h1>
+                                    </div>
+                                    <div class="contenedor_textos">
+                                        <p>
+                                            En ahorro digital entendemos que pueden surgir algunos problemas en el día a día, por eso al hacer parte de 
+                                            nuestra comunidad podrás acceder a diferentes tipos de prestamos con tasas de interés  muy bajas que te ayudaran a tu economía.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                                                <div class="col-xl-4 col-md-6 mb-4 cont_p">
+                            <div class="card_info-loanb">
+                                <div class="col-md-12  card1">
+                                    <div class="contenedor_imgnoticia">
+                                        <img src="~/images/fondoretiro.jpg">
+                                        <h1 class="title_img">Retiros</h1>
+                                    </div>
+                                    <div class="contenedor_textos">
+                                        <p>
+                                            Al ahorrar con ahorro digital tendrás grandes beneficios y es que al finalizar tu ahorro se te regresa el total ahorrado
+                                            y adicional obtendrás el % de ganancia correspondiente a la modalidad de ahorro que escogiste, de esta forma tu
+                                            ahorro te genera grandes ganancias y beneficios
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

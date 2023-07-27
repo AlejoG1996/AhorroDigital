@@ -13,21 +13,26 @@ namespace AhorroDigital.API.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly DataContext _context;
-    
-      
-        public HomeController(ILogger<HomeController> logger, DataContext context)
+        private readonly IUserHelper _userHelper;
+
+
+        public HomeController(ILogger<HomeController> logger, DataContext context, IUserHelper userHelper )
         {
             _logger = logger;
             _context = context;
+            _userHelper = userHelper;
         }
 
         public  async Task<IActionResult> Index()
         {
+            User user = await _userHelper.GetUserAsync(User.Identity.Name);
+            ViewBag.Name = user.FullName;
             ViewBag.ContContribute = _context.Contributes.Count();
             ViewBag.ContLoan = _context.Loans.Count();
             ViewBag.ContPayments = _context.Payments.Count();
             ViewBag.ContRetreat = _context.Retreats.Count();
-
+            ViewBag.ContUser = _context.Users.Count();
+            ViewBag.ContSaving = _context.Savings.Count();
             ViewBag.ContContributev = _context.Contributes.Where(o => o.State.Equals("Aprobado")).Sum(x=>x.ValueAvail);
             ViewBag.ContLoanv = _context.Loans.Where(o => o.State.Equals("Apronado")).Sum(x => x.Value);
             ViewBag.ContPaymentsv = _context.Payments.Where(o => o.State.Equals("Aprobado")).Sum(x => x.Value);
