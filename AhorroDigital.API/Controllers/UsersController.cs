@@ -3082,9 +3082,9 @@ namespace AhorroDigital.API.Controllers
                     return View(model);
                 }
 
-                //if (model.DateS< saving.DateEnd)
+                //if (model.DateS < saving.DateEnd)
                 //{
-                //    _flashMessage.Danger("Debes esperar hasta la fecha: "+ saving.DateEnd.ToString("dd-MM-yyyy") + " para poder hacer retiro del valor ahorrado.");
+                //    _flashMessage.Danger("debes esperar hasta la fecha: " + saving.DateEnd.ToString("dd/MM/yyyy")  + " para poder hacer retiro del valor ahorrado.");
                 //    return View(model);
                 //}
 
@@ -3283,10 +3283,10 @@ namespace AhorroDigital.API.Controllers
                
                 string dste = fechaactual.ToString("dd-MM-yyyy");
                
-                //if (model.dates < saving.dateend)
+                //if (model.DateS < saving.DateEnd)
                 //{
-                //    _flashmessage.danger("debes esperar hasta la fecha: " + saving.dateend.tostring("dd-mm-yyyy") + " para poder hacer retiro del valor ahorrado.");
-                //    return view(model);
+                //    _flashMessage.Danger("debes esperar hasta la fecha: " + saving.DateEnd.ToString("dd/MM/yyyy") + " para poder hacer retiro del valor ahorrado.");
+                //    return View(model);
                 //}
 
 

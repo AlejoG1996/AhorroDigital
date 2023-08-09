@@ -55,9 +55,9 @@ namespace AhorroDigital.API.Controllers
                         _flashMessage.Danger(string.Empty, "Debes ingresar un valor maximo de cuotas  igual o superior a 1");
                         return View(loanType);
                     }
-                    if (loanType.Interes <= 0)
+                    if (loanType.Interes <= 0 || loanType.Interes>100)
                     {
-                        _flashMessage.Danger(string.Empty, "Debes ingresar un valor de interest superior a 0%");
+                        _flashMessage.Danger(string.Empty, "Debes ingresar un valor de interes entre  0% y 100%");
                         return View(loanType);
                     }
                     _context.Add(loanType);
@@ -126,9 +126,9 @@ namespace AhorroDigital.API.Controllers
                         _flashMessage.Danger(string.Empty, "Debes ingresar un valor maximo de cuotas  igual o superior a 1");
                         return View(loanType);
                     }
-                    if (loanType.Interes <= 0)
+                    if (loanType.Interes <= 0 || loanType.Interes > 100)
                     {
-                        _flashMessage.Danger(string.Empty, "Debes ingresar un valor de interest superior a 0%");
+                        _flashMessage.Danger(string.Empty, "Debes ingresar un valor de interes entre  0% y 100%");
                         return View(loanType);
                     }
                     _context.Update(loanType);

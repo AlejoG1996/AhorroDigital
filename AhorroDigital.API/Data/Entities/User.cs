@@ -112,7 +112,7 @@ namespace AhorroDigital.API.Data.Entities
         [Display(Name = "Total  Disponible Préstamos")]
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public int AvailLoan => Loans == null ? 0 :
-        (TotalA * 2) - ValueLoanP - ValueLoan + ValueLoanPag;
+        (TotalA * 2)  - ValueLoan + ValueLoanPag;
 
 
         //[Display(Name = "# Pagos")]

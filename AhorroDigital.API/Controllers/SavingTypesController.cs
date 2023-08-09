@@ -60,6 +60,18 @@ namespace AhorroDigital.API.Controllers
                         _flashMessage.Danger(string.Empty, "Debes ingresar un valor minimo de ahorro igual o superior a $0");
                         return View(savingType);
                     }
+
+                    if (savingType.NumberDays < 0)
+                    {
+                        _flashMessage.Danger(string.Empty, "Debes ingresar un valor de días para retiro igual o superior a 0");
+                        return View(savingType);
+                    }
+
+                    if (savingType.PorcentageWin < 0 | savingType.PorcentageWin>100)
+                    {
+                        _flashMessage.Danger(string.Empty, "Debes ingresar un valor de ganancia del ahorro entre 0% y 100%");
+                        return View(savingType);
+                    }
                     _context.Add(savingType);
                     await _context.SaveChangesAsync();
                     _flashMessage.Info(string.Empty, "Se registro exitosamente el  tipo de ahorro.");
@@ -126,6 +138,19 @@ namespace AhorroDigital.API.Controllers
                         _flashMessage.Danger(string.Empty, "Debes ingresar un valor minimo de ahorro igual o superior a $0");
                         return View(savingType);
                     }
+
+                    if (savingType.NumberDays < 0)
+                    {
+                        _flashMessage.Danger(string.Empty, "Debes ingresar un valor de días para retiro igual o superior a 0");
+                        return View(savingType);
+                    }
+
+                    if (savingType.PorcentageWin < 0 | savingType.PorcentageWin > 100)
+                    {
+                        _flashMessage.Danger(string.Empty, "Debes ingresar un valor de ganancia del ahorro entre 0% y 100%");
+                        return View(savingType);
+                    }
+
                     _context.Update(savingType);
                     await _context.SaveChangesAsync();
                     _flashMessage.Info(string.Empty, "Se editó exitosamente el  tipo de ahorro.");
